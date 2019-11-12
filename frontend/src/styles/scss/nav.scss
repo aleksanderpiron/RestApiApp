@@ -1,0 +1,18 @@
+@import './global.scss';
+
+nav{
+    @extend .wrapper;
+    color: #000;
+    position: fixed;
+    left: 0;
+    right: 0;
+    background-color: $color1;
+    width: 95%;
+    padding: 0 20px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 70px;
+    box-shadow: 0 4px 6px #ccc;
+}
