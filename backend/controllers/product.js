@@ -1,4 +1,4 @@
-exports.getPosts = (req, res)=>{
+exports.getProducts = (req, res)=>{
     const posts = {
         posts:[
             {
@@ -10,7 +10,7 @@ exports.getPosts = (req, res)=>{
     res.status(200).json(posts);
 }
 
-exports.postPost = (req, res)=>{
+exports.postProducts = (req, res)=>{
     res.status(201).json({
         message:'Post successfuly added!'
     })
