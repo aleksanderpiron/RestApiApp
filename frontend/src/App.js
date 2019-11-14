@@ -1,16 +1,17 @@
 import React, {Component} from 'react';
 import Nav from './components/Nav/Nav';
-import Home from './components/Pages/Home'
+import Products from './pages/Products/Products';
+import './App.css';
 
 class App extends Component {
   state={
-    currentPage:'Home'
+    currentPage:'Products'
   };
   
   render(){
     return (
       <div className="App">
-        <Nav />
+        <Nav currentPage={this.state.currentPage}/>
         <Products />
       </div>
     );

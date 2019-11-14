@@ -5,8 +5,22 @@ autoprefixer = require('gulp-autoprefixer'),
 header = require('gulp-header');
 
 const scssVariables = `
-$white: #ec0000;
-$blue:#ffff00;
+$color1:#3ce2b7;
+$color2:#23395B;
+$color3:#ec9b3b;
+$color4:#e8647c;
+$error:#ce0101;
+$correct:#26ac21;
+$btn1:#47e4bb;
+$btn1_hover:#3ec29f;
+$btn2:#27BA8B;
+$btn2_hover:#27BA8B;
+$noti_info:#224a9e;
+$noti_info_icon:#23395B;
+$noti_error:#ce0101;
+$noti_error_icon:#9e0000;
+$noti_success:#26ac21;
+$noti_success_icon:#1a7916;
 `;
 
 gulp.task('sass',  () => {

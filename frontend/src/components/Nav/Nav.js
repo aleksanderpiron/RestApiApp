@@ -1,18 +1,32 @@
 import React from 'react';
 import NavItem from './NavItem';
-import '../../styles/css/nav.css'
+import Dropdown from './Dropdown';
+import './Nav.css';
 
-const Nav =()=>{
+const Nav =(props)=>{
+    // let dropdownShown = false;
+    // const dropdownHandle = (e)=>{
+    //     console.log(e.type);
+    //     if(e.type === 'mouseover'){
+    //         dropdownShown = true
+    //     }
+    //     else if(e.type === 'mouseover'){
+    //         dropdownShown = false
+    //     }
+    // }
     return(
         <nav>
+        <div className="top">
             <div className="menu left">
-                <NavItem link='/' label='Home'/>
-                <NavItem link='/posts' label='Posts'/>
+                <NavItem isActive={props.currentPage === 'Home'?true:false} link='/' label='Home'/>
+                <NavItem isActive={props.currentPage === 'Products'?true:false} link='/posts' label='Products'/>
             </div>
             <div className="right">
-                <NavItem link='/account' label='Account'/>
+                <NavItem  isActive={props.currentPage === 'Account'?true:false} link='/account' label='Account'/>
             </div>
-        </nav>
+        </div>
+        {/* <Dropdown isActive={dropdownShown}/> */}
+    </nav>
     );
 }
 
