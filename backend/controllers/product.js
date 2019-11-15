@@ -1,4 +1,5 @@
 exports.getProducts = (req, res)=>{
+    console.log('heloo')
     const posts = {
         posts:[
             {
@@ -10,7 +11,7 @@ exports.getProducts = (req, res)=>{
     res.status(200).json(posts);
 }
 
-exports.postProducts = (req, res)=>{
+exports.postAddProduct = (req, res)=>{
     res.status(201).json({
         message:'Post successfuly added!'
     })
