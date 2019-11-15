@@ -6,6 +6,10 @@ nav{
     top: 20px;
     left: 0;
     right: 0;
+    transition: 300ms;
+    &.hidden{
+        top: -100px;
+    }
     .top{
         background-color:$color1;
         align-items: center;
