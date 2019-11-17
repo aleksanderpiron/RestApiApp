@@ -5,6 +5,7 @@
 }
 .product-item{
     position: relative;
+    transition: 300ms;
     margin: 15px;
     width: 250px;
     padding-bottom: 45px;
@@ -19,6 +20,15 @@
     }
     .img{
         min-height: 150px;
+        max-height: 150px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        img{
+            overflow: hidden;
+            height:150px;
+            max-height: 150px;
+        }
         &.default{
             background-color: $color3;
             display: flex;
@@ -32,6 +42,7 @@
         }
     }
     .desc{
+        background-color: #fff;
         border-top: 1px solid #ccc;
         padding: 10px;
         height: 75px;
