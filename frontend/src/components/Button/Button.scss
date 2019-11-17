@@ -1,0 +1,22 @@
+.btn{
+    border: none;
+    padding: 8px 20px;
+    border-radius: 4px;
+    font-weight: 700;
+    transition: 300ms;
+    cursor: pointer;
+    &.center{
+        display: block;
+        margin: auto;
+    }
+    &.full{
+        width: 100%;
+    }
+    &.primary{
+        background-color: $btn1;
+        color: #fff;
+        &:hover{
+            background-color: $btn1_hover;
+        }
+    }
+}

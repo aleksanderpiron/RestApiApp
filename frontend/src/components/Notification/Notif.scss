@@ -1,0 +1,116 @@
+.notif-box{
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 9;
+    .notif{
+        overflow: hidden;
+        position: relative;
+        width: 250px;
+        max-height: 350px;
+        box-sizing: border-box;
+        padding-left: 60px;
+        margin: 20px 0;
+        background-color: #ccc;
+        transition: 400ms;
+        p{
+            color: #fff;
+            font-weight: 600;
+            padding: 10px 5px;
+            font-size: 13px;
+        }
+        &.enter{
+            animation-name: slide-in;
+            transform: translateX(0);
+            opacity: 1;
+        }
+        &.exit{
+            animation-name: slide-out;
+            transform: translateY(-1000px);
+            opacity: 1;
+        }
+        &:hover{
+            &::before{
+                top:100%;
+            }
+            .close{
+                top:0;
+            }
+        }
+        &::before{
+            content: '';
+            background-color: #999;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 50px;
+            height: 100%;
+            background-size: 20px;
+            background-position: center;
+            background-repeat: no-repeat;
+            transition:300ms;
+        }
+        .close{
+            cursor:pointer;
+            content: '';
+            position: absolute;
+            left: 0;
+            top: -100%;
+            width: 50px;
+            height: 100%;
+            background-image: url('../../assets/close.svg');
+            background-size: 15px;
+            background-position: center;
+            background-repeat: no-repeat;
+            transition:300ms;
+        }
+        &.info{
+            background-color: $noti_info;
+            &::before{
+                background-color: $noti_info_icon;
+                background-image: url('../../assets/info.svg');
+            }
+            .close{
+                background-color: $noti_info_icon;
+            }
+        }
+        &.error{
+            background-color: $noti_error;
+            &::before{
+                background-color: $noti_error_icon;
+                background-image: url('../../assets/error-white.svg');
+            }
+            .close{
+                background-color: $noti_error_icon;
+            }
+        }
+        &.success{
+            background-color: $noti_success;
+            &::before{
+                background-color: $noti_success_icon;
+                background-image: url('../../assets/success.svg');
+            }
+            .close{
+                background-color: $noti_success_icon;
+            }
+        }
+    }
+}
+.notif-enter {
+    opacity: 0;
+    transform: translateX(500px);
+}
+.notif-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+}
+.notif-leave {
+  transform: translateX(0);
+  opacity: 1;
+}
+.notif-leave-active {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateX(500px);
+}

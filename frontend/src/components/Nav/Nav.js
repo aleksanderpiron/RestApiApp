@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import NavItem from './NavItem';
 // import Dropdown from './Dropdown';
 import './Nav.css';
+import Icon from '../Icon/Icon';
 
 class Nav extends Component{
     state = {
@@ -30,7 +31,7 @@ class Nav extends Component{
                         <NavItem isActive={this.props.currentPage === 'Products'?true:false} link='/posts' label='Products'/>
                     </div>
                     <div className="right">
-                        <NavItem  isActive={this.props.currentPage === 'Account'?true:false} link='/account' label='Account'/>
+                        <NavItem isActive={this.props.currentPage === 'Account'?true:false} link='/account' label={<Icon type="plus" />}/>
                     </div>
                 </div>
                 {/* <Dropdown isActive={dropdownShown}/> */}

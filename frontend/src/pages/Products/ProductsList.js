@@ -1,17 +1,30 @@
 import React, {Component} from 'react';
 import ProductItem from './ProductItem';
+import Spinner from '../../components/Spinner/Spinner';
+import './Products.css';
 
 class ProductsList extends Component{
     state = {
-        products:null
+        products:null,
+        loading:true
     }
     async getProducts(){
-        const res = await fetch('https://api.punkapi.com/v2/beers');
+        const res = await fetch('http://localhost:8080/products');
         const data = await res.json();
         const productsArray = data.map(prod=>{
-            return <ProductItem name={prod.name} id={prod.id}/>
+            return <ProductItem
+            name={prod.name}
+            price={prod.price}
+            imageUrl={'http://localhost:8080'+prod.imageUrl}
+            description={prod.description}
+            creationDate={prod.creationDate}
+            createdBy={prod.createdBy}
+            id={prod._id}/>
         })
-        this.setState({products:productsArray})
+        this.setState({
+            products:productsArray,
+            loading:false
+        })
     }
 
     componentDidMount(){
@@ -19,8 +32,9 @@ class ProductsList extends Component{
     }
     render(){
         return(
-            <div>
-                {this.state.products}
+            <div className="product-list">
+                {this.state.loading && <Spinner />}
+                {!this.state.loading && this.state.products}
             </div>
         )
     }

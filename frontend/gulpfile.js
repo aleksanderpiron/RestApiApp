@@ -7,11 +7,11 @@ header = require('gulp-header');
 const scssVariables = `
 $color1:#3ce2b7;
 $color2:#23395B;
-$color3:#ec9b3b;
-$color4:#e8647c;
+$color3:#a08dd3;
+$color4:#edea50;
 $error:#ce0101;
 $correct:#26ac21;
-$btn1:#47e4bb;
+$btn1:#3ce2b7;
 $btn1_hover:#3ec29f;
 $btn2:#27BA8B;
 $btn2_hover:#27BA8B;

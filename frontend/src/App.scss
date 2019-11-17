@@ -6,7 +6,11 @@
     line-height: 1.3;
     font-size: 14px;
 }
+html{
+    overflow-x: hidden;
+}
 .page{
     max-width: 1330px;
     margin: 100px auto 0;
+    padding: 0 20px;
 }
