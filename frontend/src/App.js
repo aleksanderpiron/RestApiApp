@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import Nav from './components/Nav/Nav';
-import Products from './pages/Products/Products';
 import './App.css';
-import AddProductForm from './components/Forms/AddProductForm';
+import AddProduct from './pages/AddProduct/AddProduct';
+import ProductList from './pages/ProductList/ProductList';
 import ReactCSSTransitionGroup  from 'react-addons-css-transition-group';
 
 
@@ -11,21 +11,17 @@ class App extends Component {
     currentPage:'ProductList',
   };
   switchPageTo=(target)=>{
-    let newPages = this.state.pages;
-    newPages[this.state.pages.currentPage] = false;
-    newPages[target] = true;
-    newPages.currentPage = target;
     this.setState({
-        pages:newPages
+      currentPage:target
     })
   }
   render(){
     return (
       <div className="App">
         <Nav switchPageTo={this.switchPageTo} currentPage={this.state.currentPage}/>
-        <ReactCSSTransitionGroup component='div' className="pages" timeout={500} transitionName="notif">
-          {this.state.currentPage === 'AddProductForm' && <AddProductForm />}
-          {this.state.currentPage === 'ProductList' && <Products />}
+        <ReactCSSTransitionGroup component="div" className="pages" transitionEnterTimeout={400} transitionLeaveTimeout={400} transitionName="page-switch">
+          {this.state.currentPage === 'AddProduct' && <AddProduct />}
+          {this.state.currentPage === 'ProductList' && <ProductList />}
         </ReactCSSTransitionGroup>
       </div>
     );

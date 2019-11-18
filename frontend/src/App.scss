@@ -9,8 +9,29 @@
 html{
     overflow-x: hidden;
 }
-.page{
-    max-width: 1330px;
-    margin: 100px auto 0;
-    padding: 0 20px;
+.pages{
+    >div{
+        max-width: 1330px;
+        padding: 0 20px;
+        margin: 100px auto 0;
+        transition: 400ms;
+    }
+}
+.page-switch-enter {
+    opacity: 0;
+    transform: translateY(50px);
+}
+.page-switch-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+}
+.page-switch-leave {
+  transform: translateX(0);
+  opacity: 1;
+}
+.page-switch-leave-active {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(50px);
 }

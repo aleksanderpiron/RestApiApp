@@ -27,15 +27,15 @@ const fileFilter = (req, file, cb)=>{
     }
 }
 
-app.use(bodyparser.json());
-app.use(multer({storage:fileStorage, fileFilter}).single('image'));
-app.use('/images', express.static(path.join(__dirname, 'images')))
 app.use((req, res, next)=>{
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', '*');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     next();
 })
+app.use(bodyparser.json());
+app.use(multer({storage:fileStorage, fileFilter}).single('image'));
+app.use('/images', express.static(path.join(__dirname, 'images')))
 app.use(productRouter);
 
 mongoose.connect(databaseUrl, {useNewUrlParser: true, useUnifiedTopology:true})

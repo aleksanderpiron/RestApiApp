@@ -3,7 +3,9 @@ import './Spinner.css';
 
 const Spinner =(props)=>{
     return(
-        <div className="loader">Loading...</div>
+        <div className="loader-box">
+            <div className="loader">Loading...</div>
+        </div>
     )
 }
 

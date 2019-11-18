@@ -1,0 +1,124 @@
+.product-list{
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+.product-item{
+    position: relative;
+    transition: 300ms;
+    margin: 15px;
+    width: 250px;
+    padding-bottom: 45px;
+    box-shadow: 0 2px 6px #ccc;
+    .top{
+        border-bottom: 1px solid #ccc;
+        padding: 10px;
+        p{
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+    }
+    .img{
+        min-height: 150px;
+        max-height: 150px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        img{
+            overflow: hidden;
+            height:150px;
+            max-height: 150px;
+        }
+        &.default{
+            background-color: $color3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            .icon{
+                svg{
+                    width: 50px;
+                }
+            }
+        }
+    }
+    .desc{
+        background-color: #fff;
+        border-top: 1px solid #ccc;
+        padding: 10px;
+        height: 75px;
+        position: relative;
+        .price{
+            font-size: 16px;
+            position: absolute;
+            bottom: -5px;
+            right: 5px;
+            font-weight: 700;
+        }
+    }
+    button{
+        position: absolute;
+        bottom: 0;
+        left: 0;
+    }
+}
+.product-page{
+    display: flex;
+    width: 1000px;
+    margin: 0 auto;
+    position: relative;
+    align-items: center;
+    min-height: 500px;
+    .img{
+        border-right: 1px solid #ccc;
+        padding-right: 20px;
+        width: 50%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        img{
+            max-width: 100%;
+        }
+    }
+    .text{
+        padding-left: 20px;
+        width: 50%;
+        align-self:flex-start;
+        .return{
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            span{
+                font-weight: 700;
+                font-size: 1.1em;
+            }
+            svg{
+                transform:translateY(2px);
+                margin-right: 7px;
+                width: 15px;
+            }
+        }
+        .name{
+            font-weight: 700;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        .desc{
+            font-size: 1.2em;
+            color: #333;
+        }
+        .price{
+            font-weight: 700;
+            font-size: 2em;
+            position: absolute;
+            bottom: 50px;
+            right: 10px;
+        }
+        .btn.primary{
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+        }
+    }
+}

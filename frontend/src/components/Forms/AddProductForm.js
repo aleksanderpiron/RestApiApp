@@ -22,7 +22,7 @@ class AddProductForm extends Component{
 
     inputHandle=(e)=>{
         const {value, name} = e.target;
-        const newValues = this.state.values; 
+        const newValues = this.state.values;
         newValues[name] = value;
         this.setState({
             values: newValues
@@ -44,9 +44,8 @@ class AddProductForm extends Component{
             }
             loadedFileText = 'Choosen '+fileName;
         }
-        const newValues = this.state.values; 
+        const newValues = this.state.values;
         newValues['image'] = file;
-        console.log(file);
         this.setState({
             loadedFileClasses,
             loadedFileText,
@@ -66,12 +65,6 @@ class AddProductForm extends Component{
         formData.append('price', this.state.values.price);
         formData.append('description', this.state.values.description);
         formData.append('image', this.state.values.image);
-        // {
-        //     name:this.state.values.name,
-        //     price: this.state.values.price,
-        //     description: this.state.values.description,
-        //     image:this.state.values.image
-        // };
         this.toggleLoading(true);
         const url = '//localhost:8080/add-product';
         const res = await fetch(url, {
