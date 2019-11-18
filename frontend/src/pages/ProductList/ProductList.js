@@ -53,10 +53,17 @@ class ProductsList extends Component{
     }
     render(){
         return(
-            <div className="product-list">
+            <div className="page">
                 {this.state.loading && <Spinner />}
+                <ReactCSSTransitionGroup
+                component='div'
+                className='product-list'
+                transitionName='page-switch'
+                transitionEnterTimeout={400}
+                transitionLeaveTimeout={400}>
+                    {!this.state.loading && !this.state.showSingleProduct && <div className="product-list">{this.state.products}</div>}
                     {!this.state.loading && this.state.showSingleProduct && <ProductPage return={this.closeProduct} product={this.state.singleProduct}/>}
-                    {!this.state.loading && !this.state.showSingleProduct && this.state.products}
+                </ReactCSSTransitionGroup>
             </div>
         )
     }

@@ -11,6 +11,7 @@ html{
 }
 .pages{
     >div{
+        position: relative;
         max-width: 1330px;
         padding: 0 20px;
         margin: 100px auto 0;
@@ -23,6 +24,11 @@ html{
 }
 .page-switch-enter-active {
   opacity: 1;
+  // position: absolute!important;
+  // left: 0;
+  // right: 0;
+  // top: 0;
+  // width: 100%;
   transform: translateX(0);
 }
 .page-switch-leave {

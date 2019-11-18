@@ -3,7 +3,6 @@ import Icon from '../../components/Icon/Icon';
 import Button from '../../components/Button/Button';
 
 const ProductPage =(props)=>{
-    console.log(props.product)
     return(
         <div className="product-page">
             <div className="img"><img src={'http://localhost:8080'+props.product.imageUrl} alt=""/></div>

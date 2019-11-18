@@ -27,11 +27,11 @@ class Nav extends Component{
             <nav className={!this.state.navShown?'hidden':''}>
                 <div className='top'>
                     <div className="menu left">
-                        <NavItem click={()=>{this.props.switchPageTo('Home')}} isActive={this.props.currentPage === 'Home'?true:false} label='Home'/>
-                        <NavItem click={()=>{this.props.switchPageTo('ProductList')}} isActive={this.props.currentPage === 'ProductList'?true:false} label='Products'/>
+                        <NavItem target="/" click={()=>{this.props.switchPageTo('Home')}} isActive={this.props.currentPage === 'Home'?true:false} label='Home'/>
+                        <NavItem target="/products" click={()=>{this.props.switchPageTo('ProductList')}} isActive={this.props.currentPage === 'ProductList'?true:false} label='Products'/>
                     </div>
                     <div className="right">
-                        <NavItem click={()=>{this.props.switchPageTo('AddProduct')}} isActive={this.props.currentPage === 'AddProduct'?true:false} label={<Icon type="plus" />}/>
+                        <NavItem target="/add-product" click={()=>{this.props.switchPageTo('AddProduct')}} isActive={this.props.currentPage === 'AddProduct'?true:false} label={<Icon type="plus" />}/>
                     </div>
                 </div>
                 {/* <Dropdown isActive={dropdownShown}/> */}

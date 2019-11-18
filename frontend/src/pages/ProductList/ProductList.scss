@@ -2,6 +2,7 @@
     display: flex;
     justify-content: flex-start;
     flex-wrap: wrap;
+    transition: 300ms;
 }
 .product-item{
     position: relative;
@@ -13,10 +14,89 @@
     .top{
         border-bottom: 1px solid #ccc;
         padding: 10px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
         p{
             cursor: pointer;
             font-weight: 700;
             font-size: 1.2rem;
+        }
+        .settings-box{
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            height: 25px;
+            width: 25px;
+            position: relative;
+            cursor: pointer;
+            border-radius: 30px;
+            background-color: #eee;
+            transition: 300ms;
+            &:hover{
+                width: 75px;
+                .trigger svg{
+                    transform: rotate(45deg);
+                }
+                .body a{
+                    opacity: 1;
+                }
+            }
+            .trigger{
+                z-index: 2;
+                position: absolute;
+                right: 2.5px;
+                height: 15px;
+                width: 15px;
+                padding: 2.5px;
+                border-radius: 50%;
+                transition: 300ms;
+                background-color: #fff;
+            }
+            svg{
+                transition: 300ms;
+                display: block;
+                height: 100%;
+                width: 100%;
+                path{
+                    fill: #ccc;
+                }
+            }
+            .body{
+                display: flex;
+                align-items: center;
+                position: absolute;
+                left: 5px;
+                width: 50px;
+                a{
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    height: 17px;
+                    width: 17px;
+                    padding: 0 2.5px;
+                    border-radius: 50%;
+                    transition: 300ms;
+                    opacity: 0;
+                    &:nth-child(2){
+                        margin-right: 2.5px;
+                        svg path{
+                            fill: #000;
+                        }
+                    }
+                    &:nth-child(1){
+                        svg path{
+                            fill: $error;
+                        }
+                    }
+                    svg{
+                        transition:300ms;
+                        height: 12.5px;
+                        width: 12.5px;
+                    }
+                }
+            }
         }
     }
     .img{
@@ -69,6 +149,7 @@
     position: relative;
     align-items: center;
     min-height: 500px;
+    transition: 400ms;
     .img{
         border-right: 1px solid #ccc;
         padding-right: 20px;
@@ -86,6 +167,7 @@
         width: 50%;
         align-self:flex-start;
         .return{
+            cursor: pointer;
             display: flex;
             align-items: center;
             margin-bottom: 30px;
