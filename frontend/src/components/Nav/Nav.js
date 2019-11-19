@@ -29,6 +29,7 @@ class Nav extends Component{
                     <div className="menu left">
                         <NavItem target="/" click={()=>{this.props.switchPageTo('Home')}} isActive={this.props.currentPage === 'Home'?true:false} label='Home'/>
                         <NavItem target="/products" click={()=>{this.props.switchPageTo('ProductList')}} isActive={this.props.currentPage === 'ProductList'?true:false} label='Products'/>
+                        <NavItem target="/login" click={()=>{this.props.switchPageTo('AuthForm')}} isActive={this.props.currentPage === 'AuthForm'?true:false} label='Login/Register'/>
                     </div>
                     <div className="right">
                         <NavItem target="/add-product" click={()=>{this.props.switchPageTo('AddProduct')}} isActive={this.props.currentPage === 'AddProduct'?true:false} label={<Icon type="plus" />}/>
