@@ -3,8 +3,16 @@ label{
     display: inline-block;
     position: relative;
     width: 100%;
+    &.error{
+        input{
+            border: 1px solid $error!important;
+            margin-bottom: 15px;
+        }
+    }
     input[type=text], input[type=number], input[type=password], input[type=email], select, textarea{
         box-shadow: 0 2px 4px #eee;
+        position: relative;
+        z-index: 2;
         outline: none;
         padding: 10px 13px;
         font-size: 14px;
@@ -12,11 +20,12 @@ label{
         width: 100%;
         box-sizing: border-box;
         border: 1px solid #ccc;
+        transition: 300ms;
         &:focus{
-            // ~ .condition-box{
-            //     max-height: 60px;
-            //     margin: 15px 0;
-            // }
+            ~ .condition-box{
+                max-height: 60px;
+                margin: 5px 0 0;
+            }
             ~ .underline{
                 width: 100%;
             }
@@ -26,14 +35,22 @@ label{
             width: 100%;
         }
     }
+    .error-message{
+        position: absolute;
+        top: 20px;
+        &.visible{
+            top: 60px;
+        }
+    }
     .underline{
         height: 3px;
         width: 0%;
         display: block;
         transition: 300ms;
         position: absolute;
+        z-index: 3;
         left: 0;
-        bottom: 0;
+        top: 55px;
         background-color: $btn1;
     }
     input[type=number]{

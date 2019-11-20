@@ -14,6 +14,7 @@ class AuthForm extends Component{
                     isLength:3,
                 },
                 correct:false,
+                blured:false,
                 errMsg:''
             },
             email:{
@@ -22,6 +23,7 @@ class AuthForm extends Component{
                     isEmail:true,
                 },
                 correct:false,
+                blured:false,
                 errMsg:''
             },
             password:{
@@ -33,6 +35,7 @@ class AuthForm extends Component{
                     containsLowercase:true,
                 },
                 correct:false,
+                blured:false,
                 errMsg:''
             },
             confirmPassword:{
@@ -41,25 +44,66 @@ class AuthForm extends Component{
                     isSameAs:'password'
                 },
                 correct:false,
+                blured:false,
                 errMsg:''
             },
+        },
+        passwordConditionBox:{
+            length:false,
+            number:false,
+            uppercase:false,
+            lowercase:false
         }
     }
-
     textInputHandler=(e)=>{
-        const newInputs = InputValidateHandler(e, this.state.inputs)
-        // this.setState({
-        //     values: newValues
-        // })
+        const updatedState = InputValidateHandler(e, this.state);
+        this.setState(updatedState);
+    }
+    blurHandler=(e)=>{  
+        const updatedInputs = this.state.inputs;
+        if(!updatedInputs[e.target.name].blured){
+            updatedInputs[e.target.name].blured = true;
+            this.setState({
+                inputs: updatedInputs
+            })
+        }
     }
     render(){
         return(
             <div className='form form-box'>
-                <Input change={this.textInputHandler} underline type="text" name='name' label='Name'/>
-                <Input value={this.state.inputs.email.value} change={this.textInputHandler} underline type="email" name='email' label='Email'/>
-                <Input value={this.state.inputs.password.value} change={this.textInputHandler} underline type="text" name='password' label='Password'/>
-                <PasswordConditions />
-                <Input value={this.state.inputs.confirmPassword.value} change={this.textInputHandler} underline type="text" name='confirmPassword' label='Confirm password'/>
+                <Input 
+                    blur={this.blurHandler}
+                    change={this.textInputHandler} 
+                    inputData={this.state.inputs.name}
+                    underline 
+                    type="text" 
+                    name='name' 
+                    label='Name'/>
+                <Input
+                    blur={this.blurHandler}
+                    change={this.textInputHandler} 
+                    inputData={this.state.inputs.email}
+                    underline 
+                    type="email" 
+                    name='email' 
+                    label='Email'/>
+                <Input
+                    blur={this.blurHandler}
+                    change={this.textInputHandler} 
+                    inputData={this.state.inputs.password}
+                    passwordConditionsCorrect={this.state.passwordConditionBox}
+                    underline
+                    type="password" 
+                    name='password' 
+                    label='Password'/>
+                <Input
+                    blur={this.blurHandler}
+                    change={this.textInputHandler} 
+                    inputData={this.state.inputs.confirmPassword}
+                    underline 
+                    type="password" 
+                    name='confirmPassword' 
+                    label='Confirm password'/>
                 <ButtonTriple label={['Login', 'Register', 'Send reset link']}/>
             </div>
         )

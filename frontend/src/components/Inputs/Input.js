@@ -1,13 +1,23 @@
 import React from 'react';
+import PasswordConditions from '../PasswordConditions/PasswordConditions';
 import './Inputs.css';
 
 const Input =(props)=>{
+    let labelClass = '';
+    if(props.type==='file'){
+        labelClass += 'file-input ';
+    }
+    if(props.inputData.errMsg!=='' && props.inputData.blured){
+        labelClass += 'error ';
+    }
     return(
-        <label className={props.type==='file'?'file-input':''}>
+        <label className={labelClass}>
             <span>{props.label}</span>
-            <input onChange={props.change} type={props.type} value={props.value} name={props.name}/>
+            <input onBlur={props.blur} onChange={props.change} type={props.type} value={props.inputData.value} name={props.name}/>
             {props.type==='file' && <p className={props.loadedFileClasses}>{props.loadedFileText}</p>}
             {props.underline && <div className="underline"></div>}
+            {<p className={props.inputData.errMsg!=='' && props.inputData.blured?'visible error-message':'error-message'}>{props.inputData.errMsg}</p> }
+            {props.name === 'password' && <PasswordConditions correct={props.passwordConditionsCorrect}/>}
         </label>
     )
 }
