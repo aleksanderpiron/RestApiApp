@@ -4,6 +4,7 @@ label{
     position: relative;
     width: 100%;
     input[type=text], input[type=number], input[type=password], input[type=email], select, textarea{
+        box-shadow: 0 2px 4px #eee;
         outline: none;
         padding: 10px 13px;
         font-size: 14px;
@@ -19,7 +20,7 @@ label{
             ~ .underline{
                 width: 100%;
             }
-        } 
+        }
         & ~ span{
             font-size: .85em;
             width: 100%;
@@ -38,10 +39,10 @@ label{
     input[type=number]{
         appearance: none;
         -moz-appearance: textfield;
-        &::-webkit-inner-spin-button, 
-        &::-webkit-outer-spin-button { 
-            -webkit-appearance: none; 
-            margin: 0; 
+        &::-webkit-inner-spin-button,
+        &::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
         }
     }
     &.file-input{
