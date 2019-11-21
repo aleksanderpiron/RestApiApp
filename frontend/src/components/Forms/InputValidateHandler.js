@@ -1,14 +1,19 @@
 import validator from 'validator';
 
 const InputValidateHandler = (e, oldState) =>{
-    const {value, name} = e.target;
-    let errorDetected = false;
-    const newInputs = oldState.inputs,
-    newPasswordConditionBox = {
-        length:true,
-        number:true,
-        uppercase:true,
-        lowercase:true
+    const {value, name} = e.target,
+    newInputs = oldState.inputs;
+    let errorDetected = false,
+    newPasswordConditionBox;
+    if(name === 'password'){
+        newPasswordConditionBox = {
+            length:true,
+            number:true,
+            uppercase:true,
+            lowercase:true
+        }
+    }else{
+        newPasswordConditionBox = oldState.passwordConditionBox
     }
     if(typeof newInputs[name].conditions.isLength !== 'undefined' && !validator.isLength(value, {min:newInputs[name].conditions.isLength})){
         newInputs[name].correct = false;

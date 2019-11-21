@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import Input from '../Inputs/Input';
 import ButtonTriple from '../Button/ButtonTriple';
-import PasswordConditions from '../PasswordConditions/PasswordConditions'
 import InputValidateHandler from './InputValidateHandler';
 import './Form.css';
 
-class AuthForm extends Component{
+class RegisterForm extends Component{
     state={
         inputs:{
             name:{
@@ -110,4 +109,4 @@ class AuthForm extends Component{
     }
 }
 
-export default AuthForm;
+export default RegisterForm;

@@ -1,0 +1,15 @@
+.login-modal{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    overflow: hidden;
+    .curtain{
+        position: absolute;
+        z-index: 2;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 50%;
+        background-color: $color1;
+    }
+}

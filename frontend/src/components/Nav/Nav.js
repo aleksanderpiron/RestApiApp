@@ -1,6 +1,7 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import NavItem from './NavItem';
 // import Dropdown from './Dropdown';
+import {withRouter} from 'react-router-dom';
 import './Nav.css';
 import Icon from '../Icon/Icon';
 
@@ -8,8 +9,13 @@ class Nav extends Component{
     state = {
         navShown:true,
         dropdownShown:false,
+        currentPage:'/products',
+        underlineStyles:{
+            left:'0',
+            width:'0'
+        }
     }
-    scrollHandle(e){
+    scrollHandle=(e)=>{
         if(this.prev > window.scrollY && window.scrollY > 40){
             this.setState({navShown:true})
         }
@@ -18,22 +24,65 @@ class Nav extends Component{
         }
         this.prev = window.scrollY;
     }
+    calculateHandler=()=>{
+        const activeNavEl = document.querySelector('nav .top a.active');
+        const newUnderlineStyles = {
+            left: activeNavEl.offsetLeft + 'px',
+            width: activeNavEl.offsetWidth + 'px'
+        }
+        this.setState({
+            underlineStyles: newUnderlineStyles
+        })
+    }
+    componentWillMount(){
+        this.setState({
+            currentPage:this.props.location.pathname
+        })
+    }
     componentDidMount(){
         this.prevScroll = window.scrollY;
         window.addEventListener('scroll', (e)=>this.scrollHandle(e))
+        this.calculateHandler();
+    }
+    componentDidUpdate(prevProps, prevState) {
+      if (this.props.location !== prevProps.location) {
+        this.setState({
+            currentPage:this.props.location.pathname
+        })
+      }
+      if(this.state.currentPage !== prevState.currentPage){
+        this.calculateHandler();
+      }
     }
     render(){
         return(
             <nav className={!this.state.navShown?'hidden':''}>
                 <div className='top'>
                     <div className="menu left">
-                        <NavItem target="/" click={()=>{this.props.switchPageTo('Home')}} isActive={this.props.currentPage === 'Home'?true:false} label='Home'/>
-                        <NavItem target="/products" click={()=>{this.props.switchPageTo('ProductList')}} isActive={this.props.currentPage === 'ProductList'?true:false} label='Products'/>
-                        <NavItem target="/login" click={()=>{this.props.switchPageTo('AuthForm')}} isActive={this.props.currentPage === 'AuthForm'?true:false} label='Login/Register'/>
+                        <NavItem
+                            click={this.switchPage}
+                            currentPage={this.state.currentPage}
+                            link="/"
+                            label='Home'/>
+                        <NavItem
+                            click={this.switchPage}
+                            currentPage={this.state.currentPage}
+                            link="/products"
+                            label='Products'/>
+                        <NavItem
+                            click={this.switchPage}
+                            currentPage={this.state.currentPage}
+                            link="/login"
+                            label='Login/Register'/>
                     </div>
                     <div className="right">
-                        <NavItem target="/add-product" click={()=>{this.props.switchPageTo('AddProduct')}} isActive={this.props.currentPage === 'AddProduct'?true:false} label={<Icon type="plus" />}/>
+                        <NavItem
+                            click={this.switchPage}
+                            currentPage={this.state.currentPage}
+                            link="/add-product"
+                            label={<Icon type="plus" />}/>
                     </div>
+                    <div style={this.state.underlineStyles} id="active-underline"></div>
                 </div>
                 {/* <Dropdown isActive={dropdownShown}/> */}
             </nav>
@@ -41,4 +90,4 @@ class Nav extends Component{
     }
 }
 
-export default Nav;
+export default withRouter(Nav);
