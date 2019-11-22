@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import NavItem from './NavItem';
+import NavLink from './NavLink';
+import NavToggler from './NavToggler';
 // import Dropdown from './Dropdown';
 import {withRouter} from 'react-router-dom';
 import './Nav.css';
@@ -59,24 +60,23 @@ class Nav extends Component{
             <nav className={!this.state.navShown?'hidden':''}>
                 <div className='top'>
                     <div className="menu left">
-                        <NavItem
+                        <NavLink
                             click={this.switchPage}
                             currentPage={this.state.currentPage}
                             link="/"
                             label='Home'/>
-                        <NavItem
+                        <NavLink
                             click={this.switchPage}
                             currentPage={this.state.currentPage}
                             link="/products"
                             label='Products'/>
-                        <NavItem
-                            click={this.switchPage}
-                            currentPage={this.state.currentPage}
-                            link="/login"
-                            label='Login/Register'/>
                     </div>
                     <div className="right">
-                        <NavItem
+                        <NavToggler
+                            click={()=>{this.props.toggleLoginModal(true)}}
+                            isActive={this.props.loginModalShowed}
+                            label={<Icon type="user" />}/>
+                        <NavLink
                             click={this.switchPage}
                             currentPage={this.state.currentPage}
                             link="/add-product"

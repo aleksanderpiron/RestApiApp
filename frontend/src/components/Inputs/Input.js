@@ -17,7 +17,7 @@ const Input =(props)=>{
             {props.type==='file' && <p className={props.loadedFileClasses}>{props.loadedFileText}</p>}
             {props.underline && <div className="underline"></div>}
             {<p className={props.inputData.errMsg!=='' && props.inputData.blured?'visible error-message':'error-message'}>{props.inputData.errMsg}</p> }
-            {props.name === 'password' && <PasswordConditions correct={props.passwordConditionsCorrect}/>}
+            {props.passwordConditionsCorrect && <PasswordConditions correct={props.passwordConditionsCorrect}/>}
         </label>
     )
 }

@@ -1,9 +1,15 @@
 .form-box{
-    max-width: 400px;
+    max-width: 350px;
     margin: auto;
 }
 .form{
     button{
         margin-top: 10px;
+    }
+    h2{
+        font-size: 2em;
+        color: $color1;
+        margin-bottom: 15px;
+        text-align: center;
     }
 }

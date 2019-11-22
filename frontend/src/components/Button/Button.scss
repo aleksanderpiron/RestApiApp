@@ -9,6 +9,14 @@
         display: block;
         margin: auto;
     }
+    &.round{
+        border-radius: 25px;
+    }
+    &.outline-white{
+        background-color: transparent;
+        border: 1px solid #fff;
+        color: #fff;
+    }
     &.full{
         width: 100%;
     }

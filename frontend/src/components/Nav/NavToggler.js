@@ -1,17 +1,17 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
-const NavItem =(props)=>{
+const NavLink =(props)=>{
     return(
-        <Link
+        <a
             onClick={props.click}
             to={props.link}
             onMouseOver={props.hover}
             onMouseOut={props.hover}
             className={props.link === props.currentPage?'active':''}>
             {props.label}
-        </Link>
+        </a>
     );
 }
 
-export default NavItem;
+export default NavLink;

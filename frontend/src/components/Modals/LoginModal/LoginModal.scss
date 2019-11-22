@@ -3,13 +3,117 @@
     justify-content: space-between;
     align-items: center;
     overflow: hidden;
+    .anim-box{
+        position: relative;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        height: 100%;
+        width: 100%;
+        z-index: 3;
+    }
+    .login-form{
+        position: absolute;
+        left: 72.5px;
+        transition: 300ms;
+        &.form-switch-enter{
+            transform: translateX(150px);
+            opacity: 0;
+        }
+        &.form-switch-enter-active{
+            transform: translateX(0);
+            opacity: 1;
+        }
+        &.form-switch-leave{
+            transform: translateX(0);
+            opacity: 1;
+        }
+        &.form-switch-leave-active{
+            transform: translateX(150px);
+            opacity: 0;
+        }
+    }
+    .register-form{
+        position: absolute;
+        right: 72.5px;
+        transition: 300ms;
+        &.form-switch-enter{
+            transform: translateX(-150px);
+            opacity: 0;
+        }
+        &.form-switch-enter-active{
+            transform: translateX(0);
+            opacity: 1;
+        }
+        &.form-switch-leave{
+            transform: translateX(0);
+            opacity: 1;
+        }
+        &.form-switch-leave-active{
+            transform: translateX(-150px);
+            opacity: 0;
+        }
+    }
     .curtain{
         position: absolute;
         z-index: 2;
-        left: 0;
+        overflow: hidden;
         top: 0;
         height: 100%;
-        width: 50%;
+        width: 45%;
         background-color: $color1;
+        transition: 600ms;
+        .curtain-text{
+            position: absolute;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            right: 0;
+            margin: auto;
+            width: 600px;
+            height: 100%;
+            >div{
+                text-align: center;
+                p{
+                    color: #fff;
+                }
+                button{
+                    margin-top: 10px;
+                }
+            }
+        }
+        &.login{
+            >div{
+                left: -122%;
+                &.curtain-text{
+                    right: 0;
+                    left: -122%;
+                }
+            }
+        }
+        &.register{
+            >div{
+                left: 0;
+                &.curtain-text{
+                    left: 0;
+                    right: -122%;
+                }
+            }
+        }
+        >div{
+            transition: 600ms;
+            position: absolute;
+            top: 0;
+        }
+        button{
+            position: relative;
+            z-index: 9;
+        }
+        &.login{
+            left: 55%;
+        }
+        &.register{
+            left: 0;
+        }
     }
 }

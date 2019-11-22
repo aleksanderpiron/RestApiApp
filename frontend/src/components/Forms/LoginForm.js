@@ -4,18 +4,9 @@ import Button from '../Button/Button';
 import InputValidateHandler from './InputValidateHandler';
 import './Form.css';
 
-class RegisterForm extends Component{
+class LoginForm extends Component{
     state={
         inputs:{
-            name:{
-                value:'',
-                conditions:{
-                    isLength:3,
-                },
-                correct:false,
-                blured:false,
-                errMsg:''
-            },
             email:{
                 value:'',
                 conditions:{
@@ -29,30 +20,12 @@ class RegisterForm extends Component{
                 value:'',
                 conditions:{
                     isLength:6,
-                    containsNumber:true,
-                    containsUppercase:true,
-                    containsLowercase:true,
                 },
                 correct:false,
                 blured:false,
                 errMsg:''
-            },
-            confirmPassword:{
-                value:'',
-                conditions:{
-                    isSameAs:'password'
-                },
-                correct:false,
-                blured:false,
-                errMsg:''
-            },
+            }
         },
-        passwordConditionBox:{
-            length:false,
-            number:false,
-            uppercase:false,
-            lowercase:false
-        }
     }
     textInputHandler=(e)=>{
         const updatedState = InputValidateHandler(e, this.state);
@@ -69,16 +42,8 @@ class RegisterForm extends Component{
     }
     render(){
         return(
-            <div className='form form-box register-form'>
-                <h2 className="form-heading">Register</h2>
-                <Input
-                    blur={this.blurHandler}
-                    change={this.textInputHandler}
-                    inputData={this.state.inputs.name}
-                    underline
-                    type="text"
-                    name='name'
-                    label='Name'/>
+            <div className='form form-box login-form'>
+                <h2 className="form-heading">Login</h2>
                 <Input
                     blur={this.blurHandler}
                     change={this.textInputHandler}
@@ -91,23 +56,14 @@ class RegisterForm extends Component{
                     blur={this.blurHandler}
                     change={this.textInputHandler}
                     inputData={this.state.inputs.password}
-                    passwordConditionsCorrect={this.state.passwordConditionBox}
                     underline
                     type="password"
                     name='password'
                     label='Password'/>
-                <Input
-                    blur={this.blurHandler}
-                    change={this.textInputHandler}
-                    inputData={this.state.inputs.confirmPassword}
-                    underline
-                    type="password"
-                    name='confirmPassword'
-                    label='Confirm password'/>
-                <Button type="primary" full label='Register'/>
+                <Button type="primary" full label='Login'/>
             </div>
         )
     }
 }
 
-export default RegisterForm;
+export default LoginForm;
