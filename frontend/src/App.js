@@ -9,7 +9,7 @@ import {BrowserRouter, Switch, Route} from 'react-router-dom';
 
 class App extends Component {
   state={
-    loginModalShowed:true
+    loginModalShowed:false
   }
   toggleLoginModal=(setTo)=>{
     this.setState({

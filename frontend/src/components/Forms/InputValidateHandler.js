@@ -23,6 +23,11 @@ const InputValidateHandler = (e, oldState) =>{
             newPasswordConditionBox.length = false;
         }
     }
+    if(typeof newInputs[name].conditions.isEmail !== 'undefined' && !validator.isNumeric(value)){
+        newInputs[name].correct = false;
+        newInputs[name].errMsg = 'Pirce have to be number';
+        errorDetected = true;
+    }
     if(typeof newInputs[name].conditions.isEmail !== 'undefined' && !validator.isEmail(value)){
         newInputs[name].correct = false;
         newInputs[name].errMsg = 'Please enter a valid email';

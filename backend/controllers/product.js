@@ -46,7 +46,7 @@ exports.postAddProduct = (req, res)=>{
     product.save()
     .then(resp=>{
         res.status(201).json({
-            message:'Post successfuly added!'
+            message:'Product successfuly added!'
         })
     })
     .catch(err=>{

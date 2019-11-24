@@ -4,29 +4,65 @@ import Textarea from '../Inputs/Textarea';
 import Button from '../Button/Button';
 import Spinner from '../Spinner/Spinner';
 import Notif from '../Notification/Notif';
+import InputValidateHandler from './InputValidateHandler';
 import './Form.css';
 
 class AddProductForm extends Component{
     state={
         loading:false,
-        thanks:false,
-        values:{
-            name:'',
-            price: '',
-            image: '',
-            description:''
+        inputs:{
+            name:{
+                value:'',
+                conditions:{
+                    isLength:3,
+                },
+                correct:false,
+                blured:false,
+                errMsg:''
+            },
+            price:{
+                value:'',
+                conditions:{
+                    isLength:3,
+                },
+                correct:false,
+                blured:false,
+                errMsg:''
+            },
+            image:{
+                value:'',
+                correct:false,
+                blured:false,
+                errMsg:''
+            },
+            description:{
+                value:'',
+                conditions:{
+                    isLength:3,
+                },
+                correct:false,
+                blured:false,
+                errMsg:''
+            },
         },
         loadedFileText:"Choose product image",
         loadedFileClasses:"loaded-file"
     }
 
-    inputHandle=(e)=>{
-        const {value, name} = e.target;
-        const newValues = this.state.values;
-        newValues[name] = value;
+    textInputHandler=(e)=>{
+        const updatedState = InputValidateHandler(e, this.state);
         this.setState({
-            values: newValues
-        })
+            inputs:updatedState.inputs
+        });
+    }
+    blurHandler=(e)=>{
+        const updatedInputs = this.state.inputs;
+        if(!updatedInputs[e.target.name].blured){
+            updatedInputs[e.target.name].blured = true;
+            this.setState({
+                inputs: updatedInputs
+            })
+        }
     }
     fileInputHandle=(e)=>{
         let loadedFileText;
@@ -44,8 +80,8 @@ class AddProductForm extends Component{
             }
             loadedFileText = 'Choosen '+fileName;
         }
-        const newValues = this.state.values;
-        newValues['image'] = file;
+        const newValues = this.state.inputs.image;
+        newValues.value = file;
         this.setState({
             loadedFileClasses,
             loadedFileText,
@@ -61,10 +97,12 @@ class AddProductForm extends Component{
     }
     submitHandler= async ()=>{
         const formData = new FormData();
-        formData.append('name', this.state.values.name);
-        formData.append('price', this.state.values.price);
-        formData.append('description', this.state.values.description);
-        formData.append('image', this.state.values.image);
+        const inputs = this.state.inputs;
+        formData.append('name', inputs.name);
+        formData.append('price', inputs.price);
+        formData.append('description', inputs.description);
+        formData.append('image', inputs.image);
+        console.log(inputs)
         this.toggleLoading(true);
         const url = '//localhost:8080/add-product';
         const res = await fetch(url, {
@@ -88,10 +126,10 @@ class AddProductForm extends Component{
                 }
                 {!this.state.loading && !this.state.thanks &&
                     <>
-                        <Input value={this.state.values.name} change={this.inputHandle} underline label='Name' type='text' name='name'/>
-                        <Input value={this.state.values.price} change={this.inputHandle} underline label='Price' type='number' step='0.1' name='price'/>
-                        <Input change={this.fileInputHandle} label='Image/Images' type='file' name='image' loadedFileClasses={this.state.loadedFileClasses} loadedFileText={this.state.loadedFileText}/>
-                        <Textarea value={this.state.values.description} change={this.inputHandle} underline label='Description' name='description' />
+                        <Input blur={this.blurHandler} inputData={this.state.inputs.name} change={this.textInputHandler} underline label='Name' type='text' name='name'/>
+                        <Input blur={this.blurHandler} inputData={this.state.inputs.price} change={this.textInputHandler} underline label='Price' type='number' step='0.1' name='price'/>
+                        <Input inputData={this.state.inputs.image} change={this.fileInputHandle} label='Image/Images' type='file' name='image' loadedFileClasses={this.state.loadedFileClasses} loadedFileText={this.state.loadedFileText}/>
+                        <Textarea blur={this.blurHandler} inputData={this.state.inputs.description} change={this.textInputHandler} underline label='Description' name='description' />
                         <Button click={this.submitHandler} full type='primary' label='Add product'/>
                         <Notif ref='notif'/>
                     </>

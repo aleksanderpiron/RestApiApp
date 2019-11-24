@@ -3,10 +3,35 @@ label{
     display: inline-block;
     position: relative;
     width: 100%;
+    &::after{
+        content: '';
+        display: block;
+        width: 0;
+        height: 25px;
+        background-image: url('../..//assets/tick-sign.svg');
+        background-size: 20px;
+        background-repeat: no-repeat;
+        background-position: center;
+        position: absolute;
+        right: -30px;
+        bottom: 10px;
+        transition: 300ms;
+    }
+    &.textarea{
+        .underline{
+            bottom: 0;
+            top: auto;
+        }
+    }
     &.error{
         input{
             border: 1px solid $error!important;
             margin-bottom: 15px;
+        }
+    }
+    &.success{
+        &::after{
+            width: 25px;
         }
     }
     input[type=text], input[type=number], input[type=password], input[type=email], select, textarea{
