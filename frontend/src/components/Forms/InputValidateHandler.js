@@ -23,9 +23,9 @@ const InputValidateHandler = (e, oldState) =>{
             newPasswordConditionBox.length = false;
         }
     }
-    if(typeof newInputs[name].conditions.isEmail !== 'undefined' && !validator.isNumeric(value)){
+    if(typeof newInputs[name].conditions.isNumeric !== 'undefined' && !validator.isNumeric(value)){
         newInputs[name].correct = false;
-        newInputs[name].errMsg = 'Pirce have to be number';
+        newInputs[name].errMsg = 'Price have to be number';
         errorDetected = true;
     }
     if(typeof newInputs[name].conditions.isEmail !== 'undefined' && !validator.isEmail(value)){

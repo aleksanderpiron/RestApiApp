@@ -23,7 +23,7 @@ class AddProductForm extends Component{
             price:{
                 value:'',
                 conditions:{
-                    isLength:3,
+                    isNumeric:true,
                 },
                 correct:false,
                 blured:false,
@@ -98,11 +98,10 @@ class AddProductForm extends Component{
     submitHandler= async ()=>{
         const formData = new FormData();
         const inputs = this.state.inputs;
-        formData.append('name', inputs.name);
-        formData.append('price', inputs.price);
-        formData.append('description', inputs.description);
-        formData.append('image', inputs.image);
-        console.log(inputs)
+        formData.append('name', inputs.name.value);
+        formData.append('price', inputs.price.value);
+        formData.append('description', inputs.description.value);
+        formData.append('image', inputs.image.value);
         this.toggleLoading(true);
         const url = '//localhost:8080/add-product';
         const res = await fetch(url, {

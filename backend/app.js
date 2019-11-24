@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 const app = express();
 
 const productRouter = require('./routes/product');
+const userRouter = require('./routes/user');
 
 const databaseUrl = 'mongodb+srv://pironaleksander:mongodbpass123$@cluster1-5o9ek.mongodb.net/shop?retryWrites=true&w=majority';
 
@@ -36,6 +37,7 @@ app.use((req, res, next)=>{
 app.use(bodyparser.json());
 app.use(multer({storage:fileStorage, fileFilter}).single('image'));
 app.use('/images', express.static(path.join(__dirname, 'images')))
+app.use(userRouter);
 app.use(productRouter);
 
 mongoose.connect(databaseUrl, {useNewUrlParser: true, useUnifiedTopology:true})

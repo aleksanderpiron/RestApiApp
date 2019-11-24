@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Input from '../Inputs/Input';
+import Icon from '../Icon/Icon';
 import Button from '../Button/Button';
 import Spinner from '../Spinner/Spinner';
 import InputValidateHandler from './InputValidateHandler';
@@ -55,6 +56,7 @@ class RegisterForm extends Component{
             lowercase:false
         },
         loading:false,
+        formResult:'success'
     }
     textInputHandler=(e)=>{
         const updatedState = InputValidateHandler(e, this.state);
@@ -79,34 +81,51 @@ class RegisterForm extends Component{
     submitHandler=async()=>{
         const formData = new FormData();
         const inputs = this.state.inputs;
-        formData.append('name', inputs.name);
-        formData.append('price', inputs.price);
-        formData.append('description', inputs.description);
-        formData.append('image', inputs.image);
+        formData.append('name', inputs.name.value);
+        formData.append('email', inputs.email.value);
+        formData.append('password', inputs.password.value);
         this.toggleLoading(true);
-        const url = '//localhost:8080/add-product';
+        const url = '//localhost:8080/register';
         const res = await fetch(url, {
             body: formData,
             method: 'POST'
         });
         const data = await res.json();
-        console.log(data);
         await this.toggleLoading(false);
         if(res.status === 201){
-            this.refs.notif.create('success','Your product has been added successfuly!', 10000)
+            this.setState({
+                formResult:'success'
+            })
         }
         else if(res.status === 400){
-            this.refs.notif.create('error','Invaid provided data and product creating failed! Please try again with correct data', 10000)
         }
     }
     render(){
         return(
             <div className='form form-box register-form'>
                 <h2 className="form-heading">Register</h2>
-                {this.state.loading &&
+                {this.state.formResult === 'success' &&
+                    <div className='form-result'>
+                        <Icon type='success'/>
+                        <p>
+                            Your accout has been created!
+                        </p>
+                        <Button type='primary' label='Login to your new accout'/>
+                    </div>
+                }
+                {this.state.formResult !== 'error' &&
+                    <div className='form-result'>
+                        <Icon type='success'/>
+                        <p>
+                            Your accout has been created!
+                        </p>
+                        <Button type='primary' label='Login to your new accout'/>
+                    </div>
+                }
+                {this.state.loading && this.state.formResult === null &&
                     <Spinner />
                 }
-                {!this.state.loading && 
+                {!this.state.loading && this.state.formResult === null && 
                 <>
                     <Input
                         blur={this.blurHandler}

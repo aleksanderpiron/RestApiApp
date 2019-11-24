@@ -2,7 +2,7 @@ const User = require('../models/User');
 const mongoose = require('mongoose');
 const crypto = require('crypto-js');
 
-exports.postAddUser=(req, res)=>{
+exports.postRegister=(req, res)=>{
     const {name, email} = req.body,
     productCreateData = new Date();
     let password = req.body.password;
