@@ -27,9 +27,17 @@ class Nav extends Component{
     }
     calculateHandler=()=>{
         const activeNavEl = document.querySelector('nav .top a.active');
-        const newUnderlineStyles = {
-            left: activeNavEl.offsetLeft + 'px',
-            width: activeNavEl.offsetWidth + 'px'
+        let newUnderlineStyles;
+        if(activeNavEl !== null){
+            newUnderlineStyles = {
+                left: activeNavEl.offsetLeft + 'px',
+                width: activeNavEl.offsetWidth + 'px'
+            }
+        }else{
+            newUnderlineStyles = {
+                left: '80px',
+                width: '0px'
+            }
         }
         this.setState({
             underlineStyles: newUnderlineStyles
@@ -74,11 +82,9 @@ class Nav extends Component{
                     <div className="right">
                         <NavToggler
                             click={()=>{this.props.toggleLoginModal(true)}}
-                            isActive={this.props.loginModalShowed}
                             label={<Icon type="user" />}/>
                         <NavLink
                             click={this.switchPage}
-                            currentPage={this.state.currentPage}
                             link="/add-product"
                             label={<Icon type="plus" />}/>
                     </div>

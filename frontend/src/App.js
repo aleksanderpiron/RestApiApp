@@ -1,20 +1,26 @@
 import React, {Component} from 'react';
 import Nav from './components/Nav/Nav';
 import './App.css';
+import Home from './pages/Home/Home';
 import AddProduct from './pages/AddProduct/AddProduct';
 import ProductList from './pages/ProductList/ProductList';
 import LoginModal from './components/Modals/LoginModal/LoginModal';
 import ReactCSSTransitionGroup  from 'react-addons-css-transition-group';
+import Notif from './components/Notification/Notif';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 
 class App extends Component {
   state={
-    loginModalShowed:false
+    loginModalShowed:false,
+    pushNotifData:null,
   }
   toggleLoginModal=(setTo)=>{
     this.setState({
       loginModalShowed:setTo
     })
+  }
+  pushNotif=(type, message, lifeTime)=>{
+    this.refs.notif.create(type, message, lifeTime)
   }
   render(){
     return (
@@ -27,16 +33,17 @@ class App extends Component {
           <ReactCSSTransitionGroup component="div" className="pages" transitionEnterTimeout={400} transitionLeaveTimeout={400} transitionName="page-switch">
             <Switch>
               <Route exact path="/products">
-                <ProductList />
+                <Home/>
+              </Route>
+              <Route exact path="/products">
+                <ProductList pushNotif={this.pushNotif}/>
               </Route>
               <Route path="/add-product">
-                <AddProduct />
+                <AddProduct pushNotif={this.pushNotif}/>
               </Route>
-              {/* <Route path={['/login', '/register', '/reset-password']}>
-                <Auth />
-              </Route> */}
             </Switch>
           </ReactCSSTransitionGroup>
+          <Notif ref='notif'/>
         </div>
       </BrowserRouter>
     );

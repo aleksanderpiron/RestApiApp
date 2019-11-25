@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import ProductItem from './ProductItem';
 import ProductPage from './ProductPage'
 import Spinner from '../../components/Spinner/Spinner';
+import Notif from '../../components/Notification/Notif';
 import ReactCSSTransitionGroup  from 'react-addons-css-transition-group';
 import './ProductList.css';
 
@@ -20,10 +21,11 @@ class ProductsList extends Component{
             getSingleProduct={this.getSingleProduct}
             name={prod.name}
             price={prod.price}
-            imageUrl={'http://localhost:8080'+prod.imageUrl}
+            imageUrl={prod.imageUrl!==null?'http://localhost:8080'+prod.imageUrl:null}
             description={prod.description}
             creationDate={prod.creationDate}
             createdBy={prod.createdBy}
+            delete={this.deleteProduct}
             id={prod._id}/>
         })
         this.setState({
@@ -43,6 +45,22 @@ class ProductsList extends Component{
             showSingleProduct:true
         })
     }
+    deleteProduct=async(id)=>{
+        const formData = new FormData();
+        formData.append('id', id)
+        const url = '//localhost:8080/delete-product';
+        const res = await fetch(url, {
+            method:'POST',
+            body:formData
+        })
+        if(res.status === 200){
+            this.getProducts();
+            this.props.pushNotif('success', 'Product was successfuly deleted!', 5000)
+        }
+        else if(res.status === 500){
+            console.log('error')
+        }
+    }
     closeProduct=()=>{
         this.setState({
             showSingleProduct:false
@@ -61,7 +79,9 @@ class ProductsList extends Component{
                 transitionName='page-switch'
                 transitionEnterTimeout={400}
                 transitionLeaveTimeout={400}>
-                    {!this.state.loading && !this.state.showSingleProduct && <div className="product-list">{this.state.products}</div>}
+                    {!this.state.loading && !this.state.showSingleProduct &&
+                        this.state.products
+                    }
                     {!this.state.loading && this.state.showSingleProduct && <ProductPage return={this.closeProduct} product={this.state.singleProduct}/>}
                 </ReactCSSTransitionGroup>
             </div>

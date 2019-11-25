@@ -3,7 +3,6 @@ import Input from '../Inputs/Input';
 import Textarea from '../Inputs/Textarea';
 import Button from '../Button/Button';
 import Spinner from '../Spinner/Spinner';
-import Notif from '../Notification/Notif';
 import InputValidateHandler from './InputValidateHandler';
 import './Form.css';
 
@@ -111,10 +110,10 @@ class AddProductForm extends Component{
         const data = await res.json();
         await this.toggleLoading(false);
         if(res.status === 201){
-            this.refs.notif.create('success','Your product has been added successfuly!', 10000)
+            this.props.pushNotif('success','Your product has been added successfuly!', 10000);
         }
         else if(res.status === 400){
-            this.refs.notif.create('error','Invaid provided data and product creating failed! Please try again with correct data', 10000)
+            this.props.pushNotif('error','Invaid provided data and product creating failed! Please try again with correct data', 10000);
         }
     }
     render(){
@@ -130,7 +129,6 @@ class AddProductForm extends Component{
                         <Input inputData={this.state.inputs.image} change={this.fileInputHandle} label='Image/Images' type='file' name='image' loadedFileClasses={this.state.loadedFileClasses} loadedFileText={this.state.loadedFileText}/>
                         <Textarea blur={this.blurHandler} inputData={this.state.inputs.description} change={this.textInputHandler} underline label='Description' name='description' />
                         <Button click={this.submitHandler} full type='primary' label='Add product'/>
-                        <Notif ref='notif'/>
                     </>
                 }
             </div>

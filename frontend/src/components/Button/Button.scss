@@ -27,6 +27,13 @@
             background-color: $btn1_hover;
         }
     }
+    &.danger{
+        background-color: $btn_danger;
+        color: #fff;
+        &:hover{
+            background-color: $btn_danger_hover;
+        }
+    }
     &.triple{
         overflow: hidden;
         height: 35px;

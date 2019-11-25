@@ -15,6 +15,8 @@ $btn1:#3ce2b7;
 $btn1_hover:#3ec29f;
 $btn2:#27BA8B;
 $btn2_hover:#27BA8B;
+$btn_danger:#ce0101;
+$btn_danger_hover:#9e0000;
 $noti_info:#224a9e;
 $noti_info_icon:#23395B;
 $noti_error:#ce0101;

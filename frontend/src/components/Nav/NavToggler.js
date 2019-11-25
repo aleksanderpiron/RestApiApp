@@ -8,7 +8,7 @@ const NavLink =(props)=>{
             to={props.link}
             onMouseOver={props.hover}
             onMouseOut={props.hover}
-            className={props.link === props.currentPage?'active':''}>
+            >
             {props.label}
         </a>
     );

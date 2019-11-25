@@ -6,11 +6,11 @@ class Notif extends Component{
     state={
         notifs:[],
     }
-    create=(type, text, showTime)=>{
+    create=(type, text, lifeTime)=>{
         const newNotifs = this.state.notifs;
         const id = Math.floor(parseInt(Date.now()) * Math.random()).toString();
-        if(showTime){
-            setTimeout(()=>{this.close(id)}, showTime);
+        if(lifeTime){
+            setTimeout(()=>{this.close(id)}, lifeTime);
         }
         newNotifs.push({
             id,
@@ -35,9 +35,9 @@ class Notif extends Component{
         })
         return(
             <>
-            <ReactCSSTransitionGroup className="notif-box" timeout={400} transitionName="notif">
-                {notifs}
-            </ReactCSSTransitionGroup>
+                <ReactCSSTransitionGroup className="notif-box" timeout={400} transitionName="notif">
+                    {notifs}
+                </ReactCSSTransitionGroup>
             </>
         )
     }

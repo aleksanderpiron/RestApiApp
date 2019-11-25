@@ -56,7 +56,7 @@ class RegisterForm extends Component{
             lowercase:false
         },
         loading:false,
-        formResult:'success'
+        successPage:false
     }
     textInputHandler=(e)=>{
         const updatedState = InputValidateHandler(e, this.state);
@@ -94,39 +94,36 @@ class RegisterForm extends Component{
         await this.toggleLoading(false);
         if(res.status === 201){
             this.setState({
-                formResult:'success'
+                successPage:true
             })
         }
         else if(res.status === 400){
         }
     }
+    resetForm=()=>{
+        this.props.switchForm();
+        this.setState({
+            successPage:false,
+        })
+    }
     render(){
         return(
             <div className='form form-box register-form'>
-                <h2 className="form-heading">Register</h2>
-                {this.state.formResult === 'success' &&
-                    <div className='form-result'>
+                {this.state.successPage &&
+                    <div className='success-page'>
                         <Icon type='success'/>
                         <p>
                             Your accout has been created!
                         </p>
-                        <Button type='primary' label='Login to your new accout'/>
+                        <Button click={this.resetForm} type='primary' label='Login to your new accout'/>
                     </div>
                 }
-                {this.state.formResult !== 'error' &&
-                    <div className='form-result'>
-                        <Icon type='success'/>
-                        <p>
-                            Your accout has been created!
-                        </p>
-                        <Button type='primary' label='Login to your new accout'/>
-                    </div>
-                }
-                {this.state.loading && this.state.formResult === null &&
+                {this.state.loading && !this.state.successPage &&
                     <Spinner />
                 }
-                {!this.state.loading && this.state.formResult === null && 
+                {!this.state.loading && !this.state.successPage &&
                 <>
+                    <h2 className="form-heading">Register</h2>
                     <Input
                         blur={this.blurHandler}
                         change={this.textInputHandler}

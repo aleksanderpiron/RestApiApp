@@ -1,5 +1,5 @@
 .form-box{
-    max-width: 350px;
+    width: 350px;
     margin: auto;
 }
 .form{
@@ -11,5 +11,16 @@
         color: $color1;
         margin-bottom: 15px;
         text-align: center;
+    }
+    .success-page{
+        text-align: center;
+        .icon svg{
+            margin: 0 0 30px;
+            height: 70px;
+            width: 70px;
+            path{
+                fill: $correct;
+            }
+        }
     }
 }

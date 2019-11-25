@@ -31,8 +31,12 @@ exports.getSingleProduct=(req, res)=>{
 
 exports.postAddProduct = (req, res)=>{
     const {name, price, description} = req.body;
-    console.log(req.file);
-    const imageUrl = '/images/'+req.file.filename;
+    let imageUrl;
+    if(req.file){
+        imageUrl = '/images/'+req.file.filename;
+    }else{
+        imageUrl = null
+    }
     const productCreateData = new Date();
     const createdBy = mongoose.Types.ObjectId('123456789123456789123456');
     const product = new Product({
@@ -55,4 +59,24 @@ exports.postAddProduct = (req, res)=>{
                 message:'Wrong data provided'
             })
     });
+}
+
+exports.postDeleteProduct=(req, res)=>{
+    Product.findByIdAndDelete(req.body.id)
+    .then(prod=>{
+        console.log(prod);
+        if(!prod){
+            return res.status(404).json({
+                message:'Product not found'
+            })
+        }
+        return res.status(200).json({
+            message:'Product deleted successfuly'
+        })
+    })
+    .catch(err=>{
+        return res.status(500).json({
+            message:'Somethink went wrong'
+        })
+    })
 }

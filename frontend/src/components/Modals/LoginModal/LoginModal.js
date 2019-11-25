@@ -30,7 +30,7 @@ class LoginModal extends Component{
             <Modal crossClass={this.state.currentForm==='login'?'white':''} close={()=>{this.props.toggleLoginModal(false)}} modalClass="login-modal">
                 <ReactCSSTransitionGroup component="div" className="anim-box" transitionEnterTimeout={400} transitionLeaveTimeout={400} transitionName="form-switch">
                     {this.state.currentForm === 'login' && <LoginForm />}
-                    {this.state.currentForm === 'register' && <RegisterForm />}
+                    {this.state.currentForm === 'register' && <RegisterForm switchForm={this.switchForm}/>}
                     <div className={"curtain "+this.state.currentForm}>
                         <div className="curtain-text">
                             <div>

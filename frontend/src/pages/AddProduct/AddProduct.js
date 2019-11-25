@@ -1,10 +1,10 @@
 import React from 'react';
 import AddProductForm from '../../components/Forms/AddProductForm';
 
-const Products=()=>{
+const Products=(props)=>{
      return(
          <div className="page">
-             <AddProductForm />
+             <AddProductForm pushNotif={props.pushNotif}/>
          </div>
     )
 }
