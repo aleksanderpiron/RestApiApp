@@ -40,6 +40,14 @@ app.use('/images', express.static(path.join(__dirname, 'images')))
 app.use(userRouter);
 app.use(productRouter);
 
+app.use((error, req, res, next) => {
+  console.log(error);
+  const status = error.statusCode || 500;
+  const message = error.message;
+  const fieldName = error.fieldName || null;
+  res.status(status).json({ message, fieldName});
+});
+
 mongoose.connect(databaseUrl, {useNewUrlParser: true, useUnifiedTopology:true})
 .then(res=>{
     app.listen(8080);

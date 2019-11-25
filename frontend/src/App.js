@@ -32,7 +32,7 @@ class App extends Component {
           </ReactCSSTransitionGroup>
           <ReactCSSTransitionGroup component="div" className="pages" transitionEnterTimeout={400} transitionLeaveTimeout={400} transitionName="page-switch">
             <Switch>
-              <Route exact path="/products">
+              <Route exact path="/">
                 <Home/>
               </Route>
               <Route exact path="/products">

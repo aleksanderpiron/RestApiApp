@@ -8,23 +8,24 @@ exports.getProducts = (req, res)=>{
     })
     .catch(err=>{
         if(err){
-            res.status(503).json({
-                message:`Something went wrong, we're sorry!`
-            });
+            next(err);
         }
     })
 }
 
-exports.getSingleProduct=(req, res)=>{
+exports.getSingleProduct=(req, res, next)=>{
     Product.findById({_id: req.params.productId})
     .then(prod=>{
+        if(!prod){
+            const err = new Error('Product not found');
+            err.statusCode = 404;
+            throw err;
+        }
         res.status(200).json(prod)
     })
     .catch(err=>{
         if(err){
-            res.status(400).json({
-                message:`Product not finded`
-            });
+            next(err);
         }
     })
 }
