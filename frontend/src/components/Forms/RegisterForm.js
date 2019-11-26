@@ -56,7 +56,8 @@ class RegisterForm extends Component{
             lowercase:false
         },
         loading:false,
-        successPage:false
+        successPage:false,
+        allInputsCorrect:false
     }
     textInputHandler=(e)=>{
         const updatedState = InputValidateHandler(e, this.state);
@@ -157,7 +158,7 @@ class RegisterForm extends Component{
                         type="password"
                         name='confirmPassword'
                         label='Confirm password'/>
-                    <Button click={this.submitHandler} type="primary" full label='Register'/>
+                    <Button disabled={!this.state.allInputsCorrect} click={this.submitHandler} type="primary" full label='Register'/>
                 </>
                 }
             </div>

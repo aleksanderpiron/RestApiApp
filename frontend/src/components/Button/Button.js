@@ -12,11 +12,14 @@ const Button =(props)=>{
     if(props.round){
         classes += 'round ';
     }
+    if(props.disabled){
+        classes += 'disabled ';
+    }
     if(props.type){
         classes += props.type;
     }
     return(
-        <button className={classes} onClick={props.click}>
+        <button className={classes} onClick={!props.disabled && props.click}>
             {props.label}
         </button>
     )

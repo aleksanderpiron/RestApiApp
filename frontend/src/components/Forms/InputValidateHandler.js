@@ -71,9 +71,18 @@ const InputValidateHandler = (e, oldState) =>{
     newInputs[name].value = value;
     const newState = {
         inputs: newInputs,
-        passwordConditionBox: newPasswordConditionBox
-    } 
-    return newState; 
+        passwordConditionBox: newPasswordConditionBox,
+    }
+    if(typeof oldState.allInputsCorrect !== 'undefined'){
+        let updatedallInputsCorrect = true;
+        Object.values(newInputs).map(val=>{
+            if(!val.correct){
+                updatedallInputsCorrect = false;
+            }
+        })
+        newState.allInputsCorrect = updatedallInputsCorrect;
+    }
+    return newState;
 }
 
 export default InputValidateHandler;

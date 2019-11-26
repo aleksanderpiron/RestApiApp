@@ -10,7 +10,7 @@ exports.register=async (req, res, next)=>{
     .then(hashedPassword=>{
         newUser = new User({
             name,
-            email,    
+            email,
             password: hashedPassword,
             creationDate: productCreateData
         });
@@ -35,16 +35,33 @@ exports.login=(req, res, next)=>{
             err.statusCode = 404;
             err.fieldName = 'email';
             next(err);
+            throw err;
         }
         bcrypt.compare(password, user.password)
         .then(correct=>{
             if(!correct){
+                console.log('not correct')
                 const err = new Error(`Wrong email or password`);
                 err.statusCode = 422;
                 err.fieldName = 'email';
                 next(err);
+                throw err;
             }
-
+            console.log('hello')
+            const token = jwt.sign({
+                userId:user._id,
+                email:user.email
+            }, 'yurfcjxhuqxsqjotkhqw', {expiresIn:'1h'})
+            res.status(200).json({
+                message:'User logged successfuly',
+                token
+            })
+        })
+        .catch(err=>{
+            next(err)
         })
     })
-}   
+    .catch(err=>{
+        next(err)
+    })
+}
