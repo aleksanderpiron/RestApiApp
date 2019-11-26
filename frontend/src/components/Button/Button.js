@@ -18,8 +18,11 @@ const Button =(props)=>{
     if(props.type){
         classes += props.type;
     }
+    const onClickPlaceholder=()=>{
+        return false;
+    }
     return(
-        <button className={classes} onClick={!props.disabled && props.click}>
+        <button className={classes} onClick={!props.disabled?props.click:onClickPlaceholder}>
             {props.label}
         </button>
     )

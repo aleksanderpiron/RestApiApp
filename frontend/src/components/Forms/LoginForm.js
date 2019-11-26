@@ -76,7 +76,8 @@ class LoginForm extends Component{
             else if(res.status === 404 || res.status === 422){
                 const updatedInputs = ErrorViewHandler(data, this.state.inputs)
                 this.setState({
-                    inputs:updatedInputs
+                    inputs:updatedInputs,
+                    allInputsCorrect:false
                 })
             }
         }catch(err){

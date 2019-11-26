@@ -16,6 +16,9 @@
         background-color: transparent;
         border: 1px solid #fff;
         color: #fff;
+        &:active{
+            transform: scale(.95);
+        }
     }
     &.full{
         width: 100%;

@@ -4,6 +4,7 @@ import Icon from '../Icon/Icon';
 import Button from '../Button/Button';
 import Spinner from '../Spinner/Spinner';
 import InputValidateHandler from './InputValidateHandler';
+import ErrorViewHandler from './ErrorViewHandler';
 import './Form.css';
 
 class RegisterForm extends Component{
@@ -63,10 +64,10 @@ class RegisterForm extends Component{
         const updatedState = InputValidateHandler(e, this.state);
         this.setState(updatedState);
     }
-    toggleLoading=(goal)=>{
-        if(typeof goal === 'boolean'){
+    toggleLoading=(setTo)=>{
+        if(typeof setTo === 'boolean'){
             this.setState({
-                loading:goal
+                loading:setTo
             })
         }
     }
@@ -98,7 +99,12 @@ class RegisterForm extends Component{
                 successPage:true
             })
         }
-        else if(res.status === 400){
+        else if(res.status === 422){
+            const updatedInputs = ErrorViewHandler(data, this.state.inputs)
+            this.setState({
+                inputs:updatedInputs,
+                allInputsCorrect:false
+            })
         }
     }
     resetForm=()=>{

@@ -2,28 +2,43 @@ const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
-exports.register=async (req, res, next)=>{
+exports.register=(req, res, next)=>{
     const {name, email} = req.body,
     productCreateData = new Date();
     let password = req.body.password;
-    password = bcrypt.hash(password, 12)
-    .then(hashedPassword=>{
-        newUser = new User({
-            name,
-            email,
-            password: hashedPassword,
-            creationDate: productCreateData
-        });
-        newUser.save()
-        .then(resp=>{
-            res.status(201).json({
-                message:'User successfuly created! You can now login'
-            })
+    User.findOne({email:email})
+    .then(user=>{
+        if(user){
+            console.log('Email taken');
+            const err = new Error('This email address is already taken. Please try different');
+            err.statusCode = 422;
+            err.fieldName = 'email';
+            throw err;
+        }
+        password = bcrypt.hash(password, 12)
+        .then(hashedPassword=>{
+            newUser = new User({
+                name,
+                email,
+                password: hashedPassword,
+                creationDate: productCreateData
+            });
+            console.log('creating user');
+            // newUser.save()
+            // .then(resp=>{
+            //     res.status(201).json({
+            //         message:'User successfuly created! You can now login'
+            //     })
+            // })
+            // .catch(err=>{
+            //     next(err)
+            // });
         })
-        .catch(err=>{
-            next(err)
-        });
     })
+    .catch(err=>{
+        next(err);
+    })
+    
 };
 
 exports.login=(req, res, next)=>{
@@ -40,14 +55,12 @@ exports.login=(req, res, next)=>{
         bcrypt.compare(password, user.password)
         .then(correct=>{
             if(!correct){
-                console.log('not correct')
                 const err = new Error(`Wrong email or password`);
                 err.statusCode = 422;
                 err.fieldName = 'email';
                 next(err);
                 throw err;
             }
-            console.log('hello')
             const token = jwt.sign({
                 userId:user._id,
                 email:user.email

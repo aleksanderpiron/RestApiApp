@@ -11,7 +11,7 @@ import {BrowserRouter, Switch, Route} from 'react-router-dom';
 
 class App extends Component {
   state={
-    loginModalShowed:false,
+    loginModalShowed:true,
     pushNotifData:null,
   }
   toggleLoginModal=(setTo)=>{
