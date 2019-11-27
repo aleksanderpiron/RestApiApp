@@ -65,14 +65,14 @@ class LoginForm extends Component{
             const data = await res.json();
             this.toggleLoading(false);
             if(res.status === 200){
-                console.log('logged')
-                localStorage.setItem('authToken', data.token);
                 const remainingMilliseconds = 60 * 60 * 1000;
                 const expiryDate = new Date(
-                  new Date().getTime() + remainingMilliseconds
+                    new Date().getTime() + remainingMilliseconds
                 );
-                localStorage.setItem('tokenExpiryDate', expiryDate.toISOString());
+                localStorage.setItem('authToken', data.token);
+                localStorage.setItem('tokenExpirationDate', expiryDate.toISOString());
                 localStorage.setItem('userId', data.userId);
+                this.props.login();
                 this.props.close();
                 this.props.pushNotif('info', `You have logged successfuly! Welcome back ${data.userName}`, 5000)
             }

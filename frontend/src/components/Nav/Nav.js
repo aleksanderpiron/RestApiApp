@@ -80,13 +80,15 @@ class Nav extends Component{
                             label='Products'/>
                     </div>
                     <div className="right">
-                        <NavToggler
-                            click={()=>{this.props.toggleLoginModal(true)}}
-                            label={<Icon type="user" />}/>
                         <NavLink
                             click={this.switchPage}
                             link="/add-product"
                             label={<Icon type="plus" />}/>
+                        {!this.props.isLogged && <NavToggler
+                            click={()=>{this.props.toggleLoginModal(true)}}
+                            label={<Icon type="user" />}/>
+                        }
+                        {this.props.isLogged && <NavToggler click={this.props.logout} label={<Icon type="logout" />}/>}
                     </div>
                     <div style={this.state.underlineStyles} id="active-underline"></div>
                 </div>
