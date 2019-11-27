@@ -1,4 +1,5 @@
 import React from 'react';
+import Spinner from '../Spinner/Spinner';
 import './Button.css';
 
 const Button =(props)=>{
@@ -18,12 +19,16 @@ const Button =(props)=>{
     if(props.type){
         classes += props.type;
     }
-    const onClickPlaceholder=()=>{
+    if(props.submit){
+
+    }
+    const onClickPlaceholder=(e)=>{
+        e.preventDefault()
         return false;
     }
     return(
-        <button className={classes} onClick={!props.disabled?props.click:onClickPlaceholder}>
-            {props.label}
+        <button className={classes} type={props.submit && 'submit'} onClick={!props.disabled?props.click:onClickPlaceholder}>
+            {props.loading?<Spinner type='dots'/>:props.label}
         </button>
     )
 }

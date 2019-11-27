@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Input from '../Inputs/Input';
 import Button from '../Button/Button';
 import InputValidateHandler from './InputValidateHandler';
-import Spinner from '../Spinner/Spinner';
 import ErrorViewHandler from './ErrorViewHandler';
 import './Form.css';
 
@@ -50,7 +49,8 @@ class LoginForm extends Component{
             })
         }
     }
-    submitHandler=async()=>{
+    submitHandler=async(e)=>{
+        e.preventDefault()
         this.toggleLoading(true);
         const formData = new FormData();
         const inputs = this.state.inputs;
@@ -65,6 +65,7 @@ class LoginForm extends Component{
             const data = await res.json();
             this.toggleLoading(false);
             if(res.status === 200){
+                console.log('logged')
                 localStorage.setItem('authToken', data.token);
                 const remainingMilliseconds = 60 * 60 * 1000;
                 const expiryDate = new Date(
@@ -72,22 +73,23 @@ class LoginForm extends Component{
                 );
                 localStorage.setItem('tokenExpiryDate', expiryDate.toISOString());
                 localStorage.setItem('userId', data.userId);
+                this.props.close();
+                this.props.pushNotif('info', `You have logged successfuly! Welcome back ${data.userName}`, 5000)
             }
             else if(res.status === 404 || res.status === 422){
-                const updatedInputs = ErrorViewHandler(data, this.state.inputs)
+                const updatedInputs = ErrorViewHandler(data, this.state.inputs);
                 this.setState({
                     inputs:updatedInputs,
-                    allInputsCorrect:false
                 })
             }
         }catch(err){
-            alert(err)
+            console.log(err)
         }
 
     }
     render(){
         return(
-            <div className='form form-box login-form'>
+            <form onSubmit={this.submitHandler} className='form form-box login-form'>
                 <h2 className="form-heading">Login</h2>
                 <Input
                     blur={this.blurHandler}
@@ -105,8 +107,8 @@ class LoginForm extends Component{
                     type="password"
                     name='password'
                     label='Password'/>
-                <Button disabled={!this.state.allInputsCorrect} click={this.submitHandler} type="primary" full label='Login'/>
-            </div>
+                <Button loading={this.state.loading} disabled={!this.state.allInputsCorrect} submit type="primary" full label='Login'/>
+            </form>
         )
     }
 }

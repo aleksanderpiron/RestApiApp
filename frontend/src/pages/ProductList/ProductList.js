@@ -14,7 +14,11 @@ class ProductsList extends Component{
         loading:true
     }
     getProducts=async()=>{
-        const res = await fetch('http://localhost:8080/products');
+        const res = await fetch('http://localhost:8080/products', {
+            headers:{
+                "Authorization": localStorage.getItem('authToken')
+            }
+        });
         const data = await res.json();
         const productsArray = data.map(prod=>{
             return <ProductItem

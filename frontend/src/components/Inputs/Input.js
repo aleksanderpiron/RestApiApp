@@ -11,9 +11,9 @@ const Input =(props)=>{
     if(props.inputData.errMsg!=='' && props.inputData.blured){
         labelClass += 'error ';
     }
-    if(props.inputData.correct){
-        labelClass += 'success ';
-    }
+    // if(props.inputData.correct){
+    //     labelClass += 'success ';
+    // }
     const showPassword=(e)=>{
         const label = e.target.parentNode.closest('label');
         const target = label.querySelector('input');
@@ -26,13 +26,15 @@ const Input =(props)=>{
         }
     }
     const blurTargetCheck=(e)=>{
-        console.log(e.target);
+        if(e.relatedTarget !== null && e.relatedTarget.classList.contains('icon')){
+            e.preventDefault();
+        }
     }
     return(
         <label className={labelClass}>
             <span>{props.label}</span>
             <input onBlur={(e)=>{props.blur(e); blurTargetCheck(e);}} onChange={props.change} type={props.type} value={props.type !=='file'?props.inputData.value:''} name={props.name}/>
-            {props.type === 'password' && <Icon iconClass='password-show' type='eye' click={showPassword}/>}
+            {props.type === 'password' && <Icon tabIndex='0' iconClass='password-show' type='eye' click={showPassword}/>}
             {props.type==='file' && <p className={props.loadedFileClasses}>{props.loadedFileText}</p>}
             {props.underline && <div className="underline"></div>}
             {<p className={props.inputData.errMsg!=='' && props.inputData.blured?'visible error-message':'error-message'}>{props.inputData.errMsg}</p> }

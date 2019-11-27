@@ -11,8 +11,8 @@ import {BrowserRouter, Switch, Route} from 'react-router-dom';
 
 class App extends Component {
   state={
-    loginModalShowed:true,
-    pushNotifData:null,
+    loginModalShowed:false,
+    logged:false,
   }
   toggleLoginModal=(setTo)=>{
     this.setState({
@@ -28,7 +28,7 @@ class App extends Component {
         <div className="App">
           <Nav toggleLoginModal={this.toggleLoginModal}/>
           <ReactCSSTransitionGroup component="div" transitionEnterTimeout={400} transitionLeaveTimeout={400} transitionName="modal-show">
-            {this.state.loginModalShowed && <LoginModal toggleLoginModal={this.toggleLoginModal}/>}
+            {this.state.loginModalShowed && <LoginModal pushNotif={this.pushNotif} toggleLoginModal={this.toggleLoginModal}/>}
           </ReactCSSTransitionGroup>
           <ReactCSSTransitionGroup component="div" className="pages" transitionEnterTimeout={400} transitionLeaveTimeout={400} transitionName="page-switch">
             <Switch>

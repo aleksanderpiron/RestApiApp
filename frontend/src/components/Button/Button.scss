@@ -2,6 +2,7 @@
     border: none;
     padding: 8px 20px;
     border-radius: 4px;
+    min-height: 34px;
     font-weight: 700;
     transition: 300ms;
     cursor: pointer;
@@ -40,20 +41,6 @@
         color: #fff;
         &:hover{
             background-color: $btn_danger_hover;
-        }
-    }
-    &.triple{
-        overflow: hidden;
-        height: 35px;
-        padding: 0 20px;
-        &.first{
-            span:first-child{
-                margin-top: -20px;
-            }
-        }
-        span{
-            display: block;
-            margin: 10px 0;
         }
     }
 }

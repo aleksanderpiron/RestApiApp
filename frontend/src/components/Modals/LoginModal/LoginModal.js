@@ -28,7 +28,7 @@ class LoginModal extends Component{
         return(
             <Modal crossClass={this.state.currentForm==='login'?'white':''} close={()=>{this.props.toggleLoginModal(false)}} modalClass="login-modal">
                 <ReactCSSTransitionGroup component="div" className="anim-box" transitionEnterTimeout={400} transitionLeaveTimeout={400} transitionName="form-switch">
-                    {this.state.currentForm === 'login' && <LoginForm close={()=>{this.props.toggleLoginModal(false)}}/>}
+                    {this.state.currentForm === 'login' && <LoginForm pushNotif={this.props.pushNotif} close={()=>{this.props.toggleLoginModal(false)}}/>}
                     {this.state.currentForm === 'register' && <RegisterForm switchForm={this.switchForm}/>}
                     <div className={"curtain "+this.state.currentForm}>
                         <div className="curtain-text">

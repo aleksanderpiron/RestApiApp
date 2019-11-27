@@ -80,32 +80,40 @@ class RegisterForm extends Component{
             })
         }
     }
-    submitHandler=async()=>{
+    submitHandler=async(e)=>{
+        e.preventDefault();
         const formData = new FormData();
         const inputs = this.state.inputs;
         formData.append('name', inputs.name.value);
         formData.append('email', inputs.email.value);
         formData.append('password', inputs.password.value);
         this.toggleLoading(true);
-        const url = '//localhost:8080/register';
-        const res = await fetch(url, {
-            body: formData,
-            method: 'POST'
-        });
-        const data = await res.json();
-        await this.toggleLoading(false);
-        if(res.status === 201){
-            this.setState({
-                successPage:true
-            })
+
+        try{
+            const url = '//localhost:8080/register';
+            const res = await fetch(url, {
+                body: formData,
+                method: 'POST'
+            });
+            const data = await res.json();
+            this.toggleLoading(false);
+            if(res.status === 201){
+                this.setState({
+                    successPage:true
+                })
+            }
+            else if(res.status === 422){
+                const updatedInputs = ErrorViewHandler(data, this.state.inputs)
+                this.setState({
+                    inputs:updatedInputs,
+                    allInputsCorrect:false
+                })
+            }
+
+        }catch(err){
+            console.log(err);
         }
-        else if(res.status === 422){
-            const updatedInputs = ErrorViewHandler(data, this.state.inputs)
-            this.setState({
-                inputs:updatedInputs,
-                allInputsCorrect:false
-            })
-        }
+
     }
     resetForm=()=>{
         this.props.switchForm();
@@ -115,7 +123,7 @@ class RegisterForm extends Component{
     }
     render(){
         return(
-            <div className='form form-box register-form'>
+            <form onSubmit={this.submitHandler} className='form form-box register-form'>
                 {this.state.successPage &&
                     <div className='success-page'>
                         <Icon type='success'/>
@@ -125,10 +133,7 @@ class RegisterForm extends Component{
                         <Button click={this.resetForm} type='primary' label='Login to your new accout'/>
                     </div>
                 }
-                {this.state.loading && !this.state.successPage &&
-                    <Spinner />
-                }
-                {!this.state.loading && !this.state.successPage &&
+                {!this.state.successPage &&
                 <>
                     <h2 className="form-heading">Register</h2>
                     <Input
@@ -164,10 +169,10 @@ class RegisterForm extends Component{
                         type="password"
                         name='confirmPassword'
                         label='Confirm password'/>
-                    <Button disabled={!this.state.allInputsCorrect} click={this.submitHandler} type="primary" full label='Register'/>
+                    <Button disabled={!this.state.allInputsCorrect} loading={this.state.loading} type="primary" submit full label='Register'/>
                 </>
                 }
-            </div>
+            </form>
         )
     }
 }
