@@ -31,7 +31,7 @@ exports.getSingleProduct=(req, res, next)=>{
 }
 
 exports.postAddProduct = (req, res)=>{
-    const {name, price, description} = req.body;
+    const {userId, name, price, description} = req.body;
     let imageUrl;
     if(req.file){
         imageUrl = '/images/'+req.file.filename;
@@ -39,7 +39,7 @@ exports.postAddProduct = (req, res)=>{
         imageUrl = null
     }
     const productCreateData = new Date();
-    const createdBy = mongoose.Types.ObjectId('123456789123456789123456');
+    const createdBy = mongoose.Types.ObjectId(userId);
     const product = new Product({
         name,
         price,
@@ -62,10 +62,44 @@ exports.postAddProduct = (req, res)=>{
     });
 }
 
+exports.postEditProduct=(req, res)=>{
+    const {id, name, price, description} = req.body;
+    Product.findById(id)
+    .then(prod=>{
+        if(!prod){
+            return res.status(404).json({
+                message:'Product not found'
+            })
+        }
+        prod.name = name;
+        prod.price = price;
+        prod.description = description;
+        if(req.file){
+            prod.imageUrl = '/images/'+req.file.filename;
+        }
+        prod.save()
+        .then(result=>{
+            return res.status(204).json({
+                message:'Product edited'
+            })
+        })
+        .catch(err=>{
+            console.log(err);
+            return res.status(400).json({
+                message:'Product editing failed'
+            })
+        });
+    })
+    .catch(err=>{
+        return res.status(500).json({
+            message:'Somethink went wrong'
+        })
+    })
+}
+
 exports.postDeleteProduct=(req, res)=>{
     Product.findByIdAndDelete(req.body.id)
     .then(prod=>{
-        console.log(prod);
         if(!prod){
             return res.status(404).json({
                 message:'Product not found'

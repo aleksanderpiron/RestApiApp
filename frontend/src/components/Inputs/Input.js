@@ -33,9 +33,9 @@ const Input =(props)=>{
     return(
         <label className={labelClass}>
             <span>{props.label}</span>
-            <input onBlur={(e)=>{props.blur(e); blurTargetCheck(e);}} onChange={props.change} type={props.type} value={props.type !=='file'?props.inputData.value:''} name={props.name}/>
+            <input onBlur={props.blur?(e)=>{props.blur(e); blurTargetCheck(e);}:null} onChange={props.change} type={props.type} value={props.type !=='file'?props.inputData.value:''} name={props.name}/>
             {props.type === 'password' && <Icon tabIndex='0' iconClass='password-show' type='eye' click={showPassword}/>}
-            {props.type==='file' && <p className={props.loadedFileClasses}>{props.loadedFileText}</p>}
+            {props.type==='file' && <p className={props.inputData.loadedFileClasses}>{props.inputData.loadedFileText}</p>}
             {props.underline && <div className="underline"></div>}
             {<p className={props.inputData.errMsg!=='' && props.inputData.blured?'visible error-message':'error-message'}>{props.inputData.errMsg}</p> }
             {props.passwordConditionsCorrect && <PasswordConditions correct={props.passwordConditionsCorrect}/>}

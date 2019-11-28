@@ -1,6 +1,7 @@
 import React from 'react';
 import Icon from '../../components/Icon/Icon';
 import Button from '../../components/Button/Button';
+import {Link} from 'react-router-dom';
 
 const ProductItem =(props)=>{
     const toggleDeletingMask=(e, setTo)=>{
@@ -21,14 +22,16 @@ const ProductItem =(props)=>{
                 </div>
             </div>
             <div className="top">
-                <p onClick={(e)=>{props.getSingleProduct(props.id)}}>{props.name}</p>
-                <div className="settings-box">
-                    <div className="trigger"><Icon type='gear'/></div>
-                    <div className="body">
-                        <a onClick={(e)=>{toggleDeletingMask(e, true)}}><Icon type='delete'/></a>
-                        <a href="#"><Icon type='edit'/></a>
+                <Link to={`/products/${props.id}`}>{props.name}</Link>
+                {props.createdBy === localStorage.getItem('userId') &&
+                    <div className="settings-box">
+                        <div className="trigger"><Icon type='gear'/></div>
+                        <div className="body">
+                            <a onClick={(e)=>{toggleDeletingMask(e, true)}}><Icon type='delete'/></a>
+                            <Link to={`/products/edit-product/${props.id}`}><Icon type='edit'/></Link>
+                        </div>
                     </div>
-                </div>
+                }
             </div>
             <div className={props.imageUrl === null?'img default':'img'}>
                 {props.imageUrl === null?<Icon type='picture'/>: <img src={props.imageUrl} />}

@@ -69,12 +69,14 @@ class LoginForm extends Component{
                 const expiryDate = new Date(
                     new Date().getTime() + remainingMilliseconds
                 );
+                console.log(data);
                 localStorage.setItem('authToken', data.token);
                 localStorage.setItem('tokenExpirationDate', expiryDate.toISOString());
                 localStorage.setItem('userId', data.userId);
+                localStorage.setItem('userName', data.userName);
                 this.props.login();
                 this.props.close();
-                this.props.pushNotif('info', `You have logged successfuly! Welcome back ${data.userName}`, 5000)
+                this.props.pushNotif('info', `You have logged in! Welcome back ${data.userName}`, 5000)
             }
             else if(res.status === 404 || res.status === 422){
                 const updatedInputs = ErrorViewHandler(data, this.state.inputs);

@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import Nav from './components/Nav/Nav';
 import './App.css';
 import Home from './pages/Home/Home';
-import AddProduct from './pages/AddProduct/AddProduct';
 import ProductList from './pages/ProductList/ProductList';
 import LoginModal from './components/Modals/LoginModal/LoginModal';
 import ReactCSSTransitionGroup  from 'react-addons-css-transition-group';
@@ -21,7 +20,7 @@ class App extends Component {
     })
   }
   pushNotif=(type, message, lifeTime)=>{
-    this.refs.notif.create(type, message, lifeTime)
+    this.refs.notif.create(type, message, lifeTime);
   }
   checkIfLogged=()=>{
     const logged = isLogged();
@@ -33,6 +32,8 @@ class App extends Component {
     localStorage.removeItem('authToken');
     localStorage.removeItem('tokenExpirationDate');
     localStorage.removeItem('userId');
+    localStorage.removeItem('userName');
+    this.pushNotif('info','You have logged out',5000);
     this.checkIfLogged();
   }
   componentWillMount=()=>{
@@ -47,16 +48,11 @@ class App extends Component {
             {this.state.loginModalShowed && !this.state.isLogged && <LoginModal login={this.checkIfLogged} pushNotif={this.pushNotif} toggleLoginModal={this.toggleLoginModal}/>}
           </ReactCSSTransitionGroup>
           <ReactCSSTransitionGroup component="div" className="pages" transitionEnterTimeout={400} transitionLeaveTimeout={400} transitionName="page-switch">
-            <Switch>z
-              <Route exact path="/">
-                <Home/>
-              </Route>
-              <Route exact path="/products">
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route path="/products" render={()=>
                 <ProductList pushNotif={this.pushNotif}/>
-              </Route>
-              <Route path="/add-product">
-                <AddProduct pushNotif={this.pushNotif}/>
-              </Route>
+              }/>
             </Switch>
           </ReactCSSTransitionGroup>
           <Notif ref='notif'/>

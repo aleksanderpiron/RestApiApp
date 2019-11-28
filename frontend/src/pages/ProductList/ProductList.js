@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import ProductItem from './ProductItem';
-import ProductPage from './ProductPage'
+import ProductPage from './ProductPage';
+import ProductForm from '../../components/Forms/ProductForm';
 import Spinner from '../../components/Spinner/Spinner';
-import Notif from '../../components/Notification/Notif';
+import {Route} from 'react-router-dom';
 import ReactCSSTransitionGroup  from 'react-addons-css-transition-group';
 import './ProductList.css';
 
@@ -11,6 +12,7 @@ class ProductsList extends Component{
         products:null,
         singleProduct:null,
         showSingleProduct:false,
+        addProduct:false,
         loading:true
     }
     getProducts=async()=>{
@@ -37,18 +39,6 @@ class ProductsList extends Component{
             loading:false
         })
     }
-    getSingleProduct=async(id)=>{
-        this.setState({
-            loading:true
-        })
-        const res = await fetch('http://localhost:8080/products/'+id);
-        const data = await res.json();
-        this.setState({
-            loading:false,
-            singleProduct:data,
-            showSingleProduct:true
-        })
-    }
     deleteProduct=async(id)=>{
         const formData = new FormData();
         formData.append('id', id)
@@ -70,7 +60,10 @@ class ProductsList extends Component{
             showSingleProduct:false
         })
     }
-    componentDidMount(){
+    componentWillMount=()=>{
+        this.getProducts();
+    }
+    componentWillReceiveProps=()=>{
         this.getProducts();
     }
     render(){
@@ -83,10 +76,18 @@ class ProductsList extends Component{
                 transitionName='page-switch'
                 transitionEnterTimeout={400}
                 transitionLeaveTimeout={400}>
-                    {!this.state.loading && !this.state.showSingleProduct &&
-                        this.state.products
-                    }
-                    {!this.state.loading && this.state.showSingleProduct && <ProductPage return={this.closeProduct} product={this.state.singleProduct}/>}
+                    <Route exact path="/products">
+                        {this.state.products}
+                    </Route>
+                    <Route exact path="/products/:productId" render={(props)=>
+                        <ProductPage productId={props.match.params.productId}/>
+                    }/>
+                    <Route exact path="/products/add-product/" render={()=>
+                        <ProductForm pushNotif={this.props.pushNotif}/>
+                    }/>
+                    <Route path="/products/edit-product/:productId" render={(props)=>
+                        <ProductForm pushNotif={this.props.pushNotif} edit productId={props.match.params.productId}/>
+                    }/>
                 </ReactCSSTransitionGroup>
             </div>
         )

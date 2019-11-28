@@ -82,13 +82,18 @@ class Nav extends Component{
                     <div className="right">
                         <NavLink
                             click={this.switchPage}
-                            link="/add-product"
+                            link="/products/add-product"
                             label={<Icon type="plus" />}/>
                         {!this.props.isLogged && <NavToggler
                             click={()=>{this.props.toggleLoginModal(true)}}
                             label={<Icon type="user" />}/>
                         }
-                        {this.props.isLogged && <NavToggler click={this.props.logout} label={<Icon type="logout" />}/>}
+                        {
+                            this.props.isLogged && <p>{localStorage.getItem('userName')}</p>
+                        }
+                        {
+                            this.props.isLogged && <NavToggler click={this.props.logout} label={<Icon type="logout" />}/>
+                        }
                     </div>
                     <div style={this.state.underlineStyles} id="active-underline"></div>
                 </div>

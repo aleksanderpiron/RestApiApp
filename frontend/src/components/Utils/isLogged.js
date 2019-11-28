@@ -4,15 +4,18 @@ const isLogged=()=>{
     const tokenExp = localStorage.getItem('tokenExpirationDate');
     const currentTime = new Date().getTime();
     if(token && tokenExp){
-        console.log('logged');
         return true;
+
     }
     else if (token===null || tokenExp===null || userId===null){
-        console.log('not logged');
         return false;
+
     }
     else if (currentTime>tokenExp){
-        console.log('logged but expired');
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('tokenExpirationDate');
+        localStorage.removeItem('userId');
+        localStorage.removeItem('userName');
         return false;
     }
 }
