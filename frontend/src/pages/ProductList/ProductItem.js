@@ -12,6 +12,7 @@ const ProductItem =(props)=>{
             target.classList.remove('deleting')
         }
     }
+    const userId = localStorage.getItem('userId');
     return(
         <div key={props.id} className={'product-item'}>
             <div className="delete-mask">
@@ -23,7 +24,7 @@ const ProductItem =(props)=>{
             </div>
             <div className="top">
                 <Link to={`/products/${props.id}`}>{props.name}</Link>
-                {props.createdBy === localStorage.getItem('userId') &&
+                {props.createdBy === userId &&
                     <div className="settings-box">
                         <div className="trigger"><Icon type='gear'/></div>
                         <div className="body">
@@ -41,7 +42,7 @@ const ProductItem =(props)=>{
                 <p className="price">{props.price} $</p>
             </div>
             <div className="bottom">
-                <Button full type="primary" label="Add to cart"/>
+                <Button disabled={userId===null?true:false} full type="primary" label="Add to cart"/>
             </div>
         </div>
     )
