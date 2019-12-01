@@ -24,6 +24,7 @@ class ProductsList extends Component{
         const data = await res.json();
         const productsArray = data.map(prod=>{
             return <ProductItem
+            addToCart={()=>{this.addToCart(prod._id)}}
             getSingleProduct={this.getSingleProduct}
             name={prod.name}
             price={prod.price}
@@ -39,9 +40,24 @@ class ProductsList extends Component{
             loading:false
         })
     }
+    addToCart=async(prodId)=>{
+        console.log(prodId)
+        const formData = new FormData();
+        formData.append('userId', localStorage.getItem('userId'));
+        formData.append('qty', 1);
+        formData.append('prodId', prodId);
+        const res = await fetch('http://localhost:8080/add-to-cart', {
+            headers:{
+                "Authorization": localStorage.getItem('authToken')
+            },
+            method:'POST',
+            body:formData
+        });
+        console.log(res);
+    }
     deleteProduct=async(id)=>{
         const formData = new FormData();
-        formData.append('id', id)
+        formData.append('id', id);
         const url = '//localhost:8080/delete-product';
         const res = await fetch(url, {
             method:'POST',
@@ -79,7 +95,7 @@ class ProductsList extends Component{
                     <Route exact path="/products">
                         {this.state.products}
                     </Route>
-                    <Route exact path="/products/:productId" render={(props)=>
+                    <Route exact path="/products/product/:productId" render={(props)=>
                         <ProductPage productId={props.match.params.productId}/>
                     }/>
                     <Route exact path="/products/add-product/" render={()=>

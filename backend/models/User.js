@@ -17,6 +17,26 @@ const userSchema = new Schema({
     creationDate:{
         type:Date,
         required:true
+    },
+    cart:{
+        items: [
+            {
+                productId:{
+                    type:Schema.Types.ObjectId,
+                    ref:'Product',
+                    required: true
+                },
+                qty:{
+                    type:Number,
+                    required: true
+                }
+
+            }
+        ],
+        totalPrice: {
+            type:Number,
+            default: 0
+        }
     }
 })
 

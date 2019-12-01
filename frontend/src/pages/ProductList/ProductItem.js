@@ -7,9 +7,9 @@ const ProductItem =(props)=>{
     const toggleDeletingMask=(e, setTo)=>{
         const target = e.target.closest('.product-item');
         if(setTo){
-            target.classList.add('deleting')
+            target.classList.add('deleting');
         }else{
-            target.classList.remove('deleting')
+            target.classList.remove('deleting');
         }
     }
     const userId = localStorage.getItem('userId');
@@ -23,7 +23,7 @@ const ProductItem =(props)=>{
                 </div>
             </div>
             <div className="top">
-                <Link to={`/products/${props.id}`}>{props.name}</Link>
+                <Link to={`/products/product/${props.id}`}>{props.name}</Link>
                 {props.createdBy === userId &&
                     <div className="settings-box">
                         <div className="trigger"><Icon type='gear'/></div>
@@ -38,11 +38,11 @@ const ProductItem =(props)=>{
                 {props.imageUrl === null?<Icon type='picture'/>: <img src={props.imageUrl} />}
             </div>
             <div className="desc">
-                <p>{props.description}</p>
+                <p>{props.description.length>130?`${props.description.substring(0, 127)}...`:props.description}</p>
                 <p className="price">{props.price} $</p>
             </div>
             <div className="bottom">
-                <Button disabled={userId===null?true:false} full type="primary" label="Add to cart"/>
+                <Button click={props.addToCart} disabled={userId===null?true:false} full type="primary" label="Add to cart"/>
             </div>
         </div>
     )

@@ -4,6 +4,7 @@ const { body } = require('express-validator');
 
 const User = require('../models/User');
 const userController = require('../controllers/user');
+const cartController = require('../controllers/cart');
 
 router.post('/register',
 [
@@ -52,5 +53,7 @@ router.post('/login',
     }),
 ],
 userController.login);
+router.post('/add-to-cart', cartController.addToCart);
+router.get('/cart', cartController.getCart);
 
 module.exports = router
