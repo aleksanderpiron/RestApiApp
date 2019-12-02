@@ -39,7 +39,7 @@ const ProductItem =(props)=>{
             </div>
             <div className="desc">
                 <p>{props.description.length>130?`${props.description.substring(0, 127)}...`:props.description}</p>
-                <p className="price">{props.price} $</p>
+                <p className="price">{props.price} zł</p>
             </div>
             <div className="bottom">
                 <Button click={props.addToCart} disabled={userId===null?true:false} full type="primary" label="Add to cart"/>

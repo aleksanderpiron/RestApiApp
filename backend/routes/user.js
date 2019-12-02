@@ -54,6 +54,6 @@ router.post('/login',
 ],
 userController.login);
 router.post('/add-to-cart', cartController.addToCart);
-router.get('/cart', cartController.getCart);
+router.post('/cart', cartController.viewCart);
 
 module.exports = router

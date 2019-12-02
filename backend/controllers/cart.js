@@ -1,40 +1,61 @@
 const User = require('../models/User');
+const Product = require('../models/Product');
 
 exports.addToCart =(req, res, next)=>{
     userId = req.body.userId;
     User.findById(userId)
     .then(user=>{
         if(!user){
-            const err = new Error('User not fouded');
+            const err = new Error('User not found');
             throw err;
         }
-        const cartItem = {
-            productId:req.body.prodId,
-            qty:req.body.qty
-        }
-        const totalPrice =+ parseInt(req.body.price);
+        Product.findById(req.body.prodId)
+        .then(prod=>{
+            if(!prod){
+                const err = new Error('Product not found');
+                throw err;
+            }
+            const cartItem = {
+                product:prod._id,
+                qty:req.body.qty
+            }
+            let totalPrice = user.cart.totalPrice + parseFloat(prod.price);
+            totalPrice = totalPrice.toFixed(2);
 
-        user.cart.items.push(cartItem);
-        user.cart.totalPrice = totalPrice;
-        console.log(totalPrice);
-        user.save()
-        .then(result=>{
-            console.log('hello');
-            res.status(200).json({
-                message:'Item was added to cart successfuly!'
+            user.cart.items.push(cartItem);
+            user.cart.totalPrice = totalPrice;
+            user.save()
+            .then(result=>{
+                res.status(200).json({
+                    message:'Item was added to cart successfuly!'
+                })
+            })
+            .catch(err=>{
+                next(err);
             })
         })
         .catch(err=>{
-        console.log(err)
             next(err);
         })
     })
     .catch(err=>{
-        console.log(err)
-
         next(err);
     });
 }
-exports.getCart =(req, res, next)=>{
-
+exports.viewCart =(req, res, next)=>{
+    const {userId} = req.body;
+    User.findById(userId)
+    .populate('cart.items.product')
+    .then(user=>{
+        if(!user){
+            const err = new Error('User not found');
+            throw err;
+        }
+        res.status(200).json({
+            cart:user.cart
+        })
+    })
+    .catch(err=>{
+        next(err);
+    })
 }

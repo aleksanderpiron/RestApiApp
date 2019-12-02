@@ -30,7 +30,7 @@ class ProductPage extends Component{
                             <Link className="return" to='/products'><Icon type='arrow'/> <span>Return</span></Link>
                             <p className="name">{this.state.product.name}</p>
                             <p className="desc">{this.state.product.description}</p>
-                            <p className="price">{this.state.product.price} $</p>
+                            <p className="price">{this.state.product.price} zł</p>
                             <Button type="primary" label='Add to cart'/>
                         </div>
                     </>

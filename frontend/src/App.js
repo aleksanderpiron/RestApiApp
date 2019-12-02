@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Nav from './components/Nav/Nav';
 import './App.css';
 import Home from './pages/Home/Home';
+import CartPage from './pages/CartPage/CartPage';
 import ProductList from './pages/ProductList/ProductList';
 import LoginModal from './components/Modals/LoginModal/LoginModal';
 import ReactCSSTransitionGroup  from 'react-addons-css-transition-group';
@@ -53,6 +54,7 @@ class App extends Component {
               <Route path="/products" render={()=>
                 <ProductList pushNotif={this.pushNotif}/>
               }/>
+              <Route exact path="/cart" component={CartPage} />
             </Switch>
           </ReactCSSTransitionGroup>
           <Notif ref='notif'/>
