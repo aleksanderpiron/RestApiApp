@@ -15,14 +15,22 @@ exports.addToCart =(req, res, next)=>{
                 const err = new Error('Product not found');
                 throw err;
             }
-            const cartItem = {
-                product:prod._id,
-                qty:req.body.qty
+            const alreadyExistIndex = user.cart.items.findIndex((item)=>{
+                return item.product.toString() === req.body.prodId.toString();
+            });
+            if(alreadyExistIndex !== -1){
+                user.cart.items[alreadyExistIndex].qty += 1;
+            }
+            else if(alreadyExistIndex === -1){
+                const cartItem = {
+                    product:prod._id,
+                    qty:req.body.qty
+                }
+                user.cart.items.push(cartItem);
             }
             let totalPrice = user.cart.totalPrice + parseFloat(prod.price);
             totalPrice = totalPrice.toFixed(2);
 
-            user.cart.items.push(cartItem);
             user.cart.totalPrice = totalPrice;
             user.save()
             .then(result=>{

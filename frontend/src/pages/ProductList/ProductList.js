@@ -15,7 +15,7 @@ class ProductsList extends Component{
         addProduct:false,
         loading:true
     }
-    getProducts=async()=>{
+    getProducts=async(e)=>{
         const res = await fetch('http://localhost:8080/products', {
             headers:{
                 "Authorization": localStorage.getItem('authToken')
@@ -24,7 +24,7 @@ class ProductsList extends Component{
         const data = await res.json();
         const productsArray = data.map(prod=>{
             return <ProductItem
-            addToCart={()=>{this.addToCart(prod._id)}}
+            addToCart={(e)=>{this.addToCart(e, prod._id)}}
             getSingleProduct={this.getSingleProduct}
             name={prod.name}
             price={prod.price}
@@ -40,8 +40,9 @@ class ProductsList extends Component{
             loading:false
         })
     }
-    addToCart=async(prodId)=>{
-        console.log(prodId)
+    addToCart=async(e, prodId)=>{
+        console.log(this);
+        e.target.setAttribute('loading', true);
         const formData = new FormData();
         formData.append('userId', localStorage.getItem('userId'));
         formData.append('qty', 1);
