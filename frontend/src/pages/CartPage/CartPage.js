@@ -1,5 +1,6 @@
 import React from 'react';
 import Cart from '../../components/Cart/Cart';
+import Button from '../../components/Button/Button';
 
 const CartPage =()=>{
     return(
@@ -8,9 +9,10 @@ const CartPage =()=>{
                 <p>Item</p>
                 <p>Price</p>
                 <p>Quantity</p>
-                <p>Total</p>
+                <p>Item total</p>
             </div>
             <Cart />
+            <Button type='primary' label='Checkout'/>
         </div>
     )
 };

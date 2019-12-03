@@ -81,12 +81,12 @@ class Nav extends Component{
                         <NavLink
                             link="/products/add-product"
                             label={<Icon type="plus" />}/>
-                        
+
                         {!this.props.isLogged && <NavToggler
                             click={()=>{this.props.toggleLoginModal(true)}}
                             label={<Icon type="user" />}/>}
                         {this.props.isLogged && <NavToggler
-                            click={()=>{this.props.toggleCartSidebar(true)}}
+                            click={this.props.toggleCartSidebar}
                             label={<Icon type="cart" />}/>}
                         {this.props.isLogged && <Dropdown dropdownLabel={<Icon type='user'/>} dropdownOptions={[
                             {

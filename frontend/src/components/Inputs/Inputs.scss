@@ -169,3 +169,38 @@ label{
         min-height: 150px;
     }
 }
+.qty-input{
+    margin: auto;
+    border: 1px solid #ddd;
+    width: 50px;
+    display: flex;
+    overflow: hidden;
+    border-radius: 4px;
+    input{
+        font-size: 1.2em;
+        width: 30px;
+        text-align: center;
+        appearance: none;
+        border: none;
+        -moz-appearance: textfield;
+        &::-webkit-inner-spin-button,
+        &::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+    }
+    .buttons{
+        display: flex;
+        flex-direction: column;
+        button{
+            width: 20px;
+            cursor: pointer;
+            margin: 0;
+            padding: 0;
+            background-color: $color1;
+            border: none;
+            color: #fff;
+            padding: 0 5px;
+        }
+    }
+}

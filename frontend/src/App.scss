@@ -10,6 +10,14 @@
 html{
     overflow-x: hidden;
 }
+.App{
+  display: flex;
+  justify-content: space-between;
+  .content{
+    position: relative;
+    width: 100%;
+  }
+}
 .pages{
     >div{
         position: relative;

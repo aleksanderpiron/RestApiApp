@@ -1,10 +1,12 @@
 nav{
     z-index: 9;
     max-width: 1330px;
-    position: fixed;
+    position: absolute;
+    box-sizing: border-box;
     margin: auto;
     padding: 0 20px;
     top: 20px;
+    width: 100%;
     left: 0;
     right: 0;
     transition: 300ms;

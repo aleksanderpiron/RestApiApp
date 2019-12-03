@@ -1,8 +1,14 @@
 .cart-page{
+    padding-bottom: 100px!important;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
     .cart-header{
         background-color: #ededed;
         display: flex;
+        box-sizing: border-box;
         padding: 0 10px;
+        width: 100%;
         >p{
             padding: 10px;
             text-align: center;
@@ -16,16 +22,20 @@
             }
         }
     }
+    .cart{
+        width: 100%;
+    }
     .cart-item{
+        position: relative;
         box-sizing: border-box;
+        width: 100%;
         display: flex;
         align-items: center;
-        width: 100%;
         padding: 10px;
-        &:not(:last-child){
+        &:not(:last-of-type){
             border-bottom: 1px solid #ccc;
         }
-        >div{
+        .first{
             display: flex;
             box-sizing: border-box;
             &:first-child{
@@ -40,7 +50,7 @@
                 }
             }
         }
-        p, a{
+        p, a, .qty{
             box-sizing: border-box;
             width: 20%;
             text-align: center;
@@ -51,6 +61,77 @@
                 padding-left: 20px;
                 text-align: left;
                 font-size: 1.5em;
+            }
+        }
+        .remove{
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            cursor: pointer;
+            width: 15px;
+            height: 15px;
+            border: 1px solid #ccc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            background-image: url('../../assets/close.svg');
+            background-position: center;
+            background-size: 7px;
+            background-repeat: no-repeat;
+        }
+    }
+    .total-box{
+        text-align: right;
+        border-top: 2px solid $color1;
+        padding: 30px 10px 10px 10px;
+        margin-top: 10px;
+        p{
+            padding: 2px 5px;
+            font-weight: 700;
+            font-size: 1em;
+            &:last-child{
+                font-size: 1.4em;
+            }
+        }
+    }
+    .btn{
+        margin-right: 10px;
+    }
+}
+
+.cart-sidebar{
+    background-color: $color1;
+    height: 100vh;
+    width: 300px;
+    box-sizing: border-box;
+    overflow: hidden;
+    padding: 20px;
+    transition: 300ms;
+    &.cart-sidebar-enter{
+        max-width: 0;
+        padding: 20px 0;
+    }
+    &.cart-sidebar-enter-active{
+        max-width: 300px;
+        padding: 20px;
+    }
+    &.cart-sidebar-leave{
+        max-width: 300px;
+        padding: 20px;
+    }
+    &.cart-sidebar-leave-active{
+        max-width: 0;
+        padding: 20px 0;
+    }
+    .cart-item{
+        display: flex;
+        height: 100px;
+        .first{
+            .img{
+                img{
+                    max-height: 100px;
+                }
             }
         }
     }
