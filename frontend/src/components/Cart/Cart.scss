@@ -3,6 +3,7 @@
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+    box-sizing: border-box;
     .cart-header{
         background-color: #ededed;
         display: flex;
@@ -38,7 +39,7 @@
         .first{
             display: flex;
             box-sizing: border-box;
-            &:first-child{
+            &:first-child{  
                 width: 40%;
                 display: flex;
                 align-items: center;
@@ -100,38 +101,65 @@
     }
 }
 
-.cart-sidebar{
-    background-color: $color1;
-    height: 100vh;
-    width: 300px;
-    box-sizing: border-box;
-    overflow: hidden;
-    padding: 20px;
+.cart-sidebar-bg{
+    position: fixed;
+    background-color: #00000070;
+    width: 100%;
+    height: 100%;
+    right: 0;
+    z-index: 10;
+    top: 0;
+    display: flex;
+    justify-content: flex-end;
     transition: 300ms;
     &.cart-sidebar-enter{
-        max-width: 0;
-        padding: 20px 0;
+        opacity: 0;
+        .cart-sidebar-body{
+            max-width: 0;
+            padding: 20px 0;
+        }
     }
     &.cart-sidebar-enter-active{
-        max-width: 300px;
-        padding: 20px;
+        opacity: 1;
+        .cart-sidebar-body{
+            max-width: 300px;
+            padding: 20px;
+        }
     }
     &.cart-sidebar-leave{
-        max-width: 300px;
-        padding: 20px;
+        opacity: 1;
+        .cart-sidebar-body{
+            max-width: 300px;
+            padding: 20px;
+        }
     }
     &.cart-sidebar-leave-active{
-        max-width: 0;
-        padding: 20px 0;
+        opacity: 0;
+        .cart-sidebar-body{
+            max-width: 0;
+            padding: 20px 0;
+        }
     }
-    .cart-item{
-        display: flex;
-        height: 100px;
-        .first{
+    .cart-sidebar-body{
+        background-color: $color1;
+        height: 100vh;
+        width: 300px;
+        box-sizing: border-box;
+        overflow: hidden;
+        padding: 20px;
+        transition: 300ms;
+        
+        .cart-item{
+            display: flex;
+            height: 100px;
             .img{
                 img{
-                    max-height: 100px;
+                    max-height: 50px;
+                    max-width: 50px;
                 }
+            }
+            .text{
+                
             }
         }
     }

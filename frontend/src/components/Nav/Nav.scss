@@ -1,7 +1,7 @@
 nav{
     z-index: 9;
     max-width: 1330px;
-    position: absolute;
+    position: fixed;
     box-sizing: border-box;
     margin: auto;
     padding: 0 20px;
@@ -65,6 +65,9 @@ nav{
             }
             &.active{
                 color: $color2;
+                svg path{
+                    fill: $color2;
+                }
             }
             &:hover{
                 color: $color2;
@@ -85,6 +88,11 @@ nav{
     .dropdown{
         z-index: 2;
         &:hover{
+            .dropdown-label{
+                svg path{
+                    fill: $color2;
+                }
+            }
             .dropdown-body{
                 max-height: 120px;
                 padding: 0;

@@ -14,7 +14,7 @@ import CartSidebar from './components/Cart/CartSidebar';
 class App extends Component {
   state={
     loginModalShowed:false,
-    cartSidebarShowed:true,
+    cartSidebarShowed:false,
     isLogged:false,
   }
   toggleLoginModal=(setTo)=>{
@@ -51,8 +51,7 @@ class App extends Component {
     return (
       <BrowserRouter>
         <div className="App">
-          <div className='content'>
-            <Nav logout={this.logoutHandler} isLogged={this.state.isLogged} toggleLoginModal= {this.toggleLoginModal} toggleCartSidebar={this.toggleCartSidebar}/>
+            <Nav cartSidebarShowed={this.state.cartSidebarShowed} logout={this.logoutHandler} isLogged={this.state.isLogged} toggleLoginModal= {this.toggleLoginModal} toggleCartSidebar={this.toggleCartSidebar}/>
             <ReactCSSTransitionGroup component="div" transitionEnterTimeout={400}   transitionLeaveTimeout={400} transitionName="modal-show">
               {this.state.loginModalShowed && !this.state.isLogged && <LoginModal login=  {this.checkIfLogged} pushNotif={this.pushNotif} toggleLoginModal={this.toggleLoginModal}  />}
             </ReactCSSTransitionGroup>
@@ -66,7 +65,6 @@ class App extends Component {
               </Switch>
             </ReactCSSTransitionGroup>
             <Notif ref='notif'/>
-          </div>
           <ReactCSSTransitionGroup component="div" transitionEnterTimeout={400}   transitionLeaveTimeout={400} transitionName="cart-sidebar">
             {this.state.isLogged && this.state.cartSidebarShowed && <CartSidebar />}
           </ReactCSSTransitionGroup>
