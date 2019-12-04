@@ -69,7 +69,6 @@ class LoginForm extends Component{
                 const expiryDate = new Date(
                     new Date().getTime() + remainingMilliseconds
                 );
-                console.log(data);
                 localStorage.setItem('authToken', data.token);
                 localStorage.setItem('tokenExpirationDate', expiryDate.toISOString());
                 localStorage.setItem('userId', data.userId);

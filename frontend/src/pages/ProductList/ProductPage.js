@@ -17,7 +17,7 @@ class ProductPage extends Component{
             loading:false
         })
     }
-    componentWillMount=()=>[
+    UNSAFE_componentWillMount=()=>[
         this.getSingleProduct(this.props.productId)
     ]
     render(){

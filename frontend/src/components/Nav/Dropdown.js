@@ -4,10 +4,13 @@ import './Nav.css';
 const Dropdown =(props)=>{
     const dropdownOptions = props.dropdownOptions.map((option, index)=>{
         if(option.type === 'link'){
-            return <a key={`dropdownItem_${index}`} href={option.href}>{option.label}</a>
+            return <button key={`dropdownItem_${index}`} href={option.href}>{option.label}</button>
         }
-        if(option.type === 'click'){
-            return <a key={`dropdownItem_${index}`} onClick={option.click}>{option.label}</a>
+        else if(option.type === 'click'){
+            return <button key={`dropdownItem_${index}`} onClick={option.click}>{option.label}</button>
+        }
+        else{
+            return false
         }
     });
     return(

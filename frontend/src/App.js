@@ -48,7 +48,7 @@ class App extends Component {
         <div className="App">
             <Nav cartSidebarShowed={this.state.cartSidebarShowed} logout={this.logoutHandler} isLogged={this.state.isLogged} toggleState={this.toggleState}/>
             <ReactCSSTransitionGroup component="div" transitionEnterTimeout={400}   transitionLeaveTimeout={400} transitionName="modal-show">
-              {this.state.loginModalShowed && !this.state.isLogged && <LoginModal login=  {this.checkIfLogged} pushNotif={this.pushNotif} toggleLoginModal={this.toggleLoginModal}  />}
+              {this.state.loginModalShowed && !this.state.isLogged && <LoginModal login=  {this.checkIfLogged} pushNotif={this.pushNotif} toggleState={this.toggleState}  />}
             </ReactCSSTransitionGroup>
             <ReactCSSTransitionGroup component="div" className="pages" transitionEnterTimeout={400}   transitionLeaveTimeout={400} transitionName="page-switch">
               <Switch>

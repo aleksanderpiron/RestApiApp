@@ -26,8 +26,14 @@ class Cart extends Component{
             body:formData
         });
         const data = await res.json();
-        const cartItems = data.cart.items.map(cartItem=>{
-            return <CartItem remove={this.removeFromCart} layout={this.props.layout} product={cartItem.product} id={cartItem._id} qty={cartItem.qty}/>
+        const cartItems = data.cart.items.map((cartItem, index)=>{
+            return <CartItem
+            key={`CartItem_${index}`}
+            remove={this.removeFromCart}
+            layout={this.props.layout}
+            product={cartItem.product}
+            id={cartItem._id}
+            qty={cartItem.qty}/>
         })
         this.setState({
             cartItems:cartItems,
@@ -50,13 +56,12 @@ class Cart extends Component{
             },
             body:formData
         });
-        // const data = await res.json();
         if(res.status === 200){
             this.getCart();
         }
         console.log(res)
     }
-    componentWillMount=()=>{
+    UNSAFE_componentWillMount=()=>{
         this.getCart();
     }
     render(){

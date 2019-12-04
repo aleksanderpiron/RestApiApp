@@ -28,14 +28,14 @@ const ProductItem =(props)=>{
                     <div className="settings-box">
                         <div className="trigger"><Icon type='gear'/></div>
                         <div className="body">
-                            <a onClick={(e)=>{toggleDeletingMask(e, true)}}><Icon type='delete'/></a>
+                            <button onClick={(e)=>{toggleDeletingMask(e, true)}}><Icon type='delete'/></button>
                             <Link to={`/products/edit-product/${props.id}`}><Icon type='edit'/></Link>
                         </div>
                     </div>
                 }
             </div>
             <div className={props.imageUrl === null?'img default':'img'}>
-                {props.imageUrl === null?<Icon type='picture'/>: <img src={props.imageUrl} />}
+                {props.imageUrl === null?<Icon type='picture'/>: <img src={props.imageUrl} alt=''/>}
             </div>
             <div className="desc">
                 <p>{props.description.length>130?`${props.description.substring(0, 127)}...`:props.description}</p>

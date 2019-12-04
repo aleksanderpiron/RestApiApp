@@ -77,7 +77,9 @@ const InputValidateHandler = (e, oldState) =>{
         let updatedallInputsCorrect = true;
         Object.values(newInputs).map(val=>{
             if(!val.correct){
-                updatedallInputsCorrect = false;
+                return updatedallInputsCorrect = false;
+            }else{
+                return false;
             }
         })
         newState.allInputsCorrect = updatedallInputsCorrect;

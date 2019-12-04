@@ -137,7 +137,9 @@ nav{
             &.active{
                 top: 50px;
             }
-            a{
+            button{
+                background-color: transparent;
+                border: none;
                 display: block;
                 text-align: right;
                 color: $color2;
@@ -146,6 +148,10 @@ nav{
                 padding: 10px!important;
                 margin: 0;
                 height: auto;
+                width: 100%;
+                transition: 300ms;
+                font-weight: 700;
+                cursor: pointer;
                 &:hover{
                     background-color: #eee;
                 }

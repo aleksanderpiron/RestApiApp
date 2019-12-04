@@ -2,7 +2,7 @@ import React from 'react';
 
 const NavLink =(props)=>{
     return(
-        <a
+        <button
             className={props.active&&'active'}
             onClick={props.click}
             to={props.link}
@@ -10,7 +10,7 @@ const NavLink =(props)=>{
             onMouseOut={props.hover}
             >
             {props.label}
-        </a>
+        </button>
     );
 }
 

@@ -43,7 +43,7 @@ class Nav extends Component{
             underlineStyles: newUnderlineStyles
         })
     }
-    componentWillMount(){
+    UNSAFE_componentWillMount(){
         this.setState({
             currentPage:this.props.location.pathname
         })

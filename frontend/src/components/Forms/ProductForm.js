@@ -157,7 +157,7 @@ class ProductForm extends Component{
             this.props.pushNotif('error','Invaid provided data and product editing failed! Please try again with correct data', 5000);
         }
     }
-    componentWillMount=()=>{
+    UNSAFE_componentWillMount=()=>{
         if(this.props.edit){
             this.getProductData();
         }

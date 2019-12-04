@@ -22,8 +22,9 @@ class ProductsList extends Component{
             }
         });
         const data = await res.json();
-        const productsArray = data.map(prod=>{
+        const productsArray = data.map((prod, index)=>{
             return <ProductItem
+            key={`ProductItem_${index}`}
             addToCart={(e)=>{this.addToCart(e, prod._id)}}
             getSingleProduct={this.getSingleProduct}
             name={prod.name}
@@ -77,10 +78,10 @@ class ProductsList extends Component{
             showSingleProduct:false
         })
     }
-    componentWillMount=()=>{
+    UNSAFE_componentWillMount=()=>{
         this.getProducts();
     }
-    componentWillReceiveProps=()=>{
+    UNSAFE_componentWillReceiveProps=()=>{
         this.getProducts();
     }
     render(){
