@@ -39,7 +39,7 @@
         .first{
             display: flex;
             box-sizing: border-box;
-            &:first-child{  
+            &:first-child{
                 width: 40%;
                 display: flex;
                 align-items: center;
@@ -101,65 +101,161 @@
     }
 }
 
-.cart-sidebar-bg{
+.cart-widget-bg{
     position: fixed;
-    background-color: #00000070;
-    width: 100%;
-    height: 100%;
+    left: 0;
     right: 0;
-    z-index: 10;
-    top: 0;
+    margin: auto;
+    max-width: 1330px;
+    z-index: 9;
+    padding: 0 20px;
+    bottom: 0;
     display: flex;
     justify-content: flex-end;
     transition: 300ms;
-    &.cart-sidebar-enter{
+    &.cart-widget-enter{
         opacity: 0;
-        .cart-sidebar-body{
+        .cart-widget-body{
             max-width: 0;
             padding: 20px 0;
         }
     }
-    &.cart-sidebar-enter-active{
+    &.cart-widget-enter-active{
         opacity: 1;
-        .cart-sidebar-body{
+        .cart-widget-body{
             max-width: 300px;
             padding: 20px;
         }
     }
-    &.cart-sidebar-leave{
+    &.cart-widget-leave{
         opacity: 1;
-        .cart-sidebar-body{
+        .cart-widget-body{
             max-width: 300px;
             padding: 20px;
         }
     }
-    &.cart-sidebar-leave-active{
+    &.cart-widget-leave-active{
         opacity: 0;
-        .cart-sidebar-body{
+        .cart-widget-body{
             max-width: 0;
             padding: 20px 0;
         }
     }
-    .cart-sidebar-body{
+    .cart-widget-body{
         background-color: $color1;
-        height: 100vh;
-        width: 300px;
+        height: auto;
+        width: 250px;
         box-sizing: border-box;
         overflow: hidden;
-        padding: 20px;
+        padding: 0;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
         transition: 300ms;
-        
+        &:hover, &.active{
+            .top{
+                background-color: $btn1_hover;
+                p{
+                    color: $color2;
+                }
+                .icon svg path{
+                    fill: $color2;
+                }
+            }
+            .bottom{
+                max-height: 500px;
+                .cart-items{
+                    padding: 10px 20px 20px;
+                }
+            }
+        }
+        .top{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: 300ms;
+            span{
+                display: flex;
+                align-items: center;
+                .icon{
+                    padding-right: 5px;
+                    svg{
+                        width: 20px;
+                        height: 20px;
+                        path{
+                            transition: 300ms;
+                        }
+                    }
+                }
+            }
+            p{
+                color: #fff;
+                transition: 300ms;
+                font-weight: 700;
+                font-size: 1.5em;
+            }
+        }
+        .bottom{
+            max-height: 0;
+            overflow: hidden;
+            transition: 500ms;
+            .loader{
+                width: 8em;
+                height: 8em;
+                background: linear-gradient(to right, $color2 10%,rgba(255,255,255,0) 42%);
+                &::before{
+                    background: $color2;
+                }
+                &::after{
+                    background: $color1;
+                }
+            }
+        }
+        .cart-items{
+            transition: 500ms;
+            padding: 0 20px 0 20px;
+            button{
+                margin-bottom: 10px;
+            }
+        }
         .cart-item{
             display: flex;
-            height: 100px;
+            height: 75px;
+            position: relative;
+            &:not(:last-child){
+                margin-bottom: 10px;
+            }
             .img{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                background-color: #fff;
                 img{
-                    max-height: 50px;
-                    max-width: 50px;
+                    max-height: 75px;
+                    max-width: 75px;
                 }
             }
             .text{
-                
+                padding:5px 10px;
+                p, a{
+                    color: $color2;
+                }
+                .name{
+                    font-size: 1.2em;
+                    padding-bottom: 5px;
+                    display: block;
+                    font-weight: 700;
+                    text-decoration:none;
+                }
+                .remove{
+                    font-size: .8em;
+                    font-weight: 700;
+                    cursor: pointer;
+                    position: absolute;
+                    right: 0;
+                    bottom: 0;
+                }
             }
         }
     }

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Input from '../Inputs/Input';
 import Icon from '../Icon/Icon';
 import Button from '../Button/Button';
-import Spinner from '../Spinner/Spinner';
 import InputValidateHandler from './InputValidateHandler';
 import ErrorViewHandler from './ErrorViewHandler';
 import './Form.css';

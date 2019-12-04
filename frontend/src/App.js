@@ -14,17 +14,12 @@ import CartSidebar from './components/Cart/CartSidebar';
 class App extends Component {
   state={
     loginModalShowed:false,
-    cartSidebarShowed:false,
+    cartSidebarShowed:true,
     isLogged:false,
   }
-  toggleLoginModal=(setTo)=>{
+  toggleState=(set, to)=>{
     this.setState({
-      loginModalShowed:setTo
-    })
-  }
-  toggleCartSidebar=()=>{
-    this.setState(prevState=>{
-      return {cartSidebarShowed:!prevState.cartSidebarShowed}
+      [set]:to
     })
   }
   pushNotif=(type, message, lifeTime)=>{
@@ -44,14 +39,14 @@ class App extends Component {
     this.pushNotif('info','You have logged out',5000);
     this.checkIfLogged();
   }
-  componentWillMount=()=>{
+  UNSAFE_componentWillMount=()=>{
     this.checkIfLogged();
   }
   render(){
     return (
       <BrowserRouter>
         <div className="App">
-            <Nav cartSidebarShowed={this.state.cartSidebarShowed} logout={this.logoutHandler} isLogged={this.state.isLogged} toggleLoginModal= {this.toggleLoginModal} toggleCartSidebar={this.toggleCartSidebar}/>
+            <Nav cartSidebarShowed={this.state.cartSidebarShowed} logout={this.logoutHandler} isLogged={this.state.isLogged} toggleState={this.toggleState}/>
             <ReactCSSTransitionGroup component="div" transitionEnterTimeout={400}   transitionLeaveTimeout={400} transitionName="modal-show">
               {this.state.loginModalShowed && !this.state.isLogged && <LoginModal login=  {this.checkIfLogged} pushNotif={this.pushNotif} toggleLoginModal={this.toggleLoginModal}  />}
             </ReactCSSTransitionGroup>
@@ -66,7 +61,7 @@ class App extends Component {
             </ReactCSSTransitionGroup>
             <Notif ref='notif'/>
           <ReactCSSTransitionGroup component="div" transitionEnterTimeout={400}   transitionLeaveTimeout={400} transitionName="cart-sidebar">
-            {this.state.isLogged && this.state.cartSidebarShowed && <CartSidebar />}
+            {this.state.isLogged && this.state.cartSidebarShowed && <CartSidebar toggleState={this.toggleState}/>}
           </ReactCSSTransitionGroup>
         </div>
       </BrowserRouter>

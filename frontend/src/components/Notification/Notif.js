@@ -35,7 +35,7 @@ class Notif extends Component{
         })
         return(
             <>
-                <ReactCSSTransitionGroup className="notif-box" timeout={400} transitionName="notif">
+                <ReactCSSTransitionGroup className="notif-box" transitionEnterTimeout={400}   transitionLeaveTimeout={400} transitionName="notif">
                     {notifs}
                 </ReactCSSTransitionGroup>
             </>

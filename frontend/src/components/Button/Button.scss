@@ -36,6 +36,13 @@
             background-color: $btn1_hover;
         }
     }
+    &.secondary{
+        background-color: $btn2;
+        color: #fff;
+        &:hover{
+            background-color: $btn2_hover;
+        }
+    }
     &.danger{
         background-color: $btn_danger;
         color: #fff;

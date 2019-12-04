@@ -1,20 +1,22 @@
 import React, {Component} from 'react';
 import CartItem from './CartItem';
+import Icon from '../Icon/Icon';
 import Spinner from '../Spinner/Spinner';
-import './Cart.css'
+import Button from '../Button/Button';
+import './Cart.css';
 
 class Cart extends Component{
     state={
         cartItems:[],
         totalPrice:0,
-        loading:false
+        loading:true
     }
     getCart=async()=>{
         this.setState({
             loading:true
         })
         const userId = localStorage.getItem('userId');
-        const formData = new FormData;
+        const formData = new FormData();
         formData.append('userId', userId);
         const res = await fetch('//localhost:8080/cart', {
             method:'POST',
@@ -25,7 +27,7 @@ class Cart extends Component{
         });
         const data = await res.json();
         const cartItems = data.cart.items.map(cartItem=>{
-            return <CartItem remove={this.removeFromCart} type={this.props.type} product={cartItem.product} id={cartItem._id} qty={cartItem.qty}/>
+            return <CartItem remove={this.removeFromCart} layout={this.props.layout} product={cartItem.product} id={cartItem._id} qty={cartItem.qty}/>
         })
         this.setState({
             cartItems:cartItems,
@@ -38,7 +40,7 @@ class Cart extends Component{
             loading:true
         })
         const userId = localStorage.getItem('userId');
-        const formData = new FormData;
+        const formData = new FormData();
         formData.append('prodId', prodId);
         formData.append('userId', userId);
         const res = await fetch('//localhost:8080/cart', {
@@ -58,18 +60,45 @@ class Cart extends Component{
         this.getCart();
     }
     render(){
+        let cartBody =
+        <>
+            {this.state.loading?<Spinner/>:
+            <>
+                <div className="cart-items">
+                    {this.state.cartItems}
+                </div>
+                <div className='total-box'>
+                    <p>Total: {this.state.totalPrice} zł</p>
+                </div>
+            </>}
+        </>;
+        if(this.props.layout==='widget'){
+            cartBody=
+            <div className="cart-widget-body">
+                <div className="top">
+                    <span>
+                        <Icon type='cart'/>
+                        <p>Cart</p>
+                    </span>
+                    <p>{this.state.loading?'':`${this.state.totalPrice} zł`}</p>
+                </div>
+                <div className="bottom">
+                    <div className="cart-items">
+                            <Button disabled={this.state.loading} type='secondary' full label='Proceed to checkout'/>
+                            {this.state.loading?<Spinner/>:
+                                <>
+                                    {this.state.cartItems}
+                                </>
+                            }
+                    </div>
+                </div>
+            </div>
+        }
         return(
             <div className="cart">
-                {this.state.loading?<Spinner/>:
-                    <>
-                        <div className="cart-items">
-                            {this.state.cartItems}
-                        </div>
-                        <div className='total-box'>
-                            <p>Total: {this.state.totalPrice} zł</p>
-                        </div>
-                    </>
-                }
+                <>
+                    {cartBody}
+                </>
             </div>
         )
     }

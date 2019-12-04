@@ -82,11 +82,11 @@ class Nav extends Component{
                             link="/products/add-product"
                             label={<Icon type="plus" />}/>
                         {!this.props.isLogged && <NavToggler
-                            click={()=>{this.props.toggleLoginModal(true)}}
+                            click={()=>{this.props.toggleState('loginModalShowed', true)}}
                             label={<Icon type="user" />}/>}
-                        {this.props.isLogged && <NavToggler
-                            active={this.props.cartSidebarShowed}
-                            click={this.props.toggleCartSidebar}
+                        {this.props.isLogged && <NavLink
+                            currentPage={this.state.currentPage}
+                            link="/cart"
                             label={<Icon type="cart" />}/>}
                         {this.props.isLogged && <Dropdown dropdownLabel={<Icon type='user'/>} dropdownOptions={[
                             {
