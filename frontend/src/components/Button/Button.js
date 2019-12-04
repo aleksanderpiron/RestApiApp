@@ -26,8 +26,11 @@ const Button =(props)=>{
         e.preventDefault()
         return false;
     }
+    const changeHandler=()=>{
+        console.log('hello')
+    }
     return(
-        <button className={classes} type={props.submit && 'submit'} onClick={!props.disabled?props.click:onClickPlaceholder}>
+        <button onChange={changeHandler} className={classes} type={props.submit && 'submit'} onClick={!props.disabled?props.click:onClickPlaceholder}>
             {props.loading?<Spinner type='dots'/>:props.label}
         </button>
     )

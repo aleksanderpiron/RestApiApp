@@ -12,6 +12,11 @@ const ProductItem =(props)=>{
             target.classList.remove('deleting');
         }
     }
+    let loading = false;
+
+    const toggleLoading=()=>{
+        loading = !loading;
+    }
     const userId = localStorage.getItem('userId');
     return(
         <div key={props.id} className={'product-item'}>
@@ -42,7 +47,16 @@ const ProductItem =(props)=>{
                 <p className="price">{props.price} zł</p>
             </div>
             <div className="bottom">
-                <Button click={props.addToCart} disabled={userId===null?true:false} full type="primary" label="Add to cart"/>
+                <Button
+                click={()=>{
+                    props.addToCart();
+                    toggleLoading();
+                }}
+                loading={loading}
+                disabled={userId===null?true:false}
+                full
+                type="primary"
+                label="Add to cart"/>
             </div>
         </div>
     )

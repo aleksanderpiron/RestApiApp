@@ -13,7 +13,8 @@ class ProductsList extends Component{
         singleProduct:null,
         showSingleProduct:false,
         addProduct:false,
-        loading:true
+        loading:true,
+        itemLoading:false,
     }
     getProducts=async(e)=>{
         const res = await fetch('http://localhost:8080/products', {
@@ -42,20 +43,20 @@ class ProductsList extends Component{
         })
     }
     addToCart=async(e, prodId)=>{
-        console.log(this);
-        e.target.setAttribute('loading', true);
         const formData = new FormData();
         formData.append('userId', localStorage.getItem('userId'));
         formData.append('qty', 1);
         formData.append('prodId', prodId);
-        const res = await fetch('http://localhost:8080/add-to-cart', {
-            headers:{
-                "Authorization": localStorage.getItem('authToken')
-            },
-            method:'POST',
-            body:formData
-        });
-        console.log(res);
+        // const res = await fetch('http://localhost:8080/add-to-cart', {
+        //     headers:{
+        //         "Authorization": localStorage.getItem('authToken')
+        //     },
+        //     method:'POST',
+        //     body:formData
+        // });
+        // if(res.status === 200){
+
+        // }
     }
     deleteProduct=async(id)=>{
         const formData = new FormData();
