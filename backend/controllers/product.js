@@ -1,7 +1,7 @@
 const Product = require('../models/Product');
 const mongoose = require('mongoose');
 
-exports.getProducts = (req, res)=>{
+exports.getProducts = (req, res, next)=>{
     Product.find()
     .then(products=>{
         res.status(200).json(products);
@@ -55,7 +55,6 @@ exports.postAddProduct = (req, res)=>{
         })
     })
     .catch(err=>{
-            console.log(err);
             res.status(400).json({
                 message:'Wrong data provided'
             })

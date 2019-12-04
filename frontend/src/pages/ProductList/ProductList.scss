@@ -71,13 +71,20 @@
             border-radius: 30px;
             background-color: #eee;
             transition: 300ms;
+            button{
+                position: relative;
+                border: none;
+                cursor: pointer;
+            }
             &:hover{
-                width: 75px;
+                width: 70px;
                 .trigger svg{
                     transform: rotate(45deg);
                 }
-                .body a{
-                    opacity: 1;
+                .body{
+                    a, button{
+                        opacity: 1;
+                    }
                 }
             }
             .trigger{

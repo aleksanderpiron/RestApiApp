@@ -13,7 +13,6 @@ const ProductItem =(props)=>{
         }
     }
     let loading = false;
-
     const toggleLoading=()=>{
         loading = !loading;
     }

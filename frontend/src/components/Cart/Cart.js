@@ -59,7 +59,9 @@ class Cart extends Component{
         if(res.status === 200){
             this.getCart();
         }
-        console.log(res)
+    }
+    UNSAFE_componentWillReceiveProps=()=>{
+        this.getCart();
     }
     UNSAFE_componentWillMount=()=>{
         this.getCart();
@@ -85,11 +87,11 @@ class Cart extends Component{
                         <Icon type='cart'/>
                         <p>Cart</p>
                     </span>
-                    <p>{this.state.loading?'':`${this.state.totalPrice} zł`}</p>
+                    <p>{this.state.loading?'---':this.state.totalPrice>0?`${this.state.totalPrice} zł`:'Empty'}</p>
                 </div>
                 <div className="bottom">
                     <div className="cart-items">
-                            <Button disabled={this.state.loading} type='secondary' full label='Proceed to checkout'/>
+                            <Button disabled={this.state.loading || this.state.totalPrice===0} type='secondary' full label='Proceed to checkout'/>
                             {this.state.loading?<Spinner/>:
                                 <>
                                     {this.state.cartItems}

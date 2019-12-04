@@ -26,7 +26,7 @@ class ProductsList extends Component{
         const productsArray = data.map((prod, index)=>{
             return <ProductItem
             key={`ProductItem_${index}`}
-            addToCart={(e)=>{this.addToCart(e, prod._id)}}
+            addToCart={this.addToCart(prod._id)}
             getSingleProduct={this.getSingleProduct}
             name={prod.name}
             price={prod.price}
@@ -42,21 +42,21 @@ class ProductsList extends Component{
             loading:false
         })
     }
-    addToCart=async(e, prodId)=>{
+    addToCart=async(prodId)=>{
         const formData = new FormData();
         formData.append('userId', localStorage.getItem('userId'));
         formData.append('qty', 1);
         formData.append('prodId', prodId);
-        // const res = await fetch('http://localhost:8080/add-to-cart', {
-        //     headers:{
-        //         "Authorization": localStorage.getItem('authToken')
-        //     },
-        //     method:'POST',
-        //     body:formData
-        // });
-        // if(res.status === 200){
-
-        // }
+        const res = await fetch('http://localhost:8080/add-to-cart', {
+            headers:{
+                "Authorization": localStorage.getItem('authToken')
+            },
+            method:'POST',
+            body:formData
+        });
+        if(res.status === 200){
+            this.props.refreshCartWidget();
+        }
     }
     deleteProduct=async(id)=>{
         const formData = new FormData();
@@ -82,9 +82,9 @@ class ProductsList extends Component{
     UNSAFE_componentWillMount=()=>{
         this.getProducts();
     }
-    UNSAFE_componentWillReceiveProps=()=>{
-        this.getProducts();
-    }
+    // UNSAFE_componentWillReceiveProps=()=>{
+    //     this.getProducts();
+    // }
     render(){
         return(
             <div className="page">
