@@ -26,7 +26,7 @@ class ProductsList extends Component{
         const productsArray = data.map((prod, index)=>{
             return <ProductItem
             key={`ProductItem_${index}`}
-            addToCart={this.addToCart(prod._id)}
+            addToCart={()=>{this.addToCart(prod._id)}}
             getSingleProduct={this.getSingleProduct}
             name={prod.name}
             price={prod.price}
