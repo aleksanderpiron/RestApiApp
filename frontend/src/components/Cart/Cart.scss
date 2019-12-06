@@ -154,9 +154,9 @@
                 }
             }
             .bottom{
-                max-height: 300px;
+                max-height: 295px;
                 .cart-items{
-                    padding: 10px 15px 20px;
+                    padding: 10px 17px 20px 15px;
                 }
             }
         }
@@ -192,6 +192,21 @@
             max-height: 0;
             overflow: hidden;
             transition: 500ms;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            .cart-items{
+                transition: max-height 500ms, padding 300ms;
+                padding: 0 15px 0 15px;
+                width: calc(100% - 17px);
+                height: 100%;
+                box-sizing: content-box;
+                max-height: 240px;
+                overflow-y: scroll;
+                button{
+                    margin-bottom: 10px;
+                }
+            }
             .loader{
                 width: 8em;
                 height: 8em;
@@ -204,13 +219,7 @@
                 }
             }
         }
-        .cart-items{
-            transition: max-height 500ms, padding 300ms;
-            padding: 0 15px 0 15px;
-            button{
-                margin-bottom: 10px;
-            }
-        }
+        
         .cart-item{
             display: flex;
             height: 75px;

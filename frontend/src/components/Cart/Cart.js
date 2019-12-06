@@ -90,8 +90,8 @@ class Cart extends Component{
                     <p>{this.state.loading?'---':this.state.totalPrice>0?`${this.state.totalPrice} zł`:'Empty'}</p>
                 </div>
                 <div className="bottom">
+                    <Button disabled={this.state.loading || this.state.totalPrice===0} type='secondary' full label='Proceed to checkout'/>
                     <div className="cart-items">
-                            <Button disabled={this.state.loading || this.state.totalPrice===0} type='secondary' full label='Proceed to checkout'/>
                             {this.state.loading?<Spinner/>:
                                 <>
                                     {this.state.cartItems}
