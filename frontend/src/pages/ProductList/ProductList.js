@@ -3,7 +3,8 @@ import ProductItem from './ProductItem';
 import ProductPage from './ProductPage';
 import ProductForm from '../../components/Forms/ProductForm';
 import Spinner from '../../components/Spinner/Spinner';
-import {Route} from 'react-router-dom';
+import {Route, Switch} from 'react-router-dom';
+import posed, {PoseGroup} from 'react-pose';
 import ReactCSSTransitionGroup  from 'react-addons-css-transition-group';
 import './ProductList.css';
 
@@ -86,29 +87,44 @@ class ProductsList extends Component{
     //     this.getProducts();
     // }
     render(){
+        const RouteContainer = posed.div({
+            enter: {opacity: 1, delay: 0, beforeChildren: true, transition: { duration: 300, ease: 'easeIn' } },
+            exit: {opacity: 0, transition: { duration: 300 } }
+        });
+        const ProductListPosed = posed.div({
+            enter: {staggerChildren: 100},
+            exit: {}
+        })
+        const ProductListItem = posed.div({
+            enter: {opacity:1},
+            exit: {opacity: 0}
+        })
         return(
-            <div className="page">
+            <Route render={({location})=>(
+                <div className="page">
                 {this.state.loading && <Spinner />}
-                <ReactCSSTransitionGroup
-                component='div'
-                className='product-list'
-                transitionName='page-switch'
-                transitionEnterTimeout={400}
-                transitionLeaveTimeout={400}>
-                    <Route exact path="/products">
-                        {this.state.products}
-                    </Route>
-                    <Route exact path="/products/product/:productId" render={(props)=>
-                        <ProductPage productId={props.match.params.productId}/>
-                    }/>
-                    <Route exact path="/products/add-product/" render={()=>
-                        <ProductForm pushNotif={this.props.pushNotif}/>
-                    }/>
-                    <Route path="/products/edit-product/:productId" render={(props)=>
-                        <ProductForm pushNotif={this.props.pushNotif} edit productId={props.match.params.productId}/>
-                    }/>
-                </ReactCSSTransitionGroup>
+                <PoseGroup>
+                    <RouteContainer key={location.key}>
+                        <Switch location={location}>
+                            <Route key='ProductList' exact path="/products">
+                                <ProductListPosed pose='enter' className='product-list'>
+                                    {this.state.products}
+                                </ProductListPosed>
+                            </Route>
+                            <Route key='ProductPage' exact path="/products/product/:productId" render={(props)=>
+                                <ProductPage productId={props.match.params.productId}/>
+                            }/>
+                            <Route key='ProductFormAdd' exact path="/products/add-product/" render={()=>
+                                <ProductForm pushNotif={this.props.pushNotif}/>
+                            }/>
+                            <Route key='ProductFormEdit' path="/products/edit-product/:productId" render={(props)=>
+                                <ProductForm pushNotif={this.props.pushNotif} edit productId={props.match.params.productId}/>
+                            }/>
+                        </Switch>
+                    </RouteContainer>
+                </PoseGroup>
             </div>
+            )}/>
         )
     }
 }

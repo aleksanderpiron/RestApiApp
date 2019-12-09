@@ -29,23 +29,24 @@ html{
         transition: 400ms;
     }
 }
-.page-switch-enter {
-    opacity: 0;
-    transform: translateY(50px);
+// .page-switch-enter {
+//     opacity: 0;
+//     transform: scale(1.05);
+// }
+// .page-switch-enter-done {
+//   opacity: 1;
+//   transform: scale(1);
+// }
+// .page-switch-exit {
+//   display: none;
+// }
+// .page-switch-exit-done {
+// }
+.switch-wrapper {
+  position: relative;
 }
-.page-switch-enter-active {
-  opacity: 1;
-  transform: translateX(0);
-}
-.page-switch-leave {
-  transform: translateX(0);
-  opacity: 1;
-}
-.page-switch-leave-active {
-  max-height: 0;
-  overflow: hidden;
-  opacity: 0;
-  transform: translateY(50px);
+.switch-wrapper > div {
+  position: absolute;
 }
 .error-message{
   position: relative;

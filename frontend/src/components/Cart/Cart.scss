@@ -198,14 +198,19 @@
             .cart-items{
                 transition: max-height 500ms, padding 300ms;
                 padding: 0 15px 0 15px;
-                width: calc(100% - 17px);
+                width: calc(100% - 15px);
                 height: 100%;
                 box-sizing: content-box;
-                max-height: 240px;
+                max-height: 220px;
                 overflow-y: scroll;
                 button{
                     margin-bottom: 10px;
                 }
+            }
+            button{
+                width: calc(100% - 40px);
+                margin: 10px auto 5px;
+                display: block;
             }
             .loader{
                 width: 8em;
@@ -219,7 +224,6 @@
                 }
             }
         }
-        
         .cart-item{
             display: flex;
             height: 75px;

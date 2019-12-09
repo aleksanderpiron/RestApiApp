@@ -49,6 +49,8 @@
     .top{
         border-bottom: 1px solid #ccc;
         padding: 10px;
+        height: 46px;
+        box-sizing: border-box;
         position: relative;
         display: flex;
         align-items: center;
@@ -211,15 +213,23 @@
         width: 50%;
         align-self:flex-start;
         .return{
+            color: #000;
+            text-decoration: none;
             cursor: pointer;
             display: flex;
             align-items: center;
             margin-bottom: 30px;
+            &:hover{
+                svg{
+                    transform: translate(-5px, 2px);
+                }
+            }
             span{
                 font-weight: 700;
                 font-size: 1.1em;
             }
             svg{
+                transition: 300ms;
                 transform:translateY(2px);
                 margin-right: 7px;
                 width: 15px;

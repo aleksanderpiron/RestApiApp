@@ -16,15 +16,15 @@ class Nav extends Component{
             width:'0'
         }
     }
-    scrollHandle=(e)=>{
-        if(this.prev > window.scrollY && window.scrollY > 40){
-            this.setState({navShown:true})
-        }
-        else if(this.prev < window.scrollY && window.scrollY > 40){
-            this.setState({navShown:false})
-        }
-        this.prev = window.scrollY;
-    }
+    // scrollHandle=(e)=>{
+    //     if(this.prev > window.scrollY && window.scrollY > 40){
+    //         this.setState({navShown:true})
+    //     }
+    //     else if(this.prev < window.scrollY && window.scrollY > 40){
+    //         this.setState({navShown:false})
+    //     }
+    //     this.prev = window.scrollY;
+    // }
     calculateHandler=()=>{
         const activeNavEl = document.querySelector('nav .top a.active');
         let newUnderlineStyles;
@@ -49,8 +49,8 @@ class Nav extends Component{
         })
     }
     componentDidMount(){
-        this.prevScroll = window.scrollY;
-        window.addEventListener('scroll', (e)=>this.scrollHandle(e))
+        // this.prevScroll = window.scrollY;
+        // window.addEventListener('scroll', (e)=>this.scrollHandle(e))
         this.calculateHandler();
     }
     componentDidUpdate(prevProps, prevState) {

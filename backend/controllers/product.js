@@ -1,4 +1,6 @@
 const Product = require('../models/Product');
+const path = require('path');
+const fs = require('fs');
 const mongoose = require('mongoose');
 
 exports.getProducts = (req, res, next)=>{
@@ -74,6 +76,12 @@ exports.postEditProduct=(req, res)=>{
         prod.price = price;
         prod.description = description;
         if(req.file){
+            const oldImageUrl = path.join(__dirname, '../'+prod.imageUrl);
+            fs.unlink(oldImageUrl, err=>{
+                if(err){
+                    console.log(err);
+                }
+            });
             prod.imageUrl = '/images/'+req.file.filename;
         }
         prod.save()
@@ -104,6 +112,12 @@ exports.postDeleteProduct=(req, res)=>{
                 message:'Product not found'
             })
         }
+        const oldImageUrl = path.join(__dirname, '../'+prod.imageUrl);
+        fs.unlink(oldImageUrl, err=>{
+            if(err){
+                console.log(err);
+            }
+        });
         return res.status(200).json({
             message:'Product deleted successfuly'
         })
