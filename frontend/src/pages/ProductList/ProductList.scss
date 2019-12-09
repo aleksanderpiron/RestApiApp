@@ -212,29 +212,6 @@
         padding-left: 20px;
         width: 50%;
         align-self:flex-start;
-        .return{
-            color: #000;
-            text-decoration: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            margin-bottom: 30px;
-            &:hover{
-                svg{
-                    transform: translate(-5px, 2px);
-                }
-            }
-            span{
-                font-weight: 700;
-                font-size: 1.1em;
-            }
-            svg{
-                transition: 300ms;
-                transform:translateY(2px);
-                margin-right: 7px;
-                width: 15px;
-            }
-        }
         .name{
             font-weight: 700;
             font-size: 2em;
@@ -256,5 +233,28 @@
             bottom: 10px;
             right: 10px;
         }
+    }
+}
+.return{
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+    &:hover{
+        svg{
+            transform: translate(-5px, 2px);
+        }
+    }
+    span{
+        font-weight: 700;
+        font-size: 1.1em;
+    }
+    svg{
+        transition: 300ms;
+        transform:translateY(2px);
+        margin-right: 7px;
+        width: 15px;
     }
 }

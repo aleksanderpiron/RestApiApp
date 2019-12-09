@@ -30,12 +30,19 @@ const Input =(props)=>{
             e.preventDefault();
         }
     }
+    let fileText;
+    if(props.inputData.loadedFileText){
+        fileText = props.inputData.loadedFileText;
+        if(props.inputData.loadedFileText.length>30){
+            fileText = `${fileText.substring(0, 25)}...${fileText.substring(fileText.length - 10, fileText.length)}`;
+        }
+    }
     return(
         <label className={labelClass}>
             <span>{props.label}</span>
             <input onBlur={props.blur?(e)=>{props.blur(e); blurTargetCheck(e);}:null} onChange={props.change} type={props.type} value={props.type !=='file'?props.inputData.value:''} name={props.name}/>
             {props.type === 'password' && <Icon tabIndex='0' iconClass='password-show' type='eye' click={showPassword}/>}
-            {props.type==='file' && <p className={props.inputData.loadedFileClasses}>{props.inputData.loadedFileText}</p>}
+            {props.type==='file' && <p className={props.inputData.loadedFileClasses}>{fileText}</p>}
             {props.underline && <div className="underline"></div>}
             {<p className={props.inputData.errMsg!=='' && props.inputData.blured?'visible error-message':'error-message'}>{props.inputData.errMsg}</p> }
             {props.passwordConditionsCorrect && <PasswordConditions correct={props.passwordConditionsCorrect}/>}

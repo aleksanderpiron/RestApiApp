@@ -69,11 +69,11 @@ class Nav extends Component{
                 <div className='top'>
                     <div className="menu left">
                         <NavLink
-                            currentPage={this.state.currentPage}
+                            isActive={this.state.currentPage==='/'?true:false}
                             link="/"
                             label='Home'/>
                         <NavLink
-                            currentPage={this.state.currentPage}
+                            isActive={this.state.currentPage.includes('/products')?true:false}
                             link="/products"
                             label='Products'/>
                     </div>

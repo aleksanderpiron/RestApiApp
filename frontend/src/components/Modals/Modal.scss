@@ -13,13 +13,11 @@
     margin: auto;
     z-index: 9;
     .modal{
+        padding: 20px;
         transition: 300ms;
         position: relative;
         background-color: #fff;
         box-sizing: border-box;
-        height: 550px;
-        width: 95%;
-        max-width: 900px;
         border-radius: 10px;
         .close{
             z-index: 9;

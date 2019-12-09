@@ -1,15 +1,18 @@
 import React, {Component} from 'react';
 import Input from '../Inputs/Input';
+import Icon from '../Icon/Icon';
 import Textarea from '../Inputs/Textarea';
+import Modal from '../Modals/Modal';
 import Button from '../Button/Button';
 import Spinner from '../Spinner/Spinner';
 import InputValidateHandler from './InputValidateHandler';
-import { Redirect } from 'react-router-dom'
+import { Redirect, Link } from 'react-router-dom';
 import './Form.css';
 
 class ProductForm extends Component{
     state={
         loading:false,
+        deleting:true,
         inputs:{
             name:{
                 value:'',
@@ -168,13 +171,33 @@ class ProductForm extends Component{
                 {this.state.loading &&
                     <Spinner />
                 }
+                {this.state.deleting &&
+                    <Modal>
+                        <div>
+                            <p>Are you sure you want to delete this product?</p>
+                            <div className="buttons">
+                                <Button label='Delete' type='danger'/>
+                                <Button label='Cancel' type='secondary'/>
+                            </div>
+                        </div>
+                    </Modal>
+                }
                 {!this.state.loading && !this.state.thanks &&
                     <>
+                        <Link className="return" to='/products'><Icon type='arrow'/> <span>Return</span></Link>
                         <Input blur={this.blurHandler} inputData={this.state.inputs.name} change={this.textInputHandler} underline label='Name' type='text' name='name'/>
                         <Input blur={this.blurHandler} inputData={this.state.inputs.price} change={this.textInputHandler} underline label='Price' type='number' step='0.1' name='price'/>
                         <Input inputData={this.state.inputs.image} change={this.fileInputHandle} label='Image/Images' type='file' name='image' loadedFileClasses={this.state.loadedFileClasses} loadedFileText={this.state.loadedFileText}/>
                         <Textarea blur={this.blurHandler} inputData={this.state.inputs.description} change={this.textInputHandler} underline label='Description' name='description'/>
-                        <Button submit full type='primary' label={this.props.edit?'Edit product':'Add product'}/>
+                        <div className="buttons">
+                            {!this.props.edit && <Button full submit type='primary' label='Add product'/>}
+                            {this.props.edit && 
+                            <div className="buttons">
+                                <Button submit type='primary' label='Update'/>
+                                <Button type='danger' label={'Delete'}/>
+                            </div>
+                            }
+                        </div>
                     </>
                 }
                 {this.state.redirect && <Redirect to='/products'/>}

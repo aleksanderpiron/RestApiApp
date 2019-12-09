@@ -4,6 +4,9 @@
     transition: 300ms;
 }
 .form{
+    .return{
+        margin-bottom: 0;
+    }
     button{
         margin-top: 10px;
     }
@@ -22,6 +25,15 @@
             path{
                 fill: $correct;
             }
+        }
+    }
+    .buttons{
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        .btn:not(.full){
+            width: 48%;
         }
     }
 }

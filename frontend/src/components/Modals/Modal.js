@@ -8,8 +8,8 @@ const Modal=(props)=>{
         }
     }
     return(
-        <div onClick={backgroundCloseModal} className={"modal-bg "+props.modalClass}>
-            <div className="login-modal modal">
+        <div onClick={backgroundCloseModal} className={"modal-bg"}>
+            <div className={"modal "+props.modalClass}>
                 <Icon click={props.close} type="close" iconClass={"close "+props.crossClass} />
                 {props.children}
             </div>
