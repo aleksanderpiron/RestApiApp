@@ -41,22 +41,7 @@ class ProductsList extends Component{
             loading:false
         })
     }
-    addToCart=async(prodId)=>{
-        const formData = new FormData();
-        formData.append('userId', localStorage.getItem('userId'));
-        formData.append('qty', 1);
-        formData.append('prodId', prodId);
-        const res = await fetch('http://localhost:8080/add-to-cart', {
-            headers:{
-                "Authorization": localStorage.getItem('authToken')
-            },
-            method:'POST',
-            body:formData
-        });
-        if(res.status === 200){
-            this.props.refreshCartWidget();
-        }
-    }
+    
     deleteProduct=async(id)=>{
         const formData = new FormData();
         formData.append('id', id);

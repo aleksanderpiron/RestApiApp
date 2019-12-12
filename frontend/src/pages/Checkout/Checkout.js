@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import CartPage from './CartPage';
-import {Route, Switch} from 'react-router-dom'
 
 class Checkout extends Component{
     state={
-        step:'cart'
+        step:'cart',
+        
     }
-
+    
     render(){
         return(
             <div className='cart-page'>

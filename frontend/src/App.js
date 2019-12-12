@@ -15,9 +15,8 @@ class App extends Component {
   state={
     loginModalShowed:false,
     refreshCartWidget:false,
-
-    // cartSidebarShowed:false,
     isLogged:false,
+    cartItems:null,
   }
   toggleState=(set, to)=>{
     this.setState({
