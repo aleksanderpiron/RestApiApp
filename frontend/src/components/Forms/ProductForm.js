@@ -12,7 +12,8 @@ import './Form.css';
 class ProductForm extends Component{
     state={
         loading:false,
-        deleting:true,
+        deleting:false,
+        productId:null,
         inputs:{
             name:{
                 value:'',
@@ -70,7 +71,7 @@ class ProductForm extends Component{
     getProductData=async()=>{
         const resp = await fetch(`//localhost:8080/products/${this.props.productId}`);
         const data = await resp.json();
-        const {name, price, description, imageUrl} = data;
+        const {name, price, description, imageUrl, _id} = data;
         const updatedInputs = this.state.inputs;
         updatedInputs.name.value = name;
         updatedInputs.price.value = price;
@@ -79,6 +80,7 @@ class ProductForm extends Component{
         }
         updatedInputs.description.value = description;
         this.setState({
+            userId:_id,
             inputs:updatedInputs
         })
     }
@@ -160,6 +162,11 @@ class ProductForm extends Component{
             this.props.pushNotif('error','Invaid provided data and product editing failed! Please try again with correct data', 5000);
         }
     }
+    toggleDeleting=(setTo)=>{
+        this.setState({
+            deleting:setTo
+        })
+    }
     UNSAFE_componentWillMount=()=>{
         if(this.props.edit){
             this.getProductData();
@@ -172,12 +179,12 @@ class ProductForm extends Component{
                     <Spinner />
                 }
                 {this.state.deleting &&
-                    <Modal>
+                    <Modal modalClass='product-delete-modal' close={()=>{this.toggleDeleting(false)}}>
                         <div>
                             <p>Are you sure you want to delete this product?</p>
                             <div className="buttons">
-                                <Button label='Delete' type='danger'/>
-                                <Button label='Cancel' type='secondary'/>
+                                <Button label='Delete' type='danger' click={()=>{this.props.delete(this.state.userId)}}/>
+                                <Button label='Cancel' type='secondary' click={()=>{this.toggleDeleting(false)}}/>
                             </div>
                         </div>
                     </Modal>
@@ -191,10 +198,10 @@ class ProductForm extends Component{
                         <Textarea blur={this.blurHandler} inputData={this.state.inputs.description} change={this.textInputHandler} underline label='Description' name='description'/>
                         <div className="buttons">
                             {!this.props.edit && <Button full submit type='primary' label='Add product'/>}
-                            {this.props.edit && 
+                            {this.props.edit &&
                             <div className="buttons">
                                 <Button submit type='primary' label='Update'/>
-                                <Button type='danger' label={'Delete'}/>
+                                <Button click={()=>{this.toggleDeleting(true)}} type='danger' label={'Delete'}/>
                             </div>
                             }
                         </div>

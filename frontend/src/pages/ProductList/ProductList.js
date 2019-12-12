@@ -5,7 +5,6 @@ import ProductForm from '../../components/Forms/ProductForm';
 import Spinner from '../../components/Spinner/Spinner';
 import {Route, Switch} from 'react-router-dom';
 import posed, {PoseGroup} from 'react-pose';
-import ReactCSSTransitionGroup  from 'react-addons-css-transition-group';
 import './ProductList.css';
 
 class ProductsList extends Component{
@@ -83,9 +82,9 @@ class ProductsList extends Component{
     UNSAFE_componentWillMount=()=>{
         this.getProducts();
     }
-    // UNSAFE_componentWillReceiveProps=()=>{
-    //     this.getProducts();
-    // }
+    UNSAFE_componentWillReceiveProps=()=>{
+        this.getProducts();
+    }
     render(){
         const RouteContainer = posed.div({
             enter: {opacity: 1, delay: 0, beforeChildren: true, transition: { duration: 300, ease: 'easeIn' } },
@@ -103,13 +102,15 @@ class ProductsList extends Component{
             <Route render={({location})=>(
                 <div className="page">
                 {this.state.loading && <Spinner />}
-                <PoseGroup>
-                    <RouteContainer key={location.key}>
+                {/* <PoseGroup>
+                    <RouteContainer key={location.key}> */}
                         <Switch location={location}>
                             <Route key='ProductList' exact path="/products">
-                                <ProductListPosed pose='enter' className='product-list'>
+                                {/* <ProductListPosed pose='enter' className='product-list'> */}
+                                <div className='product-list'>
                                     {this.state.products}
-                                </ProductListPosed>
+                                </div>
+                                {/* </ProductListPosed> */}
                             </Route>
                             <Route key='ProductPage' exact path="/products/product/:productId" render={(props)=>
                                 <ProductPage productId={props.match.params.productId}/>
@@ -118,11 +119,11 @@ class ProductsList extends Component{
                                 <ProductForm pushNotif={this.props.pushNotif}/>
                             }/>
                             <Route key='ProductFormEdit' path="/products/edit-product/:productId" render={(props)=>
-                                <ProductForm pushNotif={this.props.pushNotif} edit productId={props.match.params.productId}/>
+                                <ProductForm delete={this.deleteProduct} pushNotif={this.props.pushNotif} edit productId={props.match.params.productId}/>
                             }/>
                         </Switch>
-                    </RouteContainer>
-                </PoseGroup>
+                    {/* </RouteContainer>
+                </PoseGroup> */}
             </div>
             )}/>
         )

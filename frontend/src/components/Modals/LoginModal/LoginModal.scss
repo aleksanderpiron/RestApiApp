@@ -1,4 +1,4 @@
-.login-modal{
+.modal.login-modal{
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -6,7 +6,7 @@
     height: 550px;
     width: 95%;
     max-width: 900px;
-    padding: 0!important;
+    padding: 0;
     .anim-box{
         position: relative;
         box-sizing: border-box;

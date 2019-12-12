@@ -12,29 +12,29 @@
     right: 0;
     margin: auto;
     z-index: 9;
-    .modal{
-        padding: 20px;
-        transition: 300ms;
-        position: relative;
-        background-color: #fff;
-        box-sizing: border-box;
-        border-radius: 10px;
-        .close{
-            z-index: 9;
-            position: absolute;
-            right: 20px;
-            top: 15px;
-            cursor: pointer;
-            &.white svg path{
-                fill: #fff;
-            }
-            svg{
-                width: 10px;
-                height: 10px;
-                path{
-                    transition: 600ms;
-                    fill: #000;
-                }
+}
+.modal{
+    padding: 20px;
+    transition: 300ms;
+    position: relative;
+    background-color: #fff;
+    box-sizing: border-box;
+    border-radius: 10px;
+    .close{
+        z-index: 9;
+        position: absolute;
+        right: 20px;
+        top: 15px;
+        cursor: pointer;
+        &.white svg path{
+            fill: #fff;
+        }
+        svg{
+            width: 10px;
+            height: 10px;
+            path{
+                transition: 600ms;
+                fill: #000;
             }
         }
     }

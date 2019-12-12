@@ -16,30 +16,37 @@ class Cart extends Component{
             loading:true
         })
         const userId = localStorage.getItem('userId');
-        const formData = new FormData();
-        formData.append('userId', userId);
-        const res = await fetch('//localhost:8080/cart', {
-            method:'POST',
-            headers:{
-                "Authorization": localStorage.getItem('authToken')
-            },
-            body:formData
-        });
-        const data = await res.json();
-        const cartItems = data.cart.items.map((cartItem, index)=>{
-            return <CartItem
-            key={`CartItem_${index}`}
-            remove={this.removeFromCart}
-            layout={this.props.layout}
-            product={cartItem.product}
-            id={cartItem._id}
-            qty={cartItem.qty}/>
-        })
-        this.setState({
-            cartItems:cartItems,
-            totalPrice:data.cart.totalPrice,
-            loading:false
-        })
+        if(userId !== null){
+            try{
+                const formData = new FormData();
+                formData.append('userId', userId);
+                const res = await fetch('//localhost:8080/cart', {
+                    method:'POST',
+                    headers:{
+                        "Authorization": localStorage.getItem('authToken')
+                    },
+                    body:formData
+                });
+                const data = await res.json();
+                const cartItems = data.cart.items.map((cartItem, index)=>{
+                    return <CartItem
+                    key={`CartItem_${index}`}
+                    remove={this.removeFromCart}
+                    layout={this.props.layout}
+                    product={cartItem.product}
+                    id={cartItem._id}
+                    qty={cartItem.qty}/>
+                })
+                this.setState({
+                    cartItems:cartItems,
+                    totalPrice:data.cart.totalPrice,
+                    loading:false
+                })
+            }
+            catch(err){
+                console.log(err);
+            }
+        }
     }
     removeFromCart=async(prodId)=>{
         this.setState({
