@@ -10,7 +10,7 @@ class Nav extends Component{
     state = {
         navShown:true,
         dropdownShown:false,
-        currentPage:'/products',
+        currentPage:'',
         underlineStyles:{
             left:'0',
             width:'0'
@@ -86,7 +86,7 @@ class Nav extends Component{
                             label={<Icon type="user" />}/>}
                         {this.props.isLogged && <NavLink
                             currentPage={this.state.currentPage}
-                            link="/cart"
+                            link="/checkout"
                             label={<Icon type="cart" />}/>}
                         {this.props.isLogged && <Dropdown dropdownLabel={<Icon type='user'/>} dropdownOptions={[
                             {

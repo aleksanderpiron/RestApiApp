@@ -12,7 +12,7 @@ const CartPage =()=>{
                 <p>Item total</p>
             </div>
             <Cart />
-            <Button type='primary' label='Checkout'/>
+            <Button type='primary' label='Next step'/>
         </div>
     )
 };

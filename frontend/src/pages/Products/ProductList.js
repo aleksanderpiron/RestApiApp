@@ -4,7 +4,6 @@ import ProductPage from './ProductPage';
 import ProductForm from '../../components/Forms/ProductForm';
 import Spinner from '../../components/Spinner/Spinner';
 import {Route, Switch} from 'react-router-dom';
-import posed, {PoseGroup} from 'react-pose';
 import './ProductList.css';
 
 class ProductsList extends Component{
@@ -86,31 +85,15 @@ class ProductsList extends Component{
         this.getProducts();
     }
     render(){
-        const RouteContainer = posed.div({
-            enter: {opacity: 1, delay: 0, beforeChildren: true, transition: { duration: 300, ease: 'easeIn' } },
-            exit: {opacity: 0, transition: { duration: 300 } }
-        });
-        const ProductListPosed = posed.div({
-            enter: {staggerChildren: 100},
-            exit: {}
-        })
-        const ProductListItem = posed.div({
-            enter: {opacity:1},
-            exit: {opacity: 0}
-        })
         return(
             <Route render={({location})=>(
                 <div className="page">
                 {this.state.loading && <Spinner />}
-                {/* <PoseGroup>
-                    <RouteContainer key={location.key}> */}
                         <Switch location={location}>
                             <Route key='ProductList' exact path="/products">
-                                {/* <ProductListPosed pose='enter' className='product-list'> */}
                                 <div className='product-list'>
                                     {this.state.products}
                                 </div>
-                                {/* </ProductListPosed> */}
                             </Route>
                             <Route key='ProductPage' exact path="/products/product/:productId" render={(props)=>
                                 <ProductPage productId={props.match.params.productId}/>
@@ -122,8 +105,6 @@ class ProductsList extends Component{
                                 <ProductForm delete={this.deleteProduct} pushNotif={this.props.pushNotif} edit productId={props.match.params.productId}/>
                             }/>
                         </Switch>
-                    {/* </RouteContainer>
-                </PoseGroup> */}
             </div>
             )}/>
         )

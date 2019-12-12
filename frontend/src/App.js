@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 import Nav from './components/Nav/Nav';
 import Home from './pages/Home/Home';
-import CartPage from './pages/CartPage/CartPage';
-import ProductList from './pages/ProductList/ProductList';
+import Checkout from './pages/Checkout/Checkout';
+import ProductList from './pages/Products/ProductList';
 import LoginModal from './components/Modals/LoginModal/LoginModal';
 import ReactCSSTransitionGroup  from 'react-addons-css-transition-group';
 import Notif from './components/Notification/Notif';
 import isLogged from './components/Utils/isLogged';
-import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import {BrowserRouter, Switch, Route, withRouter} from 'react-router-dom';
 import CartSidebar from './components/Cart/CartSidebar';
 import './App.css';
 
@@ -15,6 +15,7 @@ class App extends Component {
   state={
     loginModalShowed:false,
     refreshCartWidget:false,
+
     // cartSidebarShowed:false,
     isLogged:false,
   }
@@ -52,7 +53,7 @@ class App extends Component {
     return (
       <BrowserRouter>
         <div className="App">
-            <Nav cartSidebarShowed={this.state.cartSidebarShowed} logout={this.logoutHandler} isLogged={this.state.isLogged} toggleState={this.toggleState}/>
+            <Nav logout={this.logoutHandler} isLogged={this.state.isLogged} toggleState={this.toggleState}/>
             <ReactCSSTransitionGroup component="div" transitionEnterTimeout={400}  transitionLeaveTimeout={400} transitionName="modal-show">
               {this.state.loginModalShowed && !this.state.isLogged && <LoginModal login={this.checkIfLogged} pushNotif={this.pushNotif} toggleState={this.toggleState}  />}
             </ReactCSSTransitionGroup>
@@ -62,7 +63,7 @@ class App extends Component {
                 <Route path="/products" render={()=>
                   <ProductList refreshCartWidget={this.refreshCartWidget} pushNotif={this.pushNotif}/>
                 }/>
-                <Route exact path="/cart" component={CartPage}/>
+                <Route path="/checkout" component={Checkout}/>
               </Switch>
             </ReactCSSTransitionGroup>
             <Notif ref='notif'/>
