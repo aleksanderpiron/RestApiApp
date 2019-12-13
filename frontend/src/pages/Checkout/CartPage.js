@@ -2,7 +2,7 @@ import React from 'react';
 import Cart from '../../components/Cart/Cart';
 import Button from '../../components/Button/Button';
 
-const CartPage =()=>{
+const CartPage =(props)=>{
     return(
         <div className='cart-page'>
             <div className="cart-header">
@@ -12,7 +12,7 @@ const CartPage =()=>{
                 <p>Item total</p>
             </div>
             <Cart />
-            <Button type='primary' label='Next step'/>
+            <Button type='primary' label='Next step' click={()=>{props.setStep('form')}}/>
         </div>
     )
 };

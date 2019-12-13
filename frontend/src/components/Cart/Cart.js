@@ -28,6 +28,8 @@ class Cart extends Component{
                 id={cartItem._id}
                 qty={cartItem.qty}/>
             })
+        }else{
+            cartItems = <div className='empty-cart'><p>Your cart is empty!</p></div>
         }
         this.setState({
             totalPrice:cartData.totalPrice,
@@ -42,7 +44,7 @@ class Cart extends Component{
         const removeResult = await removeFromCart(prodId);
         if(removeResult){
             this.showCart();
-        } 
+        }
     }
     UNSAFE_componentWillReceiveProps=()=>{
         this.showCart();
@@ -77,11 +79,9 @@ class Cart extends Component{
                     <Button disabled={this.state.loading || this.state.totalPrice===0} type='secondary' full label='Proceed to checkout'/>
                     <div className="cart-items">
                             {this.state.loading?<Spinner/>:
-                                this.state.cartItems.length>0?
                                 <>
                                     {this.state.cartItems}
-                                </>:
-                                <p>YOur cart is empty</p>
+                                </>
                             }
                     </div>
                 </div>

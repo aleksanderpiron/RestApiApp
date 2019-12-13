@@ -8,6 +8,7 @@ const app = express();
 
 const productRouter = require('./routes/product');
 const userRouter = require('./routes/user');
+const orderRouter = require('./routes/order');
 
 const databaseUrl = 'mongodb+srv://pironaleksander:mongodbpass123$@cluster1-5o9ek.mongodb.net/shop?retryWrites=true&w=majority';
 
@@ -39,9 +40,10 @@ app.use(multer({storage:fileStorage, fileFilter}).single('image'));
 app.use('/images', express.static(path.join(__dirname, 'images')))
 app.use(userRouter);
 app.use(productRouter);
+app.use(orderRouter);
 
 app.use((error, req, res, next) => {
-    console.log(error);
+  console.log(error);
   const status = error.statusCode || 500;
   const message = error.message;
   const fieldName = error.fieldName || null;

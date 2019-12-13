@@ -3,7 +3,8 @@ import ProductItem from './ProductItem';
 import ProductPage from './ProductPage';
 import ProductForm from '../../components/Forms/ProductForm';
 import Spinner from '../../components/Spinner/Spinner';
-import {Route, Switch} from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
+import { addToCart } from '../../components/Cart/CartFunctions';
 import './ProductList.css';
 
 class ProductsList extends Component{
@@ -25,7 +26,7 @@ class ProductsList extends Component{
         const productsArray = data.map((prod, index)=>{
             return <ProductItem
             key={`ProductItem_${index}`}
-            addToCart={()=>{this.addToCart(prod._id)}}
+            addToCart={()=>{this.addToCartHandler(prod._id)}}
             getSingleProduct={this.getSingleProduct}
             name={prod.name}
             price={prod.price}
@@ -41,7 +42,6 @@ class ProductsList extends Component{
             loading:false
         })
     }
-    
     deleteProduct=async(id)=>{
         const formData = new FormData();
         formData.append('id', id);
@@ -56,6 +56,12 @@ class ProductsList extends Component{
         }
         else if(res.status === 500){
             console.log('error')
+        }
+    }
+    addToCartHandler=async(prodId)=>{
+        const result = await addToCart(prodId);
+        if(result){
+            this.props.refreshCartWidget();
         }
     }
     closeProduct=()=>{
@@ -74,23 +80,23 @@ class ProductsList extends Component{
             <Route render={({location})=>(
                 <div className="page">
                 {this.state.loading && <Spinner />}
-                        <Switch location={location}>
-                            <Route key='ProductList' exact path="/products">
-                                <div className='product-list'>
-                                    {this.state.products}
-                                </div>
-                            </Route>
-                            <Route key='ProductPage' exact path="/products/product/:productId" render={(props)=>
-                                <ProductPage productId={props.match.params.productId}/>
-                            }/>
-                            <Route key='ProductFormAdd' exact path="/products/add-product/" render={()=>
-                                <ProductForm pushNotif={this.props.pushNotif}/>
-                            }/>
-                            <Route key='ProductFormEdit' path="/products/edit-product/:productId" render={(props)=>
-                                <ProductForm delete={this.deleteProduct} pushNotif={this.props.pushNotif} edit productId={props.match.params.productId}/>
-                            }/>
-                        </Switch>
-            </div>
+                    <Switch location={location}>
+                        <Route key='ProductList' exact path="/products">
+                            <div className='product-list'>
+                                {this.state.products}
+                            </div>
+                        </Route>
+                        <Route key='ProductPage' exact path="/products/product/:productId" render={(props)=>
+                            <ProductPage productId={props.match.params.productId}/>
+                        }/>
+                        <Route key='ProductFormAdd' exact path="/products/add-product/" render={()=>
+                            <ProductForm pushNotif={this.props.pushNotif}/>
+                        }/>
+                        <Route key='ProductFormEdit' path="/products/edit-product/:productId" render={(props)=>
+                            <ProductForm delete={this.deleteProduct} pushNotif={this.props.pushNotif} edit productId={props.match.params.productId}/>
+                        }/>
+                    </Switch>
+                </div>
             )}/>
         )
     }
