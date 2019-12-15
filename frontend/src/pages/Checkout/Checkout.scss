@@ -1,0 +1,35 @@
+.checkout{
+    display: flex;
+    .steps-box{
+        width: 80%;
+    }
+    .summary-box{
+        width: 20%;
+        padding: 20px;
+    }
+}
+.summary{
+    padding: 10px 20px;
+    background-color: $color2;
+    h2{
+        color: $color1;
+        font-size: 1.6em;
+        margin-bottom: 5px;
+    }
+    p{
+        font-size: 1.2em;
+        color: #fff;
+    }
+    ul{
+        list-style: none;
+        li{
+            color: #fff;
+            font-size: .8em;
+            display: flex;
+            justify-content: space-between;
+            span{
+                font-size: inherit;
+            }
+        }
+    }
+}

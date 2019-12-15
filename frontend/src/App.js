@@ -8,7 +8,7 @@ import ReactCSSTransitionGroup  from 'react-addons-css-transition-group';
 import Notif from './components/Notification/Notif';
 import isLogged from './components/Utils/isLogged';
 import {BrowserRouter, Switch, Route, withRouter} from 'react-router-dom';
-import CartSidebar from './components/Cart/CartSidebar';
+import CartWidget from './components/Cart/CartWidget';
 import './App.css';
 
 class App extends Component {
@@ -67,7 +67,7 @@ class App extends Component {
             </ReactCSSTransitionGroup>
             <Notif ref='notif'/>
           <ReactCSSTransitionGroup component="div" transitionEnterTimeout={400} transitionLeaveTimeout={400} transitionName="cart-widget">
-            {this.state.isLogged && <CartSidebar refresh={this.state.refreshCartWidget} toggleState={this.toggleState}/>}
+            {this.state.isLogged && <CartWidget refresh={this.state.refreshCartWidget} toggleState={this.toggleState}/>}
           </ReactCSSTransitionGroup>
         </div>
       </BrowserRouter>

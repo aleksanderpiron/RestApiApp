@@ -17,6 +17,13 @@ class Cart extends Component{
             loading:true
         })
         const cartData = await getCartData();
+        if(typeof cartData === 'undefined'){
+            return this.setState({
+                totalPrice:0,
+                cartItems:<div className='empty-cart'><p>Something went wrong with connection to server! Please try later</p></div>,
+                loading:false
+            })
+        }
         let cartItems;
         if(cartData.items.length>0){
             cartItems = await cartData.items.map((cartItem, index)=>{
