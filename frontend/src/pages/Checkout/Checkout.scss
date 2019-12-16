@@ -3,6 +3,7 @@
     .steps-box{
         width: 80%;
         padding: 0 20px;
+        position: relative;
         .steps{
             display: flex;
             justify-content: space-between;
@@ -68,51 +69,29 @@
     }
 }
 .anim-box{
-    position: relative;
-    &.left{
-        .step-change-enter{
-            transform: translateX(100px);
-            opacity: 0;
-        }
-        .step-change-enter-active {
-            opacity: 1;
-            transform: translateX(0);
-        }
-        .step-change-leave {
-            opacity: 1;
-        }
-        .step-change-leave-active {
-            opacity: 0;
-            position: absolute;
-            width: 100%;
-            top: 0;
-            left: 0;
-            right: 0;
-            margin: auto;
-        }
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 55px;
+    bottom: 0;
+    transition: 300ms;
+    >div{
+        transition: 300ms;
     }
-    &.right{
-        .step-change-enter{
-            transform: translateX(-100px);
-            opacity: 0;
-        }
-        .step-change-enter-active {
-            opacity: 1;
-            transform: translateX(0);
-        }
-        .step-change-leave {
-            opacity: 1;
-        }
-        .step-change-leave-active {
-            opacity: 0;
-            position: absolute;
-            width: 100%;
-            top: 0;
-            left: 0;
-            right: 0;
-            margin: auto;
-        }
-    }
+}
+.step-switch-enter {
+  opacity: 0;
+}
+.step-switch-enter-active {
+  opacity: 1;
+  transition: 300ms ease-out;
+}
+.step-switch-exit {
+  opacity: 1;
+}
+.step-switch-exit-active {
+  opacity: 0;
+  transition: 300ms ease-out;
 }
 
 .summary{

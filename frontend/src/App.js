@@ -7,7 +7,8 @@ import LoginModal from './components/Modals/LoginModal/LoginModal';
 import ReactCSSTransitionGroup  from 'react-addons-css-transition-group';
 import Notif from './components/Notification/Notif';
 import isLogged from './components/Utils/isLogged';
-import {BrowserRouter, Switch, Route, withRouter} from 'react-router-dom';
+import {BrowserRouter} from 'react-router-dom';
+import {AnimatedRoute, AnimatedSwitch} from './components/Anims/AnimatedRouter';
 import CartWidget from './components/Cart/CartWidget';
 import './App.css';
 
@@ -57,13 +58,13 @@ class App extends Component {
               {this.state.loginModalShowed && !this.state.isLogged && <LoginModal login={this.checkIfLogged} pushNotif={this.pushNotif} toggleState={this.toggleState}  />}
             </ReactCSSTransitionGroup>
             <ReactCSSTransitionGroup component="div" className="pages" transitionEnterTimeout={400}   transitionLeaveTimeout={400} transitionName="page-switch">
-              <Switch>
-                <Route exact path="/" component={Home}/>
-                <Route path="/products" render={()=>
+              <AnimatedSwitch animationClassName="page-switch" animationTimeout={300}>
+                <AnimatedRoute exact path="/" component={Home}/>
+                <AnimatedRoute path="/products" render={()=>
                   <ProductList refreshCartWidget={this.refreshCartWidget} pushNotif={this.pushNotif}/>
                 }/>
-                <Route path="/checkout" component={Checkout}/>
-              </Switch>
+                <AnimatedRoute path="/checkout" component={Checkout}/>
+              </AnimatedSwitch>
             </ReactCSSTransitionGroup>
             <Notif ref='notif'/>
           <ReactCSSTransitionGroup component="div" transitionEnterTimeout={400} transitionLeaveTimeout={400} transitionName="cart-widget">

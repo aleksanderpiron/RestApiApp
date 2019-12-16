@@ -3,9 +3,9 @@ import './Checkout.css';
 import CartPage from '../../components/Cart/CartPage';
 import Spinner from '../../components/Spinner/Spinner';
 import OrderForm from '../../components/Forms/OrderForm';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import Button from '../../components/Button/Button';
 import Steps from './Steps';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import {getCartData, removeFromCart} from '../../components/Cart/CartFunctions';
 import Summary from './Summary';
 
@@ -24,7 +24,6 @@ class Checkout extends Component{
         if(direction === 'prev'){
             newStep = this.state.step-1;
         }
-        console.log(newStep);
         this.setState({
             step:newStep
         })
@@ -58,17 +57,24 @@ class Checkout extends Component{
                     <>
                         <div className="steps-box">
                             <Steps currentStep={this.state.step}/>
-                            <ReactCSSTransitionGroup component="div" className='anim-box' transitionEnterTimeout={400}  transitionLeaveTimeout={400} transitionName="step-change">
-                            {this.state.step === 0 &&
-                                <CartPage items={this.state.cart.items} remove={this.removeFromCartHandler}/>
-                            }
-                            {this.state.step === 1 &&
-                                <OrderForm/>
-                            }
-                            {this.state.step === 2 &&
-                                <OrderForm/>
-                            }
-                            </ReactCSSTransitionGroup>
+                            <TransitionGroup className='anim-box'>
+                                <CSSTransition
+                                    key={`step_${this.state.step}`}
+                                    timeout={300}
+                                    classNames={'step-switch'}>
+                                    <>
+                                        {this.state.step === 0 &&
+                                        <CartPage items={this.state.cart.items} remove= {this.removeFromCartHandler}/>
+                                        }
+                                        {this.state.step === 1 &&
+                                            <OrderForm/>
+                                        }
+                                        {this.state.step === 2 &&
+                                            <OrderForm/>
+                                        }
+                                    </>
+                                </CSSTransition>
+                            </TransitionGroup>
                             <div className="buttons">
                                 {this.state.step !== 0 &&
                                     <Button click={()=>{this.setStep('prev')}} customClass='prev' type='primary' label='Previous step'/>

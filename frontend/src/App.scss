@@ -29,24 +29,19 @@ html{
         transition: 400ms;
     }
 }
-// .page-switch-enter {
-//     opacity: 0;
-//     transform: scale(1.05);
-// }
-// .page-switch-enter-done {
-//   opacity: 1;
-//   transform: scale(1);
-// }
-// .page-switch-exit {
-//   display: none;
-// }
-// .page-switch-exit-done {
-// }
-.switch-wrapper {
-  position: relative;
+.page-switch-enter {
+  opacity: 0;
 }
-.switch-wrapper > div {
-  position: absolute;
+.page-switch-enter-active {
+  opacity: 1;
+  transition: 300ms ease-out;
+}
+.page-switch-exit {
+  opacity: 1;
+}
+.page-switch-exit-active {
+  opacity: 0;
+  transition: 300ms ease-out;
 }
 .error-message{
   position: relative;

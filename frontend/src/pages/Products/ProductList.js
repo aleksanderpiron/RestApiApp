@@ -3,8 +3,8 @@ import ProductItem from './ProductItem';
 import ProductPage from './ProductPage';
 import ProductForm from '../../components/Forms/ProductForm';
 import Spinner from '../../components/Spinner/Spinner';
-import { Route, Switch } from 'react-router-dom';
 import { addToCart } from '../../components/Cart/CartFunctions';
+import {AnimatedRoute, AnimatedSwitch} from '../../components/Anims/AnimatedRouter';
 import './ProductList.css';
 
 class ProductsList extends Component{
@@ -77,27 +77,22 @@ class ProductsList extends Component{
     }
     render(){
         return(
-            <Route render={({location})=>(
-                <div className="page">
-                {this.state.loading && <Spinner />}
-                    <Switch location={location}>
-                        <Route key='ProductList' exact path="/products">
-                            <div className='product-list'>
-                                {this.state.products}
-                            </div>
-                        </Route>
-                        <Route key='ProductPage' exact path="/products/product/:productId" render={(props)=>
-                            <ProductPage productId={props.match.params.productId}/>
-                        }/>
-                        <Route key='ProductFormAdd' exact path="/products/add-product/" render={()=>
-                            <ProductForm pushNotif={this.props.pushNotif}/>
-                        }/>
-                        <Route key='ProductFormEdit' path="/products/edit-product/:productId" render={(props)=>
-                            <ProductForm delete={this.deleteProduct} pushNotif={this.props.pushNotif} edit productId={props.match.params.productId}/>
-                        }/>
-                    </Switch>
-                </div>
-            )}/>
+            <AnimatedSwitch animationClassName="page-switch" animationTimeout={300}>
+                <AnimatedRoute exact path="/products" render={()=>
+                    <div className='product-list'>
+                        {this.state.loading?<Spinner/>:this.state.products}
+                    </div>
+                }/>
+                <AnimatedRoute exact path="/products/product/:productId" render={(props)=>
+                    <ProductPage productId={props.match.params.productId}/>
+                }/>
+                <AnimatedRoute exact path="/products/add-product/" render={()=>
+                    <ProductForm pushNotif={this.props.pushNotif}/>
+                }/>
+                <AnimatedRoute key='ProductFormEdit' path="/products/edit-product/:productId" render={(props)=>
+                    <ProductForm delete={this.deleteProduct} pushNotif={this.props.pushNotif} edit productId={props.match.params.productId}/>
+                }/>
+            </AnimatedSwitch>
         )
     }
 }
