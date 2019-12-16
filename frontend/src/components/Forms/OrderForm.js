@@ -101,7 +101,7 @@ class OrderFrom extends Component{
     render(){
         return(
             <form onSubmit={this.submitHandler} className='form form-box login-form'>
-                <h2 className="form-heading">Order</h2>
+                <div className="input-row">
                 <Input
                     blur={this.blurHandler}
                     change={this.textInputHandler}
@@ -118,6 +118,7 @@ class OrderFrom extends Component{
                     type="text"
                     name='surname'
                     label='Surname'/>
+                </div>
                 <Input
                     blur={this.blurHandler}
                     change={this.textInputHandler}

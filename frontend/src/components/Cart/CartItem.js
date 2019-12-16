@@ -16,7 +16,7 @@ const CartItem=(props)=>{
                 <QtyInput value={props.qty}/>
            </div>
         <p className="total">{(props.product.price*props.qty).toFixed(2)} zł</p>
-        <p onClick={()=>{props.remove(props.product._id)}} className="remove"><Icon type='close'/></p>
+        <p onClick={()=>{props.remove(props.product._id)}} className="remove"></p>
     </div>;
     if(props.layout === 'widget'){
         cartItemLayout =

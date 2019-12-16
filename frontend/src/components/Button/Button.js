@@ -16,21 +16,18 @@ const Button =(props)=>{
     if(props.disabled){
         classes += 'disabled ';
     }
+    if(props.customClass){
+        classes += props.customClass+' ';
+    }
     if(props.type){
         classes += props.type;
-    }
-    if(props.submit){
-
     }
     const onClickPlaceholder=(e)=>{
         e.preventDefault();
         return false;
     }
-    const changeHandler=()=>{
-        console.log('hello')
-    }
     return(
-        <button onChange={changeHandler} className={classes} type={props.submit?'submit':'button'} onClick={!props.disabled?props.click:onClickPlaceholder}>
+        <button className={classes} type={props.submit?'submit':'button'} onClick={!props.disabled?props.click:onClickPlaceholder}>
             {props.loading?<Spinner type='dots'/>:props.label}
         </button>
     )
