@@ -50,9 +50,11 @@
                 }
             }
         }
-        .buttons{
+        >.buttons{
             display: flex;
-            position: relative;
+            position: absolute;
+            bottom: -200px;
+            width: 100%;
             .next{
                 position: absolute;
                 right: 0;
@@ -69,31 +71,41 @@
     }
 }
 .anim-box{
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 55px;
-    bottom: 0;
-    transition: 300ms;
-    >div{
+    position: relative;
+    >div, >form{
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
         transition: 300ms;
     }
 }
-.step-switch-enter {
+.step-switch-left-enter{
   opacity: 0;
+  transform: translateX(-100px);
 }
-.step-switch-enter-active {
+.step-switch-left-enter-active{
   opacity: 1;
+  transform: translateX(0);
   transition: 300ms ease-out;
 }
-.step-switch-exit {
+.step-switch-right-enter{
+  opacity: 0;
+  transform: translateX(100px);
+}
+.step-switch-right-enter-active{
+  opacity: 1;
+  transform: translateX(0);
+  transition: 300ms ease-out;
+}
+.step-switch-left-exit, .step-switch-right-exit{
   opacity: 1;
 }
-.step-switch-exit-active {
+.step-switch-left-exit-active, .step-switch-right-exit-active{
   opacity: 0;
   transition: 300ms ease-out;
 }
-
 .summary{
     padding: 10px 20px;
     background-color: $color2;

@@ -17,14 +17,18 @@ class Checkout extends Component{
         loading:true
     }
     setStep=(direction)=>{
-        let newStep;
+        let newStep,
+        slideDirection;
         if(direction === 'next'){
+            slideDirection = 'left';
             newStep = this.state.step+1;
         }
         if(direction === 'prev'){
+            slideDirection = 'right';
             newStep = this.state.step-1;
         }
         this.setState({
+            slideDirection,
             step:newStep
         })
     }
@@ -61,10 +65,10 @@ class Checkout extends Component{
                                 <CSSTransition
                                     key={`step_${this.state.step}`}
                                     timeout={300}
-                                    classNames={'step-switch'}>
+                                    classNames={`step-switch-${this.state.slideDirection}`}>
                                     <>
                                         {this.state.step === 0 &&
-                                        <CartPage items={this.state.cart.items} remove= {this.removeFromCartHandler}/>
+                                        <CartPage items={this.state.cart.items} remove={this.removeFromCartHandler}/>
                                         }
                                         {this.state.step === 1 &&
                                             <OrderForm/>
