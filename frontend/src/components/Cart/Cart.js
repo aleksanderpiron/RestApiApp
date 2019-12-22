@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import CartItem from './CartItem';
-import Icon from '../Icon/Icon';
 import Spinner from '../Spinner/Spinner';
 import Button from '../Button/Button';
+import {Redirect} from 'react-router-dom';
 import {getCartData, removeFromCart} from './CartFunctions';
 import './Cart.css';
 
@@ -10,7 +10,8 @@ class Cart extends Component{
     state={
         cartItems:[],
         totalPrice:0,
-        loading:true
+        loading:true,
+        redirect:false,
     }
     showCart=async()=>{
         this.setState({
@@ -53,8 +54,10 @@ class Cart extends Component{
             this.showCart();
         }
     }
-    UNSAFE_componentWillReceiveProps=()=>{
-        this.showCart();
+    redirectHandler=()=>{
+        this.setState({
+            redirect:true
+        })
     }
     UNSAFE_componentWillMount=()=>{
         this.showCart();
@@ -75,23 +78,16 @@ class Cart extends Component{
         if(this.props.layout==='widget'){
             cartBody=
             <div className="cart-widget-body">
-                <div className="top">
-                    <span>
-                        <Icon type='cart'/>
-                        <p>Cart</p>
-                    </span>
-                    <p>{this.state.loading?'---':this.state.totalPrice>0?`${this.state.totalPrice} zł`:'Empty'}</p>
+                <h2>Cart</h2>
+                <div className="cart-items">
+                        {this.state.loading?<Spinner/>:
+                            <>
+                                {this.state.cartItems}
+                            </>
+                        }
                 </div>
-                <div className="bottom">
-                    <Button disabled={this.state.loading || this.state.totalPrice===0} type='secondary' full label='Proceed to checkout'/>
-                    <div className="cart-items">
-                            {this.state.loading?<Spinner/>:
-                                <>
-                                    {this.state.cartItems}
-                                </>
-                            }
-                    </div>
-                </div>
+                <Button click={this.redirectHandler} disabled={this.state.loading || this.state.totalPrice===0} type='secondary' full label='Proceed to checkout'/>
+                {this.state.redirect && <Redirect to='/checkout'/>}
             </div>
         }
         return(

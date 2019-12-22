@@ -204,3 +204,55 @@ label{
         }
     }
 }
+.icon-radio{
+    margin: 5px 0;
+    .options{
+        border: 1px solid #ccc;
+        box-shadow:0 2px 4px #eee;
+        display: flex;
+        align-items: center;
+        .option{
+            margin: 0;
+            padding: 20px 10px;
+            box-sizing: border-box;
+            width: 33%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            &.active{
+                p{
+                    color: #000;
+                }
+                svg path{
+                    fill: #000;
+                }
+            }
+            &:not(:last-child){
+                border-right: 1px solid #ccc;
+            }
+            input{
+                position: absolute;
+                cursor: pointer;
+                left: 0;
+                top: 0;
+                opacity: 0;
+                width: 100%;
+                height: 100%;
+            }
+            p{
+                padding-left: 10px;
+                transition: 300ms;
+                color: #ccc;
+            }
+            svg{
+                width: 50px;
+                height: 50px;
+                path{
+                    transition: 300ms;
+                    fill: #ccc;
+                }
+            }
+        }
+    }
+}

@@ -24,7 +24,11 @@ const Button =(props)=>{
     }
     const onClickPlaceholder=(e)=>{
         e.preventDefault();
-        return false;
+        if(typeof props.disabledClick !== 'undefined'){
+            props.disabledClick();
+        }else{
+            return false;
+        }
     }
     return(
         <button className={classes} type={props.submit?'submit':'button'} onClick={!props.disabled?props.click:onClickPlaceholder}>

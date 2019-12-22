@@ -1,5 +1,6 @@
 import React from 'react';
 import CartItem from './CartItem';
+import Button from '../Button/Button';
 
 const CartPage =(props)=>{
     let cartItems;
@@ -22,6 +23,10 @@ const CartPage =(props)=>{
             </div>
             <div className="cart-body">
                 {cartItems}
+            </div>
+            <div className="cart-footer">
+                <p>Check your order items and press the button below</p>
+                <Button click={()=>{props.setStep('userInfo')}} type="primary" label='Next step'/>
             </div>
         </div>
     )

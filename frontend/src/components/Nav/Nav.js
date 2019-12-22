@@ -16,15 +16,6 @@ class Nav extends Component{
             width:'0'
         }
     }
-    // scrollHandle=(e)=>{
-    //     if(this.prev > window.scrollY && window.scrollY > 40){
-    //         this.setState({navShown:true})
-    //     }
-    //     else if(this.prev < window.scrollY && window.scrollY > 40){
-    //         this.setState({navShown:false})
-    //     }
-    //     this.prev = window.scrollY;
-    // }
     calculateHandler=()=>{
         const activeNavEl = document.querySelector('nav .top a.active');
         let newUnderlineStyles;
@@ -44,6 +35,7 @@ class Nav extends Component{
         })
     }
     UNSAFE_componentWillMount(){
+        this.props.setCurrentPage(this.props.location.pathname);
         this.setState({
             currentPage:this.props.location.pathname
         })
@@ -55,6 +47,7 @@ class Nav extends Component{
     }
     componentDidUpdate(prevProps, prevState) {
       if (this.props.location !== prevProps.location) {
+        this.props.setCurrentPage(this.props.location.pathname);
         this.setState({
             currentPage:this.props.location.pathname
         })
@@ -84,9 +77,8 @@ class Nav extends Component{
                         {!this.props.isLogged && <NavToggler
                             click={()=>{this.props.toggleState('loginModalShowed', true)}}
                             label={<Icon type="user" />}/>}
-                        {this.props.isLogged && <NavLink
-                            currentPage={this.state.currentPage}
-                            link="/checkout"
+                        {this.props.isLogged && <NavToggler
+                            click={()=>{this.props.toggleState('cartWidgetShowed', true)}}
                             label={<Icon type="cart" />}/>}
                         {this.props.isLogged && <Dropdown dropdownLabel={<Icon type='user'/>} dropdownOptions={[
                             {

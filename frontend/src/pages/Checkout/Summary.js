@@ -5,7 +5,7 @@ const Summary=(props)=>{
     delivery = 12.99;
     payment = '---'
     items = props.items.map((item, index)=>{
-        return <li key={`item_${index}`}><span>{item.product.name}</span><span>{item.qty>1?` x${item.qty}`:''}</span></li>
+        return <li key={`item_${index}`}><span>{item.product.name}</span><span>{` x${item.qty}`}</span></li>
     })
     return(
         <div className="summary">
@@ -14,15 +14,10 @@ const Summary=(props)=>{
             <ul>
                 {items}
             </ul>
-            <p>Delivery:</p>
-                <ul>
-                    {delivery}
-                </ul>
-            <p>Payment:</p>
-                {payment}
             <div className="totals">
                 <p>Subtotal: {props.total} zł</p>
-                <p>Total: {props.total+delivery} zł</p>
+                <p>Delivery costs: {delivery} zł</p>
+                <p>Total: {(props.total+delivery).toFixed(2)} zł</p>
             </div>
         </div>
     )

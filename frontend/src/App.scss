@@ -20,7 +20,7 @@ html{
 }
 .pages{
   width: 100%;
-    >div{
+    >div, .anim-box{
         box-sizing: border-box;
         position: relative;
         max-width: 1330px;
@@ -29,6 +29,7 @@ html{
         transition: 400ms;
     }
 }
+
 .page-switch-enter {
   opacity: 0;
 }

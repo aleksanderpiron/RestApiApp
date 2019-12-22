@@ -18,7 +18,7 @@ const InputValidateHandler = (e, oldState) =>{
     if(typeof newInputs[name].conditions !== 'undefined'){
         if(typeof newInputs[name].conditions.isLength !== 'undefined' && !validator.isLength(value, {min:newInputs[name].conditions.isLength})){
             newInputs[name].correct = false;
-            newInputs[name].errMsg = 'The entered value is too short';
+            newInputs[name].errMsg = 'Value is too short';
             errorDetected = true;
             if(name === 'password'){
                 newPasswordConditionBox.length = false;
@@ -31,7 +31,7 @@ const InputValidateHandler = (e, oldState) =>{
         }
         if(typeof newInputs[name].conditions.isEmail !== 'undefined' && !validator.isEmail(value)){
             newInputs[name].correct = false;
-            newInputs[name].errMsg = 'Please enter a valid email';
+            newInputs[name].errMsg = 'Value must be an valid email address';
             errorDetected = true;
         }
         if(typeof newInputs[name].conditions.isSameAs !== 'undefined' && value !== newInputs[newInputs[name].conditions.isSameAs].value){
@@ -42,7 +42,7 @@ const InputValidateHandler = (e, oldState) =>{
         if(typeof newInputs[name].conditions.containsNumber !== 'undefined' && !/\d/.test(value)){
             newInputs[name].correct = false;
             newInputs[name].errMsg = "Passwords have to contain at least one number";
-        errorDetected = true;
+            errorDetected = true;
         if(name === 'password'){
             newPasswordConditionBox.number = false;
         }
@@ -66,6 +66,14 @@ const InputValidateHandler = (e, oldState) =>{
         if(typeof newInputs[name].conditions.isNot !== 'undefined' && value === newInputs[name].conditions.isNot){
             newInputs[name].correct = false;
             newInputs[name].errMsg = "Value must be different";
+            errorDetected = true;
+            if(name === 'password'){
+                newPasswordConditionBox.lowercase = false;
+            }
+        }
+        if(typeof newInputs[name].conditions.isPhoneNumber !== 'undefined' && !validator.isMobilePhone(value, 'pl-PL')){
+            newInputs[name].correct = false;
+            newInputs[name].errMsg = "Value must be a phone number";
             errorDetected = true;
             if(name === 'password'){
                 newPasswordConditionBox.lowercase = false;

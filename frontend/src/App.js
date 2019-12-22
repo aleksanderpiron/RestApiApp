@@ -15,9 +15,9 @@ import './App.css';
 class App extends Component {
   state={
     loginModalShowed:false,
-    refreshCartWidget:false,
+    cartWidgetShowed:false,
     isLogged:false,
-    cartItems:null,
+    currentPage:''
   }
   toggleState=(set, to)=>{
     this.setState({
@@ -26,6 +26,11 @@ class App extends Component {
   }
   pushNotif=(type, message, lifeTime)=>{
     this.refs.notif.create(type, message, lifeTime);
+  }
+  setCurrentPage=(current)=>{
+    this.setState({
+      currentPage:current
+    })
   }
   checkIfLogged=()=>{
     const logged = isLogged();
@@ -53,7 +58,7 @@ class App extends Component {
     return (
       <BrowserRouter>
         <div className="App">
-            <Nav logout={this.logoutHandler} isLogged={this.state.isLogged} toggleState={this.toggleState}/>
+            <Nav setCurrentPage={this.setCurrentPage} logout={this.logoutHandler} isLogged={this.state.isLogged} toggleState={this.toggleState}/>
             <ReactCSSTransitionGroup component="div" transitionEnterTimeout={400}  transitionLeaveTimeout={400} transitionName="modal-show">
               {this.state.loginModalShowed && !this.state.isLogged && <LoginModal login={this.checkIfLogged} pushNotif={this.pushNotif} toggleState={this.toggleState}  />}
             </ReactCSSTransitionGroup>
@@ -68,7 +73,7 @@ class App extends Component {
             </ReactCSSTransitionGroup>
             <Notif ref='notif'/>
           <ReactCSSTransitionGroup component="div" transitionEnterTimeout={400} transitionLeaveTimeout={400} transitionName="cart-widget">
-            {this.state.isLogged && <CartWidget refresh={this.state.refreshCartWidget} toggleState={this.toggleState}/>}
+            {this.state.isLogged && this.state.cartWidgetShowed && this.state.currentPage !== '/checkout' && <CartWidget refresh={this.state.refreshCartWidget} toggleState={this.toggleState}/>}
           </ReactCSSTransitionGroup>
         </div>
       </BrowserRouter>

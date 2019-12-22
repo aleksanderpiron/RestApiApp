@@ -19,11 +19,27 @@ const orderSchema = new Schema({
             type:String,
             required:true
         },
-        address:{
+        street:{
             type:String,
             required:true
         },
-        delivery:{
+        city:{
+            type:String,
+            required:true
+        },
+        country:{
+            type:String,
+            required:true
+        },
+        phone:{
+            type:String,
+            required:true
+        },
+        email:{
+            type:String,
+            required:true
+        },
+        payment:{
             type:String,
             required:true
         },

@@ -2,12 +2,16 @@ const User = require('../models/User');
 const Order = require('../models/Order');
 
 exports.placeOrder=(req, res, next)=>{
-    const {userId, name, surname, address, delivery} = req.body,
+    const {userId, name, surname, street, city, country, phone, email, payment} = req.body,
     orderData = {
         name,
         surname,
-        address,
-        delivery
+        street,
+        city,
+        country,
+        phone,
+        email,
+        payment
     } 
     User.findById(userId)
     .then(user=>{
@@ -30,6 +34,7 @@ exports.placeOrder=(req, res, next)=>{
                 user.save()
                 .then(result=>{
                     res.status(200).json({
+                        orderId:result._id,
                         message:'Order succesfuly placed'
                     })
                 })

@@ -29,6 +29,19 @@
     .cart-body{
         width: 100%;
     }
+    .cart-footer{
+        border-top: 2px solid $color1;
+        padding-top: 20px;
+        width: 100%;
+        text-align: right;
+        p{
+            font-size: 1.2em;
+            padding-bottom: 10px;
+        }
+        button{
+            margin: 0;
+        }
+    }
     .empty-cart{
         padding: 15px 10px 10px;
         p{
@@ -43,9 +56,6 @@
         display: flex;
         align-items: center;
         padding: 10px;
-        &:first-child{
-            // padding-top: 0;
-        }
         &:not(:last-of-type){
             border-bottom: 1px solid #ccc;
         }
@@ -135,166 +145,112 @@
 }
 
 .cart-widget-bg{
+    background-color: #00000070;
     position: fixed;
-    left: 0;
+    top: 0;
     right: 0;
-    margin: auto;
-    max-width: 1330px;
     z-index: 9;
-    padding: 0 20px;
     bottom: 0;
+    width: 100vw;
+    height: 100vh;
     display: flex;
     justify-content: flex-end;
     transition: 300ms;
     &.cart-widget-enter{
+        opacity: 0;
         .cart-widget-body{
-            transform: translateY(200px);
+            transform: translateX(100%);
         }
     }
     &.cart-widget-enter-active{
+        opacity: 1;
         .cart-widget-body{
-            transform: translateY(0);
+            transform: translateX(0);
         }
     }
     &.cart-widget-leave{
+        opacity: 1;
         .cart-widget-body{
-            transform: translateY(0);
+            transform: translateX(0);
         }
     }
     &.cart-widget-leave-active{
+        opacity: 0;
         .cart-widget-body{
-            transform: translateY(200px);
+            transform: translateX(100%);
+        }
+    }
+    .loader{
+        background: $color2;
+        background: -moz-linear-gradient(left, $color2 10%, rgba(255, 255, 255, 0) 42%);
+        background: -webkit-linear-gradient(left, $color2 10%, rgba(255, 255, 255, 0) 42%);
+        background: -o-linear-gradient(left, $color2 10%, rgba(255, 255, 255, 0) 42%);
+        background: -ms-linear-gradient(left, $color2 10%, rgba(255, 255, 255, 0) 42%);
+        background: linear-gradient(to right, $color2 10%, rgba(255, 255, 255, 0) 42%);
+        &::before{
+            background-color: $color2;
+        }
+        &::after{
+            background-color: $color1;
         }
     }
     .cart-widget-body{
         background-color: $color1;
-        height: auto;
-        width: 250px;
+        height: 100vh;
+        width: 300px;
         box-sizing: border-box;
         overflow: hidden;
-        padding: 0;
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
+        padding: 20px 20px;
         transition: 300ms;
-        &:hover, &.active{
-            .top{
-                background-color: $btn1_hover;
-                p{
-                    color: $color2;
-                }
-                .icon svg path{
-                    fill: $color2;
-                }
-            }
-            .bottom{
-                max-height: 295px;
-                .cart-items{
-                    padding: 10px 17px 20px 15px;
-                }
-            }
+        h2{
+            font-size: 28px;
+            color: $color2;
+            margin-bottom: 15px;
         }
-        .top{
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 15px;
-            cursor: pointer;
-            transition: 300ms;
-            span{
+        .cart-items{
+            margin: 10px 0 20px;
+            .cart-item{
                 display: flex;
-                align-items: center;
-                .icon{
-                    padding-right: 5px;
-                    svg{
-                        width: 20px;
-                        height: 20px;
-                        path{
-                            transition: 300ms;
-                        }
+                height: 75px;
+                position: relative;
+                &:not(:last-child){
+                    margin-bottom: 10px;
+                }
+                .img{
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    background-color: #fff;
+                    img{
+                        max-height: 75px;
+                        max-width: 75px;
+                    }
+                }
+                .text{
+                    padding:5px 10px;
+                    p, a{
+                        color: $color2;
+                    }
+                    .name{
+                        font-size: 1.2em;
+                        padding-bottom: 5px;
+                        display: block;
+                        font-weight: 700;
+                        text-decoration:none;
+                    }
+                    .remove{
+                        font-size: .8em;
+                        font-weight: 700;
+                        cursor: pointer;
+                        position: absolute;
+                        right: 0;
+                        bottom: 0;
                     }
                 }
             }
-            p{
-                color: #fff;
-                transition: 300ms;
-                font-weight: 700;
-                font-size: 1.2em;
-            }
         }
-        .bottom{
-            max-height: 0;
-            overflow: hidden;
-            transition: 500ms;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            .cart-items{
-                transition: max-height 500ms, padding 300ms;
-                padding: 0 15px 0 15px;
-                width: calc(100% - 15px);
-                height: 100%;
-                box-sizing: content-box;
-                max-height: 220px;
-                overflow-y: scroll;
-                button{
-                    margin-bottom: 10px;
-                }
-            }
-            button{
-                width: calc(100% - 40px);
-                margin: 10px auto 5px;
-                display: block;
-            }
-            .loader{
-                width: 8em;
-                height: 8em;
-                background: linear-gradient(to right, $color2 10%,rgba(255,255,255,0) 42%);
-                &::before{
-                    background: $color2;
-                }
-                &::after{
-                    background: $color1;
-                }
-            }
-        }
-        .cart-item{
-            display: flex;
-            height: 75px;
-            position: relative;
-            &:not(:last-child){
-                margin-bottom: 10px;
-            }
-            .img{
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                background-color: #fff;
-                img{
-                    max-height: 75px;
-                    max-width: 75px;
-                }
-            }
-            .text{
-                padding:5px 10px;
-                p, a{
-                    color: $color2;
-                }
-                .name{
-                    font-size: 1.2em;
-                    padding-bottom: 5px;
-                    display: block;
-                    font-weight: 700;
-                    text-decoration:none;
-                }
-                .remove{
-                    font-size: .8em;
-                    font-weight: 700;
-                    cursor: pointer;
-                    position: absolute;
-                    right: 0;
-                    bottom: 0;
-                }
-            }
+        .btn{
+            padding: 13px 20px;
         }
         .empty-cart{
             padding: 10px;

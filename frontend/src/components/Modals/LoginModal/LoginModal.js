@@ -33,11 +33,11 @@ class LoginModal extends Component{
                     <div className={"curtain "+this.state.currentForm}>
                         <div className="curtain-text">
                             <div>
-                                <p>Hello, register!</p>
+                                <p>Already have account? Press the button below&nbsp;and login!</p>
                                 <Button click={this.switchForm} type='outline-white' round label='Login'/>
                             </div>
                             <div>
-                                <p>Hello, login!</p>
+                                <p>Don't have account yet? Press the button below and create it!</p>
                                 <Button click={this.switchForm} type='outline-white' round label='Create account'/>
                             </div>
                         </div>

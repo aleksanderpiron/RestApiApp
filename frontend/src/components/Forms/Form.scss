@@ -4,6 +4,13 @@
     transition: 300ms;
 }
 .form{
+    .input-row{
+        display: flex;
+        justify-content: space-between;
+        label{
+            width: 48%;
+        }
+    }
     .return{
         margin-bottom: 0;
     }
@@ -35,6 +42,9 @@
         .btn:not(.full){
             width: 48%;
         }
+    }
+    &.order-form{
+        width: 500px;
     }
 }
 .modal.product-delete-modal{
