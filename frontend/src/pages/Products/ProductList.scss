@@ -30,6 +30,32 @@
         border: 1px solid #eee;
         transition: 300ms;
     }
+    .sort{
+        .icon-radio{
+            .options{
+                border-radius: 4px;
+                .option{
+                    padding: 7.5px 10px;
+                    &.active{
+                        background-color: $color1;
+                        .icon svg path{
+                            fill: $color2;
+                        }
+                    }
+                    p{
+                        display: none;
+                    }
+                    .icon{
+                        height: 20px;
+                        svg{
+                            max-height: 20px;
+                            max-width: 20px;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 .product-item{
     position: relative;

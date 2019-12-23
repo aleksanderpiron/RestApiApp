@@ -3,9 +3,8 @@ import ProductItem from './ProductItem';
 import ProductPage from './ProductPage';
 import ProductForm from '../../components/Forms/ProductForm';
 import Spinner from '../../components/Spinner/Spinner';
+import ProductListHeader from './ProductListHeader';
 import { addToCart } from '../../components/Cart/CartFunctions';
-import IconRadio from '../../components/Inputs/IconRadio';
-import Input from '../../components/Inputs/Input';
 import {AnimatedRoute, AnimatedSwitch} from '../../components/Anims/AnimatedRouter';
 import './ProductList.css';
 
@@ -19,15 +18,19 @@ class ProductsList extends Component{
         loading:true,
         itemLoading:false,
         sortBy:{
-            value:'',
+            value:'date',
             options:[
                 {
-                    label:'Alphabet',
-                    icon:'cart'
+                    icon:'alphabet',
+                    label:'alphabet'
                 },
                 {
-                    label:'Price',
-                    icon:'cart'
+                    icon:'price',
+                    label:'price'
+                },
+                {
+                    icon:'calendar',
+                    label:'date'
                 },
             ]
         }
@@ -39,7 +42,6 @@ class ProductsList extends Component{
             }
         });
         const data = await res.json();
-        
         this.setState({
             products:data,
             loading:false
@@ -81,6 +83,14 @@ class ProductsList extends Component{
             filteredProducts
         })
     }
+    sortHandler=(target)=>{
+        // if()
+        const newSortBy = this.state.sortBy;
+        newSortBy.value = target;
+        this.setState({
+            sortBy:newSortBy
+        })
+    }
     mapProducts=(products)=>{
         const productsArray = products.map((prod, index)=>{
             return <ProductItem
@@ -116,20 +126,7 @@ class ProductsList extends Component{
             <AnimatedSwitch animationClassName="page-switch" animationTimeout={300} className="page">
                 <AnimatedRoute exact path="/products" render={()=>
                     <>
-                        <div className='product-header'>
-                            <div className="search">
-                                <label>
-                                    <input type='text' onChange={this.filterByName} name='filter' className='search-input'/>
-                                </label>
-                            </div>
-                            <div className="sort">
-                                {/* <IconRadio
-                                inputData={this.state.sortBy}
-                                change={this.textInputHandler}
-                                name='sortby'
-                                label='Sort by:'/> */}
-                            </div>
-                        </div>
+                        <ProductListHeader filterByName={this.filterByName} sort={this.state.sortBy} sortHandler={this.sortHandler} filteredProducts={this.state.filteredProducts} allProducts={this.state.products}/>
                         <div className='product-list'>
                             {this.state.loading?<Spinner/>:productsArray}
                         </div>
