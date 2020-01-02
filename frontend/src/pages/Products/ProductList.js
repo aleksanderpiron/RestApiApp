@@ -11,12 +11,12 @@ import './ProductList.css';
 class ProductsList extends Component{
     state = {
         products:null,
-        filteredProducts:null,
+        productsToShow:null,
         singleProduct:null,
-        showSingleProduct:false,
         addProduct:false,
-        loading:true,
         itemLoading:false,
+        loading:true,
+        showSingleProduct:false,
         sortBy:{
             value:'date',
             options:[
@@ -35,7 +35,7 @@ class ProductsList extends Component{
             ]
         }
     }
-    getProducts=async(e)=>{
+    getProducts=async()=>{
         const res = await fetch('http://localhost:8080/products', {
             headers:{
                 "Authorization": localStorage.getItem('authToken')
@@ -46,6 +46,7 @@ class ProductsList extends Component{
             products:data,
             loading:false
         })
+        this.mapProducts(this.state.products)
     }
     deleteProduct=async(id)=>{
         const formData = new FormData();
@@ -54,14 +55,14 @@ class ProductsList extends Component{
         const res = await fetch(url, {
             method:'POST',
             body:formData
-        })
+        });
         if(res.status === 200){
             this.getProducts();
-            this.props.pushNotif('success', 'Product was successfuly deleted!', 5000)
+            this.props.pushNotif('success', 'Product was successfuly deleted!', 5000);
         }
         else if(res.status === 500){
             console.log('error')
-        }
+        };
     }
     addToCartHandler=async(prodId)=>{
         const result = await addToCart(prodId);
@@ -79,34 +80,51 @@ class ProductsList extends Component{
         const filteredProducts = this.state.products.filter(prod=>{
             return prod.name.toUpperCase().includes(value.toUpperCase());
         });
-        this.setState({
-            filteredProducts
-        })
+        this.mapProducts(filteredProducts);
     }
     sortHandler=(target)=>{
-        // if()
         const newSortBy = this.state.sortBy;
         newSortBy.value = target;
         this.setState({
             sortBy:newSortBy
         })
+        this.mapProducts(this.state.products);
     }
     mapProducts=(products)=>{
+        switch(this.state.sortBy.value){
+            case 'alphabet':
+                products.sort((a, b)=>{
+                    if(a.name.toLowerCase() < b.name.toLowerCase()) {return -1;}
+                    if(a.name.toLowerCase() > b.name.toLowerCase()) {return 1;}
+                    return 0;
+                });
+            break;
+            case 'price':
+                products.sort((a, b)=>{
+                    if(parseFloat(a.price) < parseFloat(b.price)) {return -1;}
+                    if(parseFloat(a.price) > parseFloat(b.price)) {return 1;}
+                    return 0;
+                });
+            break;
+            case 'date':
+                products.sort((a, b)=>{
+                    if(Date.parse(a.creationDate) < Date.parse(b.creationDate)) {return 1;}
+                    if(Date.parse(a.creationDate) > Date.parse(b.creationDate)) {return -1;}
+                    return 0;
+                });
+            break;
+        }
         const productsArray = products.map((prod, index)=>{
             return <ProductItem
             key={`ProductItem_${index}`}
-            addToCart={()=>{this.addToCartHandler(prod._id)}}
+            addToCart={this.addToCartHandler}
             getSingleProduct={this.getSingleProduct}
-            name={prod.name}
-            price={prod.price}
-            imageUrl={prod.imageUrl!==null?'http://localhost:8080'+prod.imageUrl:null}
-            description={prod.description}
-            creationDate={prod.creationDate}
-            createdBy={prod.createdBy}
-            delete={this.deleteProduct}
-            id={prod._id}/>
+            itemData={prod}
+            delete={this.deleteProduct}/>
         });
-        return productsArray;
+        this.setState({
+            productsToShow:productsArray
+        })
     }
     UNSAFE_componentWillMount=()=>{
         this.getProducts();
@@ -115,20 +133,13 @@ class ProductsList extends Component{
         this.getProducts();
     }
     render(){
-        let productsArray;
-        if(this.state.filteredProducts !== null){
-            productsArray = this.mapProducts(this.state.filteredProducts);
-        }
-        else if(this.state.products !== null){
-            productsArray = this.mapProducts(this.state.products);
-        }
         return(
             <AnimatedSwitch animationClassName="page-switch" animationTimeout={300} className="page">
                 <AnimatedRoute exact path="/products" render={()=>
                     <>
-                        <ProductListHeader filterByName={this.filterByName} sort={this.state.sortBy} sortHandler={this.sortHandler} filteredProducts={this.state.filteredProducts} allProducts={this.state.products}/>
+                        <ProductListHeader filterByName={this.filterByName} sort={this.state.sortBy} sortHandler={this.sortHandler} finded={this.state.productsToShow}/>
                         <div className='product-list'>
-                            {this.state.loading?<Spinner/>:productsArray}
+                            {this.state.loading?<Spinner/>:this.state.productsToShow}
                         </div>
                     </>
                 }/>

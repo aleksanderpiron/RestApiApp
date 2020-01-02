@@ -16,39 +16,40 @@ const ProductItem =(props)=>{
     const toggleLoading=()=>{
         loading = !loading;
     }
-    const userId = localStorage.getItem('userId');
+    const userId = localStorage.getItem('userId'),
+    {name, price, _id, imageUrl, description, createdBy} = props.itemData;
     return(
-        <div key={props.id} className={'product-item'}>
+        <div key={_id} className={'product-item'}>
             <div className="delete-mask">
                 <p>Are you sure you want to delete this item?</p>
                 <div className="buttons">
-                    <Button click={()=>{props.delete(props.id)}} type='primary' label='Yes'/>
+                    <Button click={()=>{props.delete(_id)}} type='primary' label='Yes'/>
                     <Button click={(e)=>{toggleDeletingMask(e, false)}} type='danger' label='No'/>
                 </div>
             </div>
             <div className="top">
-                <Link to={`/products/product/${props.id}`}>{props.name}</Link>
-                {props.createdBy === userId &&
+                <Link to={`/products/product/${_id}`}>{name}</Link>
+                {createdBy === userId &&
                     <div className="settings-box">
                         <div className="trigger"><Icon type='gear'/></div>
                         <div className="body">
                             <button onClick={(e)=>{toggleDeletingMask(e, true)}}><Icon type='delete'/></button>
-                            <Link to={`/products/edit-product/${props.id}`}><Icon type='edit'/></Link>
+                            <Link to={`/products/edit-product/${_id}`}><Icon type='edit'/></Link>
                         </div>
                     </div>
                 }
             </div>
-            <div className={props.imageUrl === null?'img default':'img'}>
-                {props.imageUrl === null?<Icon type='picture'/>: <img src={props.imageUrl} alt=''/>}
+            <div className={imageUrl === null?'img default':'img'}>
+                {imageUrl === null?<Icon type='picture'/>: <img src={'http://localhost:8080'+imageUrl} alt=''/>}
             </div>
             <div className="desc">
-                <p>{props.description.length>130?`${props.description.substring(0, 127)}...`:props.description}</p>
-                <p className="price">{props.price} zł</p>
+                <p>{description.length>130?`${description.substring(0, 127)}...`:description}</p>
+                <p className="price">{price} zł</p>
             </div>
             <div className="bottom">
                 <Button
                 click={()=>{
-                    props.addToCart();
+                    props.addToCart(_id);
                     toggleLoading();
                 }}
                 loading={loading}
