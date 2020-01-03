@@ -46,7 +46,7 @@ class ProductsList extends Component{
             products:data,
             loading:false
         })
-        this.mapProducts(this.state.products)
+        this.sortProducts(this.state.products)
     }
     deleteProduct=async(id)=>{
         const formData = new FormData();
@@ -80,7 +80,7 @@ class ProductsList extends Component{
         const filteredProducts = this.state.products.filter(prod=>{
             return prod.name.toUpperCase().includes(value.toUpperCase());
         });
-        this.mapProducts(filteredProducts);
+        this.sortProducts(filteredProducts);
     }
     sortHandler=(target)=>{
         const newSortBy = this.state.sortBy;
@@ -88,9 +88,9 @@ class ProductsList extends Component{
         this.setState({
             sortBy:newSortBy
         })
-        this.mapProducts(this.state.products);
+        this.sortProducts(this.state.products);
     }
-    mapProducts=(products)=>{
+    sortProducts=(products)=>{
         switch(this.state.sortBy.value){
             case 'alphabet':
                 products.sort((a, b)=>{
@@ -114,16 +114,8 @@ class ProductsList extends Component{
                 });
             break;
         }
-        const productsArray = products.map((prod, index)=>{
-            return <ProductItem
-            key={`ProductItem_${index}`}
-            addToCart={this.addToCartHandler}
-            getSingleProduct={this.getSingleProduct}
-            itemData={prod}
-            delete={this.deleteProduct}/>
-        });
         this.setState({
-            productsToShow:productsArray
+            productsToShow:products
         })
     }
     UNSAFE_componentWillMount=()=>{
@@ -133,13 +125,26 @@ class ProductsList extends Component{
         this.getProducts();
     }
     render(){
+        let rederedItems;
+        if(this.state.productsToShow.length>0 && this.state.productsToShow !== null){
+            rederedItems = this.state.productsToShow.map((prod, index)=>{
+                return <ProductItem
+                key={`ProductItem_${index}`}
+                addToCart={this.addToCartHandler}
+                getSingleProduct={this.getSingleProduct}
+                itemData={prod}
+                delete={this.deleteProduct}/>
+            });
+        }else{
+            rederedItems = <p>No products found</p>
+        }
         return(
             <AnimatedSwitch animationClassName="page-switch" animationTimeout={300} className="page">
                 <AnimatedRoute exact path="/products" render={()=>
                     <>
                         <ProductListHeader filterByName={this.filterByName} sort={this.state.sortBy} sortHandler={this.sortHandler} finded={this.state.productsToShow}/>
                         <div className='product-list'>
-                            {this.state.loading?<Spinner/>:this.state.productsToShow}
+                            {this.state.loading?<Spinner/>:rederedItems}
                         </div>
                     </>
                 }/>
