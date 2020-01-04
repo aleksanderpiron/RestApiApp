@@ -126,7 +126,7 @@ class ProductsList extends Component{
     }
     render(){
         let rederedItems;
-        if(this.state.productsToShow.length>0 && this.state.productsToShow !== null){
+        if(this.state.productsToShow !== null && this.state.productsToShow.length>0){
             rederedItems = this.state.productsToShow.map((prod, index)=>{
                 return <ProductItem
                 key={`ProductItem_${index}`}
