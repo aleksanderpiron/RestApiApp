@@ -50,3 +50,16 @@ exports.placeOrder=(req, res, next)=>{
         next(err);
     })
 }
+
+exports.getOrdersHistory=(req, res, next)=>{
+    const {userId} = req.body;
+    Order.find({userId})
+    .populate('cart.items.product', 'name')
+    .then(orders=>{
+        res.status(200).json(orders);
+    })
+    .catch(err=>{
+        next(err);
+    })
+    
+}

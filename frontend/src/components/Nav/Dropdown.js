@@ -1,10 +1,11 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import './Nav.css';
 
 const Dropdown =(props)=>{
     const dropdownOptions = props.dropdownOptions.map((option, index)=>{
         if(option.type === 'link'){
-            return <button key={`dropdownItem_${index}`} href={option.href}>{option.label}</button>
+            return <Link key={`dropdownItem_${index}`} to={option.href}>{option.label}</Link>
         }
         else if(option.type === 'click'){
             return <button key={`dropdownItem_${index}`} onClick={option.click}>{option.label}</button>

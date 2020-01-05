@@ -44,6 +44,22 @@ html{
   opacity: 0;
   transition: 300ms ease-out;
 }
+.slide-up-enter{
+  opacity: 0;
+  transform: translateY(-50px);
+}
+.slide-up-enter-active{
+  opacity: 1;
+  transform: translateY(0);
+}
+.slide-up-leave{
+  opacity: 1;
+  transform: translateY(0);
+}
+.slide-up-leave-active{
+  opacity: 0;
+  transform: translateY(-50px);
+}
 .error-message{
   position: relative;
   padding-left: 18px;

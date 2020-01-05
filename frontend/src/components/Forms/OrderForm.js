@@ -206,7 +206,7 @@ class OrderFrom extends Component{
                     underline
                     type="text"
                     name='phone'
-                    label='Phone number (without space)'/>
+                    label='Phone number (without space & only polish)'/>
                 <Input
                     blur={this.blurHandler}
                     change={this.textInputHandler}

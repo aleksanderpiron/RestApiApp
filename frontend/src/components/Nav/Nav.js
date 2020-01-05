@@ -41,8 +41,6 @@ class Nav extends Component{
         })
     }
     componentDidMount(){
-        // this.prevScroll = window.scrollY;
-        // window.addEventListener('scroll', (e)=>this.scrollHandle(e))
         this.calculateHandler();
     }
     componentDidUpdate(prevProps, prevState) {
@@ -71,20 +69,24 @@ class Nav extends Component{
                             label='Products'/>
                     </div>
                     <div className="right">
-                        <NavLink
-                            link="/products/add-product"
-                            label={<Icon type="plus" />}/>
                         {!this.props.isLogged && <NavToggler
                             click={()=>{this.props.toggleState('loginModalShowed', true)}}
                             label={<Icon type="user" />}/>}
-                        {this.props.isLogged && <NavToggler
+                        {this.props.isLogged && 
+                            <>
+                            <NavLink
+                            link="/products/add-product"
+                            label={<Icon type="plus" />}/>
+                            <NavToggler
                             click={()=>{this.props.toggleState('cartWidgetShowed', true)}}
-                            label={<Icon type="cart" />}/>}
+                            label={<Icon type="cart" />}/>
+                            </>
+                            }
                         {this.props.isLogged && <Dropdown dropdownLabel={<Icon type='user'/>} dropdownOptions={[
                             {
                                 label:'Orders history',
                                 type:'link',
-                                href:'/orders'
+                                href:'/account/order-history'
                             },
                             {
                                 label:'Account',

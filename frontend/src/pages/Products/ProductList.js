@@ -36,7 +36,7 @@ class ProductsList extends Component{
         }
     }
     getProducts=async()=>{
-        const res = await fetch('http://localhost:8080/products', {
+        const res = await fetch('//localhost:8080/products', {
             headers:{
                 "Authorization": localStorage.getItem('authToken')
             }
@@ -61,7 +61,7 @@ class ProductsList extends Component{
             this.props.pushNotif('success', 'Product was successfuly deleted!', 5000);
         }
         else if(res.status === 500){
-            console.log('error')
+            this.props.pushNotif('error', 'Something wrong with server', 5000);
         };
     }
     addToCartHandler=async(prodId)=>{
@@ -82,13 +82,13 @@ class ProductsList extends Component{
         });
         this.sortProducts(filteredProducts);
     }
-    sortHandler=(target)=>{
+    sortHandler=(e)=>{
         const newSortBy = this.state.sortBy;
-        newSortBy.value = target;
+        newSortBy.value = e.target.value;
         this.setState({
             sortBy:newSortBy
         })
-        this.sortProducts(this.state.products);
+        this.sortProducts(this.state.productsToShow);
     }
     sortProducts=(products)=>{
         switch(this.state.sortBy.value){
@@ -113,7 +113,7 @@ class ProductsList extends Component{
                     return 0;
                 });
             break;
-        }
+        };
         this.setState({
             productsToShow:products
         })
