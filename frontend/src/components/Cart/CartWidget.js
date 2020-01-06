@@ -10,7 +10,7 @@ const CartSidebar=(props)=>{
     }
     return(
         <div className='cart-widget-bg' onClick={close}>
-            <Cart refresh={props.refresh} layout='widget'/>
+            <Cart refresh={props.refresh} close={()=>{props.toggleState('cartWidgetShowed', false)}} layout='widget'/>
         </div>
     )
 }

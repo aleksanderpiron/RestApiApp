@@ -4,7 +4,10 @@ const fs = require('fs');
 const mongoose = require('mongoose');
 
 exports.getProducts = (req, res, next)=>{
-    Product.find()
+    const limit = parseInt(req.query.limit),
+    skip = parseInt(req.query.skip),
+    sort = req.query.sort;
+    Product.find({},null,{limit, skip, sort})
     .then(products=>{
         res.status(200).json(products);
     })
@@ -44,7 +47,7 @@ exports.postAddProduct = (req, res)=>{
     const createdBy = mongoose.Types.ObjectId(userId);
     const product = new Product({
         name,
-        price,
+        price: parseFloat(price),
         description,
         imageUrl,
         creationDate: productCreateData,

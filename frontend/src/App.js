@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Nav from './components/Nav/Nav';
 import Home from './pages/Home/Home';
 import Checkout from './pages/Checkout/Checkout';
-import ProductList from './pages/Products/ProductList';
+import ProductList from './pages/Products/Products';
 import LoginModal from './components/Modals/LoginModal/LoginModal';
 import ReactCSSTransitionGroup  from 'react-addons-css-transition-group';
 import Notif from './components/Notification/Notif';

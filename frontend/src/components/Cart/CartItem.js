@@ -1,6 +1,5 @@
 import React from 'react';
 import QtyInput from '../Inputs/QtyInput';
-import Icon from '../Icon/Icon';
 
 const CartItem=(props)=>{
     let cartItemLayout =

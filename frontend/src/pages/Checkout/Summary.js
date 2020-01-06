@@ -1,9 +1,8 @@
 import React from 'react';
 
 const Summary=(props)=>{
-    let items, delivery, payment;
+    let items, delivery;
     delivery = 12.99;
-    payment = '---'
     items = props.items.map((item, index)=>{
         return <li key={`item_${index}`}><span>{item.product.name}</span><span>{` x${item.qty}`}</span></li>
     })

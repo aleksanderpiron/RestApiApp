@@ -2,19 +2,6 @@ import React from 'react';
 import IconRadio from '../../components/Inputs/IconRadio';
 
 const ProductListHeader=(props)=>{
-    const sortItems = {
-        options:[
-            {
-                icon:'alphabet'
-            },
-            {
-                icon:'price'
-            },
-            {
-                icon:'calendar'
-            },
-        ]
-    };
     let resultNumber;
     if(props.finded === null){
         resultNumber = 0;

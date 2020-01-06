@@ -4,7 +4,6 @@ import IconRadio from '../Inputs/IconRadio';
 import Select from '../Inputs/Select';
 import Button from '../Button/Button';
 import InputValidateHandler from './InputValidateHandler';
-import ErrorViewHandler from './ErrorViewHandler';
 import './Form.css';
 
 class OrderFrom extends Component{

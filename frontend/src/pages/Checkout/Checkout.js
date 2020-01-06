@@ -23,7 +23,6 @@ class Checkout extends Component{
     }
     showCart=async()=>{
         const cartData = await getCartData();
-        console.log(cartData);
         if(cartData.items.length === 0){
             this.setState({
                 cart:cartData,

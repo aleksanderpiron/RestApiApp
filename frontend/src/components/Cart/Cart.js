@@ -57,6 +57,8 @@ class Cart extends Component{
     redirectHandler=()=>{
         this.setState({
             redirect:true
+        }, ()=>{
+            this.props.close();
         })
     }
     UNSAFE_componentWillMount=()=>{
