@@ -6,9 +6,18 @@ const mongoose = require('mongoose');
 exports.getProducts = (req, res, next)=>{
     const limit = parseInt(req.query.limit),
     skip = parseInt(req.query.skip),
-    sort = req.query.sort;
-    Product.find({},null,{limit, skip, sort})
+    {sort} = req.query;
+    let {search} = req.query;
+    console.log(search)
+    if(typeof search !== 'undefined'){
+        search = {name: {$regex: '.*' + search + '.*'}};
+        console.log(search);
+    }else{
+        search = null;
+    }
+    Product.find({search},null,{limit, skip, sort})
     .then(products=>{
+        console.log(products);
         res.status(200).json(products);
     })
     .catch(err=>{

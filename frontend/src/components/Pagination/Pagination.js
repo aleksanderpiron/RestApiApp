@@ -1,10 +1,10 @@
 import React from 'react';
 import './Pagination.css'
 
-const Pagination=({pageNumber, currentPage})=>{
+const Pagination=({length, current, click})=>{
     const pagiItems = [];
-    for(let i=1; i<=pageNumber;i++){
-        const el = <li>{i}</li>
+    for(let i=1; i<=length;i++){
+        const el = <li onClick={()=>{click(i)}} className={current===i&&'active'}>{i}</li>
         pagiItems.push(el);
     };
     return(

@@ -9,11 +9,10 @@ import './ProductList.css';
 class Products extends Component{
     state = {
         products:[],
-        singleProduct:null,
-        addProduct:false,
         itemLoading:false,
         loading:true,
-        showSingleProduct:false,
+        pagiCurrent:1,
+        searchValue:'',
         sortBy:{
             value:'-creationDate',
             options:[
@@ -32,17 +31,22 @@ class Products extends Component{
             ]
         }
     }
-    getProducts=async(skip, limit, sort)=>{
+    searchTimeout;
+    getProducts=async(limit, search = false)=>{
         this.setState({
             loading:true
-        })
-        const url = `//localhost:8080/products?skip=${skip}&limit=${limit}&sort=${sort}`;
+        });
+        const skip = (this.state.pagiCurrent-1) * 12;
+        let url = `//localhost:8080/products?skip=${skip}&limit=${limit}&sort=${this.state.sortBy.value}`;
+        if(search){
+            url += `&search=${this.state.searchValue}`
+        }
         const res = await fetch(url, {
             headers:{
                 "Authorization": localStorage.getItem('authToken')
             }
-        });
-        const data = await res.json();
+        }),
+        data = await res.json();
         this.setState({
             products:data,
             loading:false
@@ -70,16 +74,26 @@ class Products extends Component{
             this.props.pushNotif('info', 'Product was successfuly added to cart!', 3000);
         }
     }
-    closeProduct=()=>{
+    setPagiCurrent=(number)=>{
         this.setState({
-            showSingleProduct:false
-        })
+            pagiCurrent:number
+        }, ()=>{
+            this.getProducts(12);
+        });
     }
     filterByName=(e)=>{
+        clearTimeout(this.searchTimeout);
         const {value} = e.target;
-        const filteredProducts = this.state.products.filter(prod=>{
-            return prod.name.toUpperCase().includes(value.toUpperCase());
-        });
+        this.searchTimeout = setTimeout(()=>{
+            this.setState({
+                searchValue:value
+            }, ()=>{
+                this.getProducts(12, true);
+            })
+        }, 1000)
+        // const filteredProducts = this.state.products.filter(prod=>{
+        //     return prod.name.toUpperCase().includes(value.toUpperCase());
+        // });
     }
     sortHandler=(e)=>{
         const newSortBy = this.state.sortBy;
@@ -87,19 +101,25 @@ class Products extends Component{
         this.setState({
             sortBy:newSortBy
         })
-        this.getProducts(0,12,this.state.sortBy.value);
+        this.getProducts(12);
     }
     UNSAFE_componentWillMount=()=>{
-        this.getProducts(0,12,this.state.sortBy.value);
+        this.getProducts(12);
     }
     UNSAFE_componentWillReceiveProps=()=>{
-        this.getProducts(0,12,this.state.sortBy.value);
+        this.getProducts(12);
     }
     render(){
         return(
             <AnimatedSwitch animationClassName="page-switch" animationTimeout={300} className="page">
                 <AnimatedRoute exact path="/products" render={()=>
-                    <ProductList products={this.state.products} filterByName={this.filterByName} sort={this.state.sortBy} sortHandler={this.sortHandler}/>
+                    <ProductList
+                    products={this.state.products}
+                    filterByName={this.filterByName}
+                    sort={this.state.sortBy} 
+                    sortHandler={this.sortHandler}
+                    setPagiCurrent={this.setPagiCurrent}
+                    pagiCurrent={this.state.pagiCurrent}/>
                 }/>
                 <AnimatedRoute exact path="/products/product/:productId" render={(props)=>
                     <ProductPage productId={props.match.params.productId}/>

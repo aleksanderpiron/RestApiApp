@@ -6,13 +6,14 @@ import Pagination from '../../components/Pagination/Pagination';
 
 const ProductList=(props)=>{
     let resultNumber;
+    const prodsLength = props.products.length;
     if(props.products === null){
         resultNumber = 0;
     }else{
-        resultNumber = props.products.length;
+        resultNumber = prodsLength;
     }
     let rederedItems;
-    if(props.products !== null && props.products.length>0){
+    if(props.products !== null && prodsLength>0){
         rederedItems = props.products.map((prod, index)=>{
             return <ProductItem
             key={`ProductItem_${index}`}
@@ -39,7 +40,7 @@ const ProductList=(props)=>{
                 {rederedItems}
             </div>
             <div className="product-footer">
-                <Pagination pageNumber={2} currentPage={2}/>
+                <Pagination click={props.setPagiCurrent} length={5} current={props.pagiCurrent}/>
             </div>
         </>
     )
