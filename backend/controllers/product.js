@@ -8,17 +8,23 @@ exports.getProducts = (req, res, next)=>{
     skip = parseInt(req.query.skip),
     {sort} = req.query;
     let {search} = req.query;
-    console.log(search)
     if(typeof search !== 'undefined'){
-        search = {name: {$regex: '.*' + search + '.*'}};
-        console.log(search);
+        search = {name: {$regex: '.*' + search + '.*', $options: 'i'}};
     }else{
-        search = null;
+        search = {};
     }
-    Product.find({search},null,{limit, skip, sort})
+    Product.find(search, null, {limit, skip, sort})
     .then(products=>{
-        console.log(products);
-        res.status(200).json(products);
+        Product.countDocuments(search, (err, count)=>{
+            if(err){
+                throw new Error('Something went wrong with counting products');
+            }
+            const data = {
+                count,
+                products
+            }
+            res.status(200).json(data);
+        })
     })
     .catch(err=>{
         if(err){

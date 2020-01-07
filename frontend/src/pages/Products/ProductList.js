@@ -5,15 +5,10 @@ import IconRadio from '../../components/Inputs/IconRadio';
 import Pagination from '../../components/Pagination/Pagination';
 
 const ProductList=(props)=>{
-    let resultNumber;
-    const prodsLength = props.products.length;
-    if(props.products === null){
-        resultNumber = 0;
-    }else{
-        resultNumber = prodsLength;
-    }
-    let rederedItems;
-    if(props.products !== null && prodsLength>0){
+    let rederedItems,
+    pagiLength = Math.ceil(props.allItemsCount/12);
+    console.log(pagiLength);
+    if(props.products !== null && props.products.length>0){
         rederedItems = props.products.map((prod, index)=>{
             return <ProductItem
             key={`ProductItem_${index}`}
@@ -29,7 +24,7 @@ const ProductList=(props)=>{
             <div className="product-header">
                 <div className="search">
                     <input type="text" name='filter' className='search-input' onChange={props.filterByName}/>
-                    <p className='results'>Found {resultNumber} products</p>
+                    <p className='results'>Found {props.allItemsCount} products</p>
                 </div>
                 <div className="sort">
                     <IconRadio inputData={props.sort} change={props.sortHandler}/>
@@ -40,7 +35,7 @@ const ProductList=(props)=>{
                 {rederedItems}
             </div>
             <div className="product-footer">
-                <Pagination click={props.setPagiCurrent} length={5} current={props.pagiCurrent}/>
+                <Pagination click={props.setPagiCurrent} length={pagiLength} current={props.pagiCurrent}/>
             </div>
         </>
     )

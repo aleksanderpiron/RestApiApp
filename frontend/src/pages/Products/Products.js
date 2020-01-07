@@ -12,6 +12,7 @@ class Products extends Component{
         itemLoading:false,
         loading:true,
         pagiCurrent:1,
+        allItemsCount:0,
         searchValue:'',
         sortBy:{
             value:'-creationDate',
@@ -32,13 +33,13 @@ class Products extends Component{
         }
     }
     searchTimeout;
-    getProducts=async(limit, search = false)=>{
+    getProducts=async(limit = 12)=>{
         this.setState({
             loading:true
         });
         const skip = (this.state.pagiCurrent-1) * 12;
         let url = `//localhost:8080/products?skip=${skip}&limit=${limit}&sort=${this.state.sortBy.value}`;
-        if(search){
+        if(this.state.searchValue !== ''){
             url += `&search=${this.state.searchValue}`
         }
         const res = await fetch(url, {
@@ -48,7 +49,8 @@ class Products extends Component{
         }),
         data = await res.json();
         this.setState({
-            products:data,
+            products:data.products,
+            allItemsCount:data.count,
             loading:false
         })
     };
@@ -78,7 +80,7 @@ class Products extends Component{
         this.setState({
             pagiCurrent:number
         }, ()=>{
-            this.getProducts(12);
+            this.getProducts();
         });
     }
     filterByName=(e)=>{
@@ -88,12 +90,9 @@ class Products extends Component{
             this.setState({
                 searchValue:value
             }, ()=>{
-                this.getProducts(12, true);
+                this.getProducts();
             })
         }, 1000)
-        // const filteredProducts = this.state.products.filter(prod=>{
-        //     return prod.name.toUpperCase().includes(value.toUpperCase());
-        // });
     }
     sortHandler=(e)=>{
         const newSortBy = this.state.sortBy;
@@ -101,13 +100,13 @@ class Products extends Component{
         this.setState({
             sortBy:newSortBy
         })
-        this.getProducts(12);
+        this.getProducts();
     }
     UNSAFE_componentWillMount=()=>{
-        this.getProducts(12);
+        this.getProducts();
     }
     UNSAFE_componentWillReceiveProps=()=>{
-        this.getProducts(12);
+        this.getProducts();
     }
     render(){
         return(
@@ -115,6 +114,7 @@ class Products extends Component{
                 <AnimatedRoute exact path="/products" render={()=>
                     <ProductList
                     products={this.state.products}
+                    allItemsCount={this.state.allItemsCount}
                     filterByName={this.filterByName}
                     sort={this.state.sortBy} 
                     sortHandler={this.sortHandler}
