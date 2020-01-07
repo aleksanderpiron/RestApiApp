@@ -3,7 +3,7 @@ import ProductList from './ProductList';
 import ProductPage from './ProductPage';
 import ProductForm from '../../components/Forms/ProductForm';
 import { addToCart } from '../../components/Cart/CartFunctions';
-import {AnimatedRoute, AnimatedSwitch} from '../../components/Anims/AnimatedRouter';
+import { AnimatedRoute, AnimatedSwitch } from '../../components/Anims/AnimatedRouter';
 import './ProductList.css';
 
 class Products extends Component{

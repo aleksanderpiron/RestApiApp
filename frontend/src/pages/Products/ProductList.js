@@ -2,6 +2,7 @@ import React from 'react';
 import ProductItem from './ProductItem';
 import Spinner from '../../components/Spinner/Spinner';
 import IconRadio from '../../components/Inputs/IconRadio';
+import Pagination from '../../components/Pagination/Pagination';
 
 const ProductList=(props)=>{
     let resultNumber;
@@ -36,6 +37,9 @@ const ProductList=(props)=>{
             <div className='product-list'>
                 {/* {loading?<Spinner/>:rederedItems} */}
                 {rederedItems}
+            </div>
+            <div className="product-footer">
+                <Pagination pageNumber={2} currentPage={2}/>
             </div>
         </>
     )
