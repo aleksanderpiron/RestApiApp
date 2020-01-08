@@ -50,7 +50,9 @@ class LoginForm extends Component{
         }
     }
     submitHandler=async(e)=>{
-        e.preventDefault()
+        if(e){
+            e.preventDefault();
+        }
         this.toggleLoading(true);
         const formData = new FormData();
         const inputs = this.state.inputs;
@@ -86,7 +88,14 @@ class LoginForm extends Component{
         }catch(err){
             console.log(err)
         }
-
+    }
+    testerLogin=()=>{
+        const newInputs = this.state.inputs;
+        newInputs.email.value = 'admin@admin.com';
+        newInputs.password.value = 'adminadmin';
+        this.setState({
+            inputs:newInputs
+        }, this.submitHandler);
     }
     render(){
         return(
@@ -109,6 +118,7 @@ class LoginForm extends Component{
                     name='password'
                     label='Password'/>
                 <Button loading={this.state.loading} disabled={!this.state.allInputsCorrect} submit type="primary" full label='Login'/>
+                <Button loading={this.state.loading} click={this.testerLogin} type="secondary" full label='Login to test account'/>
             </form>
         )
     }

@@ -1,9 +1,9 @@
 import React from 'react';
 
-const QtyInput=(props)=>{
+const QtyInput=({value})=>{
     return(
         <div className="qty-input">
-            <input value={props.value} type="number"/>
+            <span>{value}</span>
             <div className="buttons">
                 <button>+</button>
                 <button>-</button>
