@@ -24,4 +24,13 @@
         text-align: center;
         display: block;
     }
+    p{
+        text-align: center;
+        margin: auto;
+        font-weight: 700;
+        margin-top: 20px;
+        &:first-of-type{
+            margin-top: 100px;
+        }
+    }
 }

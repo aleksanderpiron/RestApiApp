@@ -15,6 +15,8 @@ const Home =()=>{
                     <img src={logo} alt=""/>
                     <h1><span>Welcome to</span> Fruit Shop!</h1>
                     <h2>Fresh & juicy fruits from around the world</h2>
+                    <p>This is my Node.js/React practice, so please don't be cruel because it isn't perfect but works :)</p>
+                    <p>Take care,<br/>Aleksander Piron</p>
                 </div>
             </CSSTransition>
         </div>

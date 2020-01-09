@@ -1,5 +1,4 @@
 import React from 'react';
-import QtyInput from '../Inputs/QtyInput';
 import {Link} from 'react-router-dom';
 
 const CartItem=(props)=>{
@@ -26,7 +25,7 @@ const CartItem=(props)=>{
                 <img src={'http://localhost:8080'+props.product.imageUrl} alt=""/>
             </div>
             <div className="text">
-                <Link to={'/products/product/'+props.product._id} className="name">{props.product.name}</Link>
+                <Link to={'/products/product/'+props.product._id} onClick={props.click} className="name">{props.product.name}</Link>
                 <p className="price">{props.product.price} zł</p>
                 <p className="qty">Qty: {props.qty}</p>
                 <p onClick={()=>{props.remove(props.product._id)}} className="remove">Remove</p>

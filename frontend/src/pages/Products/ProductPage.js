@@ -21,6 +21,7 @@ class ProductPage extends Component{
         this.getSingleProduct(this.props.productId)
     ]
     render(){
+            const product = this.state.product;
             return(
                 <div className="product-page">
                     {this.state.loading?<Spinner />:
@@ -28,10 +29,10 @@ class ProductPage extends Component{
                         <div className="img"><img src={'http://localhost:8080'+this.state.product.imageUrl} alt=""/></div>
                         <div className="text">
                             <Link className="return" to='/products'><Icon type='arrow'/> <span>Return</span></Link>
-                            <p className="name">{this.state.product.name}</p>
-                            <p className="desc">{this.state.product.description}</p>
-                            <p className="price">{this.state.product.price} zł</p>
-                            <Button type="primary" label='Add to cart'/>
+                            <p className="name">{product.name}</p>
+                            <p className="desc">{product.description}</p>
+                            <p className="price">{product.price} zł</p>
+                            <Button type="primary" label='Add to cart' click={()=>{this.props.addToCartHandler(product._id)}}/>
                         </div>
                     </>
                     }

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import CartItem from './CartItem';
 import Spinner from '../Spinner/Spinner';
 import Button from '../Button/Button';
-import {Redirect} from 'react-router-dom';
+import {Redirect, Link} from 'react-router-dom';
 import {getCartData, removeFromCart} from './CartFunctions';
 import './Cart.css';
 
@@ -32,6 +32,7 @@ class Cart extends Component{
                 key={`CartItem_${index}`}
                 remove={this.removeFromCartHandler}
                 layout={this.props.layout}
+                click={this.props.close}
                 product={cartItem.product}
                 id={cartItem._id}
                 qty={cartItem.qty}/>
@@ -88,7 +89,7 @@ class Cart extends Component{
                             </>
                         }
                 </div>
-                <Button click={this.redirectHandler} disabled={this.state.loading || this.state.totalPrice===0} type='secondary' full label='Proceed to checkout'/>
+                <Link to='/checkout' className='btn secondary full center full ' onClick={this.props.close} disabled={this.state.loading || this.state.totalPrice===0}>Proceed to checkout</Link>
                 {this.state.redirect && <Redirect to='/checkout'/>}
             </div>
         }

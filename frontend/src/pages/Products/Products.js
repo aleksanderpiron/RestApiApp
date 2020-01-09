@@ -113,6 +113,7 @@ class Products extends Component{
             <AnimatedSwitch animationClassName="page-switch" animationTimeout={300} className="page">
                 <AnimatedRoute exact path="/products" render={()=>
                     <ProductList
+                    addToCartHandler={this.addToCartHandler}
                     products={this.state.products}
                     allItemsCount={this.state.allItemsCount}
                     filterByName={this.filterByName}
@@ -122,7 +123,7 @@ class Products extends Component{
                     pagiCurrent={this.state.pagiCurrent}/>
                 }/>
                 <AnimatedRoute exact path="/products/product/:productId" render={(props)=>
-                    <ProductPage productId={props.match.params.productId}/>
+                    <ProductPage addToCartHandler={this.addToCartHandler} productId={props.match.params.productId}/>
                 }/>
                 <AnimatedRoute exact path="/products/add-product/" render={()=>
                     <ProductForm pushNotif={this.props.pushNotif}/>

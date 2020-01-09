@@ -157,6 +157,9 @@ nav{
                 &:hover{
                     background-color: #eee;
                 }
+                &:not(:last-child){
+                    border-bottom: 1px solid #eee;
+                }
             }
         }
     }

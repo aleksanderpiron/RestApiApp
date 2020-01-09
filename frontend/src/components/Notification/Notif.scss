@@ -4,10 +4,13 @@
     right: 0;
     z-index: 9;
     .notif{
+        display: flex;
+        align-items: center;
         overflow: hidden;
         position: relative;
         width: 250px;
         max-height: 350px;
+        min-height: 50px;
         box-sizing: border-box;
         padding-left: 60px;
         margin: 20px 0;
@@ -58,7 +61,7 @@
             top: -100%;
             width: 50px;
             height: 100%;
-            background-image: url('../../assets/close.svg');
+            background-image: url('../../assets/close-white.svg');
             background-size: 15px;
             background-position: center;
             background-repeat: no-repeat;

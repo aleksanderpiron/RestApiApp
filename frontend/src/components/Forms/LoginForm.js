@@ -118,7 +118,7 @@ class LoginForm extends Component{
                     name='password'
                     label='Password'/>
                 <Button loading={this.state.loading} disabled={!this.state.allInputsCorrect} submit type="primary" full label='Login'/>
-                <Button loading={this.state.loading} click={this.testerLogin} type="secondary" full label='Login to test account'/>
+                <Button click={this.testerLogin} type="secondary" full label='Login to test account'/>
             </form>
         )
     }

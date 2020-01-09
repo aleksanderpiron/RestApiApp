@@ -88,11 +88,11 @@ class Nav extends Component{
                                 type:'link',
                                 href:'/account/order-history'
                             },
-                            {
-                                label:'Account',
-                                type:'link',
-                                href:'/account'
-                            },
+                            // {
+                            //     label:'Account',
+                            //     type:'link',
+                            //     href:'/account'
+                            // },
                             {
                                 label:'Logout',
                                 type:'click',

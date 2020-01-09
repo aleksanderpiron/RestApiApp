@@ -7,7 +7,6 @@ import Pagination from '../../components/Pagination/Pagination';
 const ProductList=(props)=>{
     let rederedItems,
     pagiLength = Math.ceil(props.allItemsCount/12);
-    console.log(pagiLength);
     if(props.products !== null && props.products.length>0){
         rederedItems = props.products.map((prod, index)=>{
             return <ProductItem

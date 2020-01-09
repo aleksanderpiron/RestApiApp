@@ -17,12 +17,12 @@ $btn2:#23395B;
 $btn2_hover:#192942;
 $btn_danger:#ce0101;
 $btn_danger_hover:#9e0000;
-$noti_info:#224a9e;
-$noti_info_icon:#23395B;
-$noti_error:#ce0101;
-$noti_error_icon:#9e0000;
-$noti_success:#26ac21;
-$noti_success_icon:#1a7916;
+$noti_info:#3498db;
+$noti_info_icon:#2980b9;
+$noti_error:#e74c3c;
+$noti_error_icon:#c0392b;
+$noti_success:#2ecc71;
+$noti_success_icon:#27ae60;
 `;
 
 gulp.task('sass',  () => {
