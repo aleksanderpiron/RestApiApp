@@ -2,13 +2,14 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
-const AnimatedSwitch = ({ animationClassName, animationTimeout, children }) => (
+const AnimatedSwitch = ({ animationClassName, animationTimeout, children, appear=false }) => (
   <Route render={({ location }) => (
     <TransitionGroup style={{
       flex: 1,
       position: 'relative',
     }}>
       <CSSTransition
+        appear={appear}
         key={location.key}
         timeout={animationTimeout}
         classNames={animationClassName}

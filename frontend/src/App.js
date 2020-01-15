@@ -4,7 +4,7 @@ import Home from './pages/Home/Home';
 import Checkout from './pages/Checkout/Checkout';
 import ProductList from './pages/Products/Products';
 import LoginModal from './components/Modals/LoginModal/LoginModal';
-import ReactCSSTransitionGroup  from 'react-addons-css-transition-group';
+import {CSSTransition} from 'react-transition-group';
 import Notif from './components/Notification/Notif';
 import isLogged from './components/Utils/isLogged';
 import {BrowserRouter} from 'react-router-dom';
@@ -59,11 +59,26 @@ class App extends Component {
     return (
       <BrowserRouter>
         <div className="App">
-            <Nav setCurrentPage={this.setCurrentPage} logout={this.logoutHandler} isLogged={this.state.isLogged} toggleState={this.toggleState}/>
-            <ReactCSSTransitionGroup component="div" transitionEnterTimeout={400}  transitionLeaveTimeout={400} transitionName="modal-show">
-              {this.state.loginModalShowed && !this.state.isLogged && <LoginModal login={this.checkIfLogged} pushNotif={this.pushNotif} toggleState={this.toggleState}  />}
-            </ReactCSSTransitionGroup>
-            <ReactCSSTransitionGroup component="div" className="pages" transitionEnterTimeout={400} transitionLeaveTimeout={400} transitionName="page-switch">
+            <CSSTransition
+              appear={true}
+              in={true}
+              timeout={400}
+              classNames="fade">
+                <Nav
+                  setCurrentPage={this.setCurrentPage}
+                  logout={this.logoutHandler}
+                  isLogged={this.state.isLogged}
+                  toggleState={this.toggleState}/>
+            </CSSTransition>
+            <CSSTransition
+              key='loginModal'
+              in={this.state.loginModalShowed && !this.state.isLogged}
+              unmountOnExit
+              timeout={400}
+              classNames="modal-show">
+               <LoginModal login={this.checkIfLogged} pushNotif={this.pushNotif} toggleState={this.toggleState}/>
+            </CSSTransition>
+            <div className="pages">
               <AnimatedSwitch animationClassName="page-switch" animationTimeout={300}>
                 <AnimatedRoute exact path="/" component={Home}/>
                 <AnimatedRoute path="/products" render={()=>
@@ -72,11 +87,16 @@ class App extends Component {
                 <AnimatedRoute path="/checkout" component={Checkout}/>
                 <AnimatedRoute path="/account" component={UserPanel}/>
               </AnimatedSwitch>
-            </ReactCSSTransitionGroup>
+            </div>
             <Notif ref='notif'/>
-          <ReactCSSTransitionGroup component="div" transitionEnterTimeout={400} transitionLeaveTimeout={400} transitionName="cart-widget">
-            {this.state.isLogged && this.state.cartWidgetShowed && this.state.currentPage !== '/checkout' && <CartWidget refresh={this.state.refreshCartWidget} toggleState={this.toggleState}/>}
-          </ReactCSSTransitionGroup>
+            <CSSTransition
+              unmountOnExit
+              in={this.state.isLogged && this.state.cartWidgetShowed && this.state.currentPage !== '/checkout'}
+              classNames='cart-widget'
+              timeout={400}
+              >
+              <CartWidget refresh={this.state.refreshCartWidget} toggleState={this.toggleState}/>
+            </CSSTransition>
         </div>
       </BrowserRouter>
     );

@@ -7,10 +7,10 @@ const Home =()=>{
     return(
         <div className="page home">
             <CSSTransition
-            key='welcome'
+            appear={true}
             in={true}
-            timeout={300}
-            classNames='slide-up'>
+            timeout={400}
+            classNames='fade'>
                 <div className="welcome">
                     <img src={logo} alt=""/>
                     <h1><span>Welcome to</span> Fruit Shop!</h1>

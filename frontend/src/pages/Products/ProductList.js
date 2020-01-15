@@ -1,19 +1,27 @@
 import React from 'react';
 import ProductItem from './ProductItem';
-import Spinner from '../../components/Spinner/Spinner';
 import IconRadio from '../../components/Inputs/IconRadio';
 import Pagination from '../../components/Pagination/Pagination';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 const ProductList=(props)=>{
     let rederedItems,
     pagiLength = Math.ceil(props.allItemsCount/12);
     if(props.products !== null && props.products.length>0){
         rederedItems = props.products.map((prod, index)=>{
-            return <ProductItem
-            key={`ProductItem_${index}`}
-            addToCart={props.addToCartHandler}
-            itemData={prod}
-            delete={props.deleteProduct}/>
+            const key = `ProductItemTransition_${Math.round(Math.random()*1000)*Math.round(Math.random()*1000)}`
+            return <CSSTransition
+            key={key}
+            classNames='fade'
+            timeout={4000}
+            unmountOnExit
+            >
+                <ProductItem
+                key={`ProductItem_${index}`}
+                addToCart={props.addToCartHandler}
+                itemData={prod}
+                delete={props.deleteProduct}/>
+            </CSSTransition>
         });
     }else{
         rederedItems = <p>No products found</p>
@@ -29,10 +37,9 @@ const ProductList=(props)=>{
                     <IconRadio inputData={props.sort} change={props.sortHandler}/>
                 </div>
             </div>
-            <div className='product-list'>
-                {/* {loading?<Spinner/>:rederedItems} */}
+            <TransitionGroup className='product-list'>
                 {rederedItems}
-            </div>
+            </TransitionGroup>
             <div className="product-footer">
                 <Pagination click={props.setPagiCurrent} length={pagiLength} current={props.pagiCurrent}/>
             </div>

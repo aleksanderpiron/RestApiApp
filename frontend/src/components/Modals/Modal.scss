@@ -51,13 +51,13 @@
         transform: translateY(0);
     }
 }
-.modal-show-leave{
+.modal-show-exit{
     opacity: 1;
     .modal{
         transform: translateY(0);
     }
 }
-.modal-show-leave-active{
+.modal-show-exit-active{
     opacity: 0;
     .modal{
         transform: translateY(-50px);

@@ -25,7 +25,7 @@
     &.full{
         width: 100%;
     }
-    &[disabled]{
+    &[disabled], &.disabled{
         opacity: .5;
         cursor: no-drop;
         user-select: none;

@@ -168,13 +168,13 @@
             transform: translateX(0);
         }
     }
-    &.cart-widget-leave{
+    &.cart-widget-exit{
         opacity: 1;
         .cart-widget-body{
             transform: translateX(0);
         }
     }
-    &.cart-widget-leave-active{
+    &.cart-widget-exit-active{
         opacity: 0;
         .cart-widget-body{
             transform: translateX(100%);

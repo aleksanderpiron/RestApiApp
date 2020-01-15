@@ -4,7 +4,7 @@ import ProductPage from './ProductPage';
 import ProductForm from '../../components/Forms/ProductForm';
 import { addToCart } from '../../components/Cart/CartFunctions';
 import { AnimatedRoute, AnimatedSwitch } from '../../components/Anims/AnimatedRouter';
-import './ProductList.css';
+import './Products.css';
 
 class Products extends Component{
     state = {
@@ -88,7 +88,8 @@ class Products extends Component{
         const {value} = e.target;
         this.searchTimeout = setTimeout(()=>{
             this.setState({
-                searchValue:value
+                searchValue:value,
+                pagiCurrent:1
             }, ()=>{
                 this.getProducts();
             })
@@ -110,7 +111,7 @@ class Products extends Component{
     }
     render(){
         return(
-            <AnimatedSwitch animationClassName="page-switch" animationTimeout={300} className="page">
+            <AnimatedSwitch appear={true} animationClassName="fade" animationTimeout={400} className="page">
                 <AnimatedRoute exact path="/products" render={()=>
                     <ProductList
                     addToCartHandler={this.addToCartHandler}

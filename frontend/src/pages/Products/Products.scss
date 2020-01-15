@@ -75,7 +75,7 @@
 .page-switch{
     transform: translateY(-50px);
 }
-.page-switch-appear-active{
+.fade-appear-active{
     .product-header{
         transform: translateY(0);
         transition: 300ms;
@@ -84,7 +84,7 @@
         opacity: 0;
     }
 }
-.page-switch-enter-done{
+.fade-enter-done{
     .product-header{
         opacity: 1;
         transform: translateY(0);
