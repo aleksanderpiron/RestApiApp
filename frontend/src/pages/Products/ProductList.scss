@@ -9,7 +9,7 @@
         display: flex;
         align-items: flex-end;
         input[type=text]{
-            background-image: url('../../assets//search.svg');
+            background-image: url('../../assets/search.svg');
             background-size: 18px;
             background-position: left 10px center;
             background-repeat: no-repeat;
@@ -71,6 +71,28 @@
     display: flex;
     justify-content: center;
     padding-bottom: 50px;
+}
+.page-switch{
+    transform: translateY(-50px);
+}
+.page-switch-appear-active{
+    .product-header{
+        transform: translateY(0);
+        transition: 300ms;
+    }
+    .product-item{
+        opacity: 0;
+    }
+}
+.page-switch-enter-done{
+    .product-header{
+        opacity: 1;
+        transform: translateY(0);
+
+    }
+    .product-item{
+        opacity: 1;
+    }
 }
 .product-item{
     position: relative;
