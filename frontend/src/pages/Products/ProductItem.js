@@ -18,8 +18,14 @@ const ProductItem =(props)=>{
     }
     const userId = localStorage.getItem('userId'),
     {name, price, _id, imageUrl, description, createdBy} = props.itemData;
+    const row = Math.ceil((props.index+1)/4)-1,
+    col = Math.ceil(props.index%4),
+    posStyles={
+        top:(row*360)+'px',
+        left:(col*270)+'px',
+    }
     return(
-        <div key={_id} className={'product-item'}>
+        <div key={_id} className={'product-item'} style={posStyles}>
             <div className="delete-mask">
                 <p>Are you sure you want to delete this item?</p>
                 <div className="buttons">

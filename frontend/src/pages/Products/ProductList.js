@@ -2,29 +2,40 @@ import React from 'react';
 import ProductItem from './ProductItem';
 import IconRadio from '../../components/Inputs/IconRadio';
 import Pagination from '../../components/Pagination/Pagination';
+import Spinner from '../../components/Spinner/Spinner'
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 const ProductList=(props)=>{
     let rederedItems,
-    pagiLength = Math.ceil(props.allItemsCount/12);
+    pagiLength = Math.ceil(props.allItemsCount/12),
+    listHeight = Math.ceil(props.products.length/4)*360,
+    listStyles={height:listHeight+'px'};
     if(props.products !== null && props.products.length>0){
         rederedItems = props.products.map((prod, index)=>{
-            const key = `ProductItemTransition_${Math.round(Math.random()*1000)*Math.round(Math.random()*1000)}`
             return <CSSTransition
-            key={key}
+            key={prod._id}
             classNames='fade'
-            timeout={4000}
+            timeout={400}
             unmountOnExit
             >
                 <ProductItem
-                key={`ProductItem_${index}`}
+                index={index}
                 addToCart={props.addToCartHandler}
                 itemData={prod}
                 delete={props.deleteProduct}/>
             </CSSTransition>
         });
     }else{
-        rederedItems = <p>No products found</p>
+        rederedItems = <CSSTransition
+        classNames='fade'
+        timeout={400}
+        unmountOnExit
+        >
+            <div className="product-not-found">
+                <p>It's looks like we don't have fruit that matches for <span>{props.searchedValue}</span> </p>
+                <p>Please try with different value</p>
+            </div>
+        </CSSTransition>
     }
     return(
         <>
@@ -37,8 +48,13 @@ const ProductList=(props)=>{
                     <IconRadio inputData={props.sort} change={props.sortHandler}/>
                 </div>
             </div>
-            <TransitionGroup className='product-list'>
-                {rederedItems}
+            <TransitionGroup className='product-list' style={listStyles}>
+                {props.loading?<CSSTransition
+            key={'loading'}
+            classNames='fade'
+            timeout={400}
+            unmountOnExit
+            ><Spinner/></CSSTransition>:rederedItems}
             </TransitionGroup>
             <div className="product-footer">
                 <Pagination click={props.setPagiCurrent} length={pagiLength} current={props.pagiCurrent}/>
