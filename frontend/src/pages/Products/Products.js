@@ -82,7 +82,7 @@ class Products extends Component{
             if ( window.scrollY !== 0 ) {
                 window.scrollBy( 0, scrollStep );
             }
-            else clearInterval(scrollInterval); 
+            else clearInterval(scrollInterval);
         },15);
         this.setState({
             pagiCurrent:number
@@ -127,7 +127,7 @@ class Products extends Component{
                     allItemsCount={this.state.allItemsCount}
                     filterByName={this.filterByName}
                     searchedValue={this.state.searchValue}
-                    sort={this.state.sortBy} 
+                    sort={this.state.sortBy}
                     sortHandler={this.sortHandler}
                     setPagiCurrent={this.setPagiCurrent}
                     pagiCurrent={this.state.pagiCurrent}/>

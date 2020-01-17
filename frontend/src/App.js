@@ -79,7 +79,7 @@ class App extends Component {
                <LoginModal login={this.checkIfLogged} pushNotif={this.pushNotif} toggleState={this.toggleState}/>
             </CSSTransition>
             <div className="pages">
-              <AnimatedSwitch animationClassName="page-switch" animationTimeout={300}>
+              <AnimatedSwitch animationClassName="fade" animationTimeout={400}>
                 <AnimatedRoute exact path="/" component={Home}/>
                 <AnimatedRoute path="/products" render={()=>
                   <ProductList refreshCartWidget={this.refreshCartWidget} pushNotif={this.pushNotif}/>
