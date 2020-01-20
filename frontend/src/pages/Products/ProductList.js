@@ -8,8 +8,9 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 const ProductList=(props)=>{
     let rederedItems,
     pagiLength = Math.ceil(props.allItemsCount/12),
-    listHeight = Math.ceil(props.products.length/4)*360,
-    listStyles={height:listHeight+'px'};
+    colsNumber = Math.floor(props.containerWidth/270),
+    listHeight = Math.ceil(props.products.length/colsNumber)*360,
+    listStyles = {height:listHeight+'px'};
     if(props.products !== null && props.products.length>0){
         rederedItems = props.products.map((prod, index)=>{
             return <CSSTransition
@@ -21,8 +22,9 @@ const ProductList=(props)=>{
                 <ProductItem
                 index={index}
                 addToCart={props.addToCartHandler}
+                delete={props.deleteProduct}
                 itemData={prod}
-                delete={props.deleteProduct}/>
+                colsNumber={colsNumber}/>
             </CSSTransition>
         });
     }else{
@@ -37,6 +39,7 @@ const ProductList=(props)=>{
             </div>
         </CSSTransition>
     }
+    console.log(listHeight);
     return(
         <>
             <div className="product-header">
@@ -50,10 +53,10 @@ const ProductList=(props)=>{
             </div>
             <TransitionGroup className='product-list' style={listStyles}>
                 {props.loading?<CSSTransition
-            key={'loading'}
-            classNames='fade'
-            timeout={400}
-            unmountOnExit
+                key='loading'
+                classNames='fade'
+                timeout={400}
+                unmountOnExit
             ><Spinner/></CSSTransition>:rederedItems}
             </TransitionGroup>
             <div className="product-footer">

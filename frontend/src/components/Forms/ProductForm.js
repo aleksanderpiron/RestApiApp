@@ -174,7 +174,7 @@ class ProductForm extends Component{
     }
     render(){
         return(
-            <form onSubmit={this.props.edit?this.submitEditHandler:this.submitAddHandler} className='form form-box'>
+            <form onSubmit={this.props.edit?this.submitEditHandler:this.submitAddHandler} className='form form-box add-product-form'>
                 {this.state.loading &&
                     <Spinner />
                 }

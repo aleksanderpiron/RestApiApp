@@ -65,17 +65,21 @@
     flex-wrap: wrap;
     transition: 400ms;
     max-width: 1120px;
-    min-width: 600px;
+    min-height: 600px;
     margin: auto;
     padding: 20px 0;
     .product-item{
         position: absolute;
+    }
+    .loader-box{
+        height: 200px;
     }
 }
 .product-footer{
     display: flex;
     justify-content: center;
     padding-bottom: 50px;
+    transition: 300ms ease 300ms;
 }
 .product-not-found{
     margin: 100px auto 0;
@@ -98,16 +102,35 @@
         transform: translateY(-50px);
         transition: 300ms;
     }
+    .product-footer{
+        transform: translateY(50px);
+        transition: 300ms;
+    }
+    .add-product-form{
+        transform: translateY(-50px);
+        opacity: 0;
+    }
     .product-page{
-        .text{
+        .img{
+            opacity: 0;
             transform: translateX(-50px);
         }
+        .text{
+            opacity: 0;
+            transform: translateX(-50px);
+        }
+    }
+    .product-item{
+        transform: translateY(50px);
     }
 }
 .fade-appear-active{
     .product-header{
         transform: translateY(0);
         transition: 300ms;
+    }
+    .product-footer{
+        transform: translateY(0);
     }
 }
 .product-item{
@@ -305,21 +328,20 @@
     transition: 400ms;
     .img{
         background-color: #fff;
-        z-index: 2;
-        border-right: 1px solid #ccc;
+        z-index: 1;
         padding-right: 20px;
         width: 50%;
         height: 100%;
         display: flex;
         justify-content: center;
         align-items: center;
-        transition: 300ms;
+        transition: 300ms ease 100ms;
         img{
             max-width: 100%;
         }
     }
     .text{
-        z-index: 1;
+        z-index: 2;
         padding-left: 20px;
         transition: 300ms;
         width: 50%;

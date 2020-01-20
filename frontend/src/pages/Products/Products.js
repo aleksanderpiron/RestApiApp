@@ -33,6 +33,7 @@ class Products extends Component{
         }
     }
     searchTimeout;
+    listContainerWidth;
     getProducts=async(limit = 12)=>{
         this.setState({
             loading:true
@@ -77,7 +78,7 @@ class Products extends Component{
         }
     }
     setPagiCurrent=(number)=>{
-        const scrollStep = -window.scrollY / (300 / 15),
+        const scrollStep = -window.scrollY / (200 / 15),
             scrollInterval = setInterval(function(){
             if ( window.scrollY !== 0 ) {
                 window.scrollBy( 0, scrollStep );
@@ -100,7 +101,7 @@ class Products extends Component{
             }, ()=>{
                 this.getProducts();
             })
-        }, 1000)
+        }, 500)
     }
     sortHandler=(e)=>{
         const newSortBy = this.state.sortBy;
@@ -113,16 +114,21 @@ class Products extends Component{
     UNSAFE_componentWillMount=()=>{
         this.getProducts();
     }
-    UNSAFE_componentWillReceiveProps=()=>{
-        this.getProducts();
+    componentDidMount=()=>{
+        this.listContainerWidth = document.querySelector('.product-list').offsetWidth;
+    }
+    componentWillUnmount() {
+      window.removeEventListener("resize", this.updateDimensions.bind(this));
     }
     render(){
         return(
             <AnimatedSwitch appear={true} animationClassName="fade" animationTimeout={400} className="page">
                 <AnimatedRoute exact path="/products" render={()=>
                     <ProductList
+                    containerWidth={this.listContainerWidth}
                     loading={this.state.loading}
                     addToCartHandler={this.addToCartHandler}
+                    deleteProduct={this.deleteProduct}
                     products={this.state.products}
                     allItemsCount={this.state.allItemsCount}
                     filterByName={this.filterByName}

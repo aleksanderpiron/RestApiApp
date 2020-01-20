@@ -18,11 +18,12 @@ const ProductItem =(props)=>{
     }
     const userId = localStorage.getItem('userId'),
     {name, price, _id, imageUrl, description, createdBy} = props.itemData;
-    const row = Math.ceil((props.index+1)/4)-1,
-    col = Math.ceil(props.index%4),
+    const row = Math.ceil((props.index+1)/props.colsNumber)-1,
+    col = Math.ceil(props.index%props.colsNumber),
     posStyles={
         top:(row*360)+'px',
         left:(col*270)+'px',
+        transitionDelay: (props.index*30)+'ms',
     }
     return(
         <div key={_id} className={'product-item'} style={posStyles}>
@@ -50,7 +51,7 @@ const ProductItem =(props)=>{
             </div>
             <div className="desc">
                 <p>{description.length>130?`${description.substring(0, 127)}...`:description}</p>
-                <p className="price">{price} zł</p>
+                <p className="price">{price.toFixed(2)} zł</p>
             </div>
             <div className="bottom">
                 <Button
