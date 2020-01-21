@@ -14,6 +14,12 @@ class Products extends Component{
         pagiCurrent:1,
         allItemsCount:0,
         searchValue:'',
+        searchTimeout:null,
+        listDimentions:{
+            width:null,
+            cols:null,
+            rows:null,
+        },
         sortBy:{
             value:'-creationDate',
             options:[
@@ -32,8 +38,6 @@ class Products extends Component{
             ]
         }
     }
-    searchTimeout;
-    listContainerWidth;
     getProducts=async(limit = 12)=>{
         this.setState({
             loading:true
@@ -49,10 +53,12 @@ class Products extends Component{
             }
         }),
         data = await res.json();
+        const listDimentions = this.calculateListDimensions(false, data.products.length, true);
         this.setState({
             products:data.products,
             allItemsCount:data.count,
-            loading:false
+            loading:false,
+            listDimentions,
         })
     };
     deleteProduct=async(id)=>{
@@ -81,7 +87,7 @@ class Products extends Component{
         const scrollStep = -window.scrollY / (200 / 15),
             scrollInterval = setInterval(function(){
             if ( window.scrollY !== 0 ) {
-                window.scrollBy( 0, scrollStep );
+                window.scrollBy( 0, scrollStep);
             }
             else clearInterval(scrollInterval);
         },15);
@@ -92,9 +98,9 @@ class Products extends Component{
         });
     }
     filterByName=(e)=>{
-        clearTimeout(this.searchTimeout);
+        clearTimeout(this.state.searchTimeout);
         const {value} = e.target;
-        this.searchTimeout = setTimeout(()=>{
+        this.state.searchTimeout = setTimeout(()=>{
             this.setState({
                 searchValue:value,
                 pagiCurrent:1
@@ -111,21 +117,34 @@ class Products extends Component{
         })
         this.getProducts();
     }
+    calculateListDimensions=(event, prodNumber = this.state.products.length, returnData = false)=>{
+            let newDimensions = {};
+            newDimensions.width = document.querySelector('.product-list').offsetWidth;
+            newDimensions.cols = Math.floor(newDimensions.width/270);
+            newDimensions.height = Math.ceil(prodNumber/newDimensions.cols)*360;
+            if(returnData){
+                return newDimensions;
+            }else{
+                this.setState({
+                    listDimentions:newDimensions
+                })
+            }
+    }
     UNSAFE_componentWillMount=()=>{
         this.getProducts();
     }
     componentDidMount=()=>{
-        this.listContainerWidth = document.querySelector('.product-list').offsetWidth;
+        window.addEventListener("resize", this.calculateListDimensions);
     }
     componentWillUnmount() {
-      window.removeEventListener("resize", this.updateDimensions.bind(this));
+      window.removeEventListener("resize", this.calculateListDimensions);
     }
     render(){
         return(
             <AnimatedSwitch appear={true} animationClassName="fade" animationTimeout={400} className="page">
                 <AnimatedRoute exact path="/products" render={()=>
                     <ProductList
-                    containerWidth={this.listContainerWidth}
+                    listDimentions={this.state.listDimentions}
                     loading={this.state.loading}
                     addToCartHandler={this.addToCartHandler}
                     deleteProduct={this.deleteProduct}

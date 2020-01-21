@@ -8,9 +8,7 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 const ProductList=(props)=>{
     let rederedItems,
     pagiLength = Math.ceil(props.allItemsCount/12),
-    colsNumber = Math.floor(props.containerWidth/270),
-    listHeight = Math.ceil(props.products.length/colsNumber)*360,
-    listStyles = {height:listHeight+'px'};
+    listStyles = {height:props.listDimentions.height+'px'};
     if(props.products !== null && props.products.length>0){
         rederedItems = props.products.map((prod, index)=>{
             return <CSSTransition
@@ -24,7 +22,7 @@ const ProductList=(props)=>{
                 addToCart={props.addToCartHandler}
                 delete={props.deleteProduct}
                 itemData={prod}
-                colsNumber={colsNumber}/>
+                colsNumber={props.listDimentions.cols}/>
             </CSSTransition>
         });
     }else{
@@ -39,7 +37,6 @@ const ProductList=(props)=>{
             </div>
         </CSSTransition>
     }
-    console.log(listHeight);
     return(
         <>
             <div className="product-header">
@@ -48,7 +45,7 @@ const ProductList=(props)=>{
                     <p className='results'>Found {props.allItemsCount} products</p>
                 </div>
                 <div className="sort">
-                    <IconRadio inputData={props.sort} change={props.sortHandler}/>
+                    <IconRadio name='sortChoose' inputData={props.sort} change={props.sortHandler}/>
                 </div>
             </div>
             <TransitionGroup className='product-list' style={listStyles}>

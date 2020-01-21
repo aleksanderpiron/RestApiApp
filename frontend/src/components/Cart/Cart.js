@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import CartItem from './CartItem';
 import Spinner from '../Spinner/Spinner';
-import Button from '../Button/Button';
 import {Redirect, Link} from 'react-router-dom';
 import {getCartData, removeFromCart} from './CartFunctions';
 import './Cart.css';
